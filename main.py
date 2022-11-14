@@ -24,5 +24,7 @@ if __name__ == "__main__":
     # case
     # count how many end with: ?, !, .., ?!, !?, !!, ??, mm
     # the sentences that exist in both completely lower and not completely
-
-
+    # import string # use string.punctuation
+    # sentences_compare.lower_contents[sentences_compare.lower_contents.apply(lambda x: x[-1:])==".."]
+    # sentences_compare.lower_contents[sentences_compare.lower_contents.apply(lambda x: x[-1:])=="mm"]
+    # sentences_compare.lower_contents.value_counts()[:60]

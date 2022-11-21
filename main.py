@@ -4,7 +4,8 @@ from con_dataset import ConDataset
 CON_DATASET_DIR_PATH = r"./datasets/Con article"
 TRIES_PATH = r"./tries"
 EMOJIS = [":)", ":(", "(:", "):", ":D", "D:",
-          "XD", ":P", "XP", "P:", ":O", "O:"]
+          "XD", ":P", "XP", "P:", ":O", "O:",
+          ":/", "\\:"]
 EMOJIS_FOR_REGEX = ["".join(["[" + char + "]" for char in emoji])
                     for emoji in EMOJIS]
 GREETINGS = ["hi", "hello", "hii", "hiii", "hey", "heyy", "heyyy"]

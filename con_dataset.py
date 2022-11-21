@@ -86,8 +86,10 @@ class ConDataset(BaseDataset):
         :return: a placeholder instead of a name reference
         (with distinction between first and last name)
         """
-        first_names_pattern = "|".join(self.first_names)
-        last_names_pattern = "|".join(self.last_names)
+        first_names_pattern = "|".join([r"\b" + name + r"\b"
+                                        for name in self.first_names])
+        last_names_pattern = "|".join([r"\b" + name + r"\b"
+                                       for name in self.last_names])
         first_names_pattern += first_names_pattern.lower()
         last_names_pattern += last_names_pattern.lower()
         return re.sub(last_names_pattern, self.LASTNAME_PLACE_HOLDER,
@@ -100,7 +102,8 @@ class ConDataset(BaseDataset):
         self.placeholders_for_names field
         :return: None
         """
-        self.sentences.apply(self.replace_name_with_placeholder)
+        self.sentences = self.sentences.apply(
+            self.replace_name_with_placeholder)
         self.placeholders_for_names = True
 
     def lower_all_sentences(self):
@@ -108,7 +111,7 @@ class ConDataset(BaseDataset):
         Lowers all sentences and turns on the self.sentences_lowered field
         :return: None
         """
-        self.sentences.apply(lambda x: x.lower())
+        self.sentences = self.sentences.apply(lambda x: x.lower())
         self.sentences_lowered = True
 
     def find_identical_sentences_with_different_case(self,

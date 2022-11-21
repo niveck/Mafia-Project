@@ -1,6 +1,6 @@
 Sentences with all-upper case words:
 
-Total amount: 58
+Total amount: 57
 
 All words and their counts (sorted):
 LOL: 8
@@ -70,177 +70,174 @@ SO: 1
 
 All sentences: (Each sentence is followed by itsall-upper case words)
 
-RIP Matthew
-Words: RIP
-
-GOOD THINK
-Words: GOOD, THINK
-
-Bystander CM
-Words: CM
-
-Im just talkative LOL
-Words: LOL
-
-LOL
-Words: LOL
-
-LOL I hope your doctor doesn't do the same
-Words: LOL
-
-YOU'RE AN ALL STAR
-Words: YOU, RE, AN, ALL, STAR
-
-100 % ASHLEY
-Words: ASHLEY
-
-HELLO
-Words: HELLO
-
-THANK YOU
-Words: THANK, YOU
-
-IS THERE A DAKOTA IN THE HOUSE?!
-Words: IS, THERE, DAKOTA, IN, THE, HOUSE
-
 JOHN LUNA
 Words: JOHN, LUNA
 
-Ok obviously William Frank MD
+Ok obviously firstname lastname MD
 Words: MD
 
-Danielle said "Jill Mcdonald AFTER CORY" and then she disappeared. It's obvious
-Words: AFTER, CORY
-
-YOU ARE?!
-Words: YOU, ARE
-
-OOF
-Words: OOF
-
-NO
-Words: NO
-
-Ok obviously Daniel King MD
-Words: MD
-
-I AM NOW SURE ON THIS ONW
-Words: AM, NOW, SURE, ON, THIS, ONW
-
-Reminds me of IT.  We all float down here
-Words: IT
-
-RIP me
-Words: RIP
-
-Mr. robert is only MR. lol
-Words: MR
-
-Jill Mcdonald AFTER CORY
-Words: AFTER, CORY
-
-This does NOT look good for me.
-Words: NOT
-
-William Frank MD 
-Words: MD
-
-SO is tammy next
-Words: SO
-
-RIP Zachary
-Words: RIP
-
-HAHA
-Words: HAHA
-
-ABIGAIL
-Words: ABIGAIL
-
-HEY NOW
-Words: HEY, NOW
-
-SARA MARSHALL
-Words: SARA, MARSHALL
-
-EXIT
-Words: EXIT
-
-HI
-Words: HI
-
-DAKOTA
-Words: DAKOTA
-
-OK I'M FINISH
-Words: OK, FINISH
-
-XD
-Words: XD
-
-ALSO,
-Words: ALSO
-
-Ashley needs to GO 100%
-Words: GO
-
-I'd almost say vote me out so I can complete this HIT faster lol
-Words: HIT
-
-Any of you'se want a big screen TV, I got a bunch of 'em, 80% off!
-Words: TV
-
-Laura then DONNA
-Words: DONNA
-
-LOL! Awe, Ricky
-Words: LOL
-
-ah WAIT
-Words: WAIT
-
-YES!
-Words: YES
-
-OH yeah
-Words: OH
-
-LOL touche
+LOL :(
 Words: LOL
 
 ELIMINATE MATHEW FRANCO
 Words: ELIMINATE, MATHEW, FRANCO
 
-DONNA needs to GO next
-Words: DONNA, GO
-
-LOL :(
+LOL
 Words: LOL
 
-IDK
-Words: IDK
+ABIGAIL
+Words: ABIGAIL
 
-I'm a bystander too... NOT MAFIA.. not a bot.
-Words: NOT, MAFIA
+OH yeah
+Words: OH
 
-HII
-Words: HII
+firstname Mcfirstname AFTER CORY
+Words: AFTER, CORY
 
-RIP Matt 
-Words: RIP
+Reminds me of IT.  We all float down here
+Words: IT
 
-LOL, the pressure!
+I'd almost say vote me out so I can complastnamete this HIT faster lol
+Words: HIT
+
+firstname needs to GO 100%
+Words: GO
+
+Bystander CM
+Words: CM
+
+DAKOTA
+Words: DAKOTA
+
+LOL touche
 Words: LOL
 
-seem OK
-Words: OK
-
-Ryan: LOL, now that's stuck in my head. ;)
-Words: LOL
+THANK YOU
+Words: THANK, YOU
 
 I MADE MY VOTE
 Words: MADE, MY, VOTE
 
+ah WAIT
+Words: WAIT
+
+IS THERE A DAKOTA IN THE HOUSE?!
+Words: IS, THERE, DAKOTA, IN, THE, HOUSE
+
+EXIT
+Words: EXIT
+
+LOL! Awe, firstname
+Words: LOL
+
+HII
+Words: HII
+
+SARA MARSHALL
+Words: SARA, MARSHALL
+
+RIP me
+Words: RIP
+
+ALSO,
+Words: ALSO
+
+SO is firstname next
+Words: SO
+
+firstname said "firstname Mcfirstname AFTER CORY" and then she disappeared. It's obvious
+Words: AFTER, CORY
+
+HAHA
+Words: HAHA
+
+IDK
+Words: IDK
+
+OOF
+Words: OOF
+
 OK. nice being a criminal with you.
 Words: OK
+
+HI
+Words: HI
+
+firstname: LOL, now that's stuck in my head. ;)
+Words: LOL
+
+HELLO
+Words: HELLO
+
+XD
+Words: XD
+
+YOU ARE?!
+Words: YOU, ARE
+
+This does NOT look good for me.
+Words: NOT
+
+LOL, the pressure!
+Words: LOL
+
+OK I'M FINISH
+Words: OK, FINISH
+
+YES!
+Words: YES
+
+firstname firstname MD 
+Words: MD
+
+GOOD THINK
+Words: GOOD, THINK
+
+firstname firstname is only MR. lol
+Words: MR
+
+HEY NOW
+Words: HEY, NOW
+
+firstname then DONNA
+Words: DONNA
+
+seem OK
+Words: OK
+
+YOU'RE AN ALL STAR
+Words: YOU, RE, AN, ALL, STAR
+
+Any of you'se want a big screen TV, I got a bunch of 'em, 80% off!
+Words: TV
+
+RIP Matt 
+Words: RIP
+
+I AM NOW SURE ON THIS ONW
+Words: AM, NOW, SURE, ON, THIS, ONW
+
+NO
+Words: NO
+
+I'm a bystander too... NOT MAFIA.. not a bot.
+Words: NOT, MAFIA
+
+Im just talkative LOL
+Words: LOL
+
+100 % ASHLEY
+Words: ASHLEY
+
+Ok obviously firstname firstname MD
+Words: MD
+
+LOL I hope your doctor doesn't do the same
+Words: LOL
+
+DONNA needs to GO next
+Words: DONNA, GO
+
+RIP firstname
+Words: RIP
 

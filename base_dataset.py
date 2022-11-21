@@ -23,7 +23,7 @@ class BaseDataset(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def extract_all_sentences(self):
+    def extract_raw_sentences(self):
         """
         todo add explanation about the format of the sentences (with/without names, etc...)
         :return: todo decide what data structure of the sentences will be returned

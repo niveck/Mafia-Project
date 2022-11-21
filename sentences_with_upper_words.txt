@@ -1,0 +1,131 @@
+Sentences with all-upper case words:
+
+Total amount: 58
+
+All words and their counts (sorted):
+LOL: 8
+RIP: 4
+HI: 4
+OK: 3
+YOU: 3
+MD: 3
+NOW: 2
+NOT: 2
+AFTER: 2
+CORY: 2
+GO: 2
+DONNA: 2
+DAKOTA: 2
+OOF: 1
+OH: 1
+TV: 1
+HAHA: 1
+IDK: 1
+MR: 1
+SARA: 1
+MARSHALL: 1
+GOOD: 1
+THINK: 1
+ELIMINATE: 1
+MATHEW: 1
+FRANCO: 1
+YES: 1
+WAIT: 1
+JOHN: 1
+LUNA: 1
+AM: 1
+SURE: 1
+ON: 1
+THIS: 1
+ONW: 1
+MADE: 1
+MY: 1
+VOTE: 1
+HEY: 1
+RE: 1
+AN: 1
+ALL: 1
+STAR: 1
+MAFIA: 1
+ASHLEY: 1
+ABIGAIL: 1
+IT: 1
+HIT: 1
+CM: 1
+NO: 1
+HII: 1
+HELLO: 1
+EXIT: 1
+FINISH: 1
+THANK: 1
+ALSO: 1
+ARE: 1
+IS: 1
+THERE: 1
+IN: 1
+THE: 1
+HOUSE: 1
+XD: 1
+SO: 1
+
+All sentences: (Each sentence is followed by itsall-upper case words)
+
+Any of you'se want a big screen TV, I got a bunch of 'em, 80% off!
+Words: TVOH yeah
+Words: OHDONNA needs to GO next
+Words: DONNA, GOI'd almost say vote me out so I can complete this HIT faster lol
+Words: HITDanielle said "Jill Mcdonald AFTER CORY" and then she disappeared. It's obvious
+Words: AFTER, CORYGOOD THINK
+Words: GOOD, THINKLaura then DONNA
+Words: DONNANO
+Words: NOOK I'M FINISH
+Words: OK, FINISHThis does NOT look good for me.
+Words: NOTXD
+Words: XDOk obviously Daniel King MD
+Words: MDALSO,
+Words: ALSO100 % ASHLEY
+Words: ASHLEYLOL, the pressure!
+Words: LOLah WAIT
+Words: WAITLOL! Awe, Ricky
+Words: LOLSARA MARSHALL
+Words: SARA, MARSHALLIS THERE A DAKOTA IN THE HOUSE?!
+Words: IS, THERE, DAKOTA, IN, THE, HOUSEBystander CM
+Words: CMLOL
+Words: LOLRyan: LOL, now that's stuck in my head. ;)
+Words: LOLLOL I hope your doctor doesn't do the same
+Words: LOLReminds me of IT.  We all float down here
+Words: ITLOL :(
+Words: LOLRIP me
+Words: RIPSO is tammy next
+Words: SOMr. robert is only MR. lol
+Words: MRIm just talkative LOL
+Words: LOLHEY NOW
+Words: HEY, NOWRIP Zachary
+Words: RIPHI
+Words: HIABIGAIL
+Words: ABIGAILDAKOTA
+Words: DAKOTAAshley needs to GO 100%
+Words: GOI'm a bystander too... NOT MAFIA.. not a bot.
+Words: NOT, MAFIAYES!
+Words: YESJOHN LUNA
+Words: JOHN, LUNAJill Mcdonald AFTER CORY
+Words: AFTER, CORYOK. nice being a criminal with you.
+Words: OKRIP Matt 
+Words: RIPLOL touche
+Words: LOLYOU'RE AN ALL STAR
+Words: YOU, RE, AN, ALL, STARELIMINATE MATHEW FRANCO
+Words: ELIMINATE, MATHEW, FRANCOWilliam Frank MD 
+Words: MDI MADE MY VOTE
+Words: MADE, MY, VOTETHANK YOU
+Words: THANK, YOUseem OK
+Words: OKOOF
+Words: OOFOk obviously William Frank MD
+Words: MDHAHA
+Words: HAHAIDK
+Words: IDKHII
+Words: HIIHELLO
+Words: HELLOI AM NOW SURE ON THIS ONW
+Words: AM, NOW, SURE, ON, THIS, ONWEXIT
+Words: EXITRIP Matthew
+Words: RIPYOU ARE?!
+Words: YOU, ARE

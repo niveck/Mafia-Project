@@ -1,344 +1,77 @@
-All sentences with the requested pattern of [..], preceded by their count (sorted):
+All sentences with the requested pattern of [.][.], preceded by their count (sorted):
 
-2: Stacy Dillon is a snitch.
-2: Sure.
-2: Hello.
-2: Hi.
-1: If you can vote that means you must be in the mafia.
 1: I don't really understand how we're supposed to know who to vote for, I just chose Bryce Fields at random..
-1: right. So, should we just sit back and let them eat themselves?
-1: OK. nice being a criminal with you.
-1: that is not the case.
-1: that's only in the nighttime, Mary.
-1: hard to tell. i have to keep scanning
-1: Yeah the timer got to zero but we aren't moving to daytime. 
-1: i am a bystander too.
-1: Bystander too.
-1: Right.
-1: Jordan may was the first to accuse me. they are mafia
-1: I am a bystander. dont kill me
 1: Well, then... 
-1: Sounds good to me. 
-1: I think Donna talks a lot and tries to confuse us. 
-1: I don't like Alicia Randall, she seems to try to ply herself off.
-1: Chad and Tricia have to be the mafia based on the voting patterns.
-1: I think so. Because mafia know who the other mafia are, and probably wouldn't kill their own
-1: Donna was a bit too quick to throw Diane under the bus on day one though.
-1: And now Alicia.
-1: Guess it's all me then.
-1: Tricia Miller, one woman army.
-1: Stalking in the night.
-1: Eating some donuts.
-1: so far so good, but maybe we shouldn't have gotten rid of roy so soon. My bad
 1: quick with the peterson vote already...
 1: scott was the first voter last time...
-1: I'm not, but I certainly can see how it would be suspicious. At this point, I don't know what's going on
-1: Jeremy was the deciding vote last day.  Could he be mafia?
-1: So, how's all you'se doin'.
-1: Hey I'm just playin' wit' you'se.
 1: going to eliminate you..ah aha
 1: Matt has a lot to say...
 1: He;s already dead..how about Chelsea
-1: Yeah! That guy's a rat fink.
 1: kill me first..hahahah
 1: That sounds suspicious...
 1: Robin next...
-1: 'Day fell off a truck.
-1: Fine thanks. Who should we eliminate?
-1: Yeah, I think William seems to be the popular choice.
-1: Hmm, I think we should actually vote out Ricky. He seems too eager to kick people out.
-1: I'm going to vote for Jeffrey Miles, because he seems to like kicking people out.
-1: Hopefully Rebecca doesn't kill me.
-1: well we have to make a decision.
-1: No because no one said anything.
-1: I am a bystander though since I lead the John lynch.
-1: Cynthia was also the last to vote John.
-1: who are we going to eliminate next round? not this one. let's think in advance
-1: Mr. Robert
-1: No idea yet.
-1: It's a little early to tell.
 1: hmm ok analyzing this conversation....I think bianca was a little to flippant in how she was like "sucks to be andrew" haha
-1: I'm going to vote bianca. she's so casual with life and death
-1: It's a shot in the dark.
-1: right.
-1: Mr. robert is only MR. lol
-1: Doing good so far.
-1: Should we still go for Mr. Roberts?
 1: I don't know lol...we are supposed to eliminate somebody
-1: He should be at the end game screen now.
-1: Mr. Robert Bryant what does it say to the left of "Your player's name is:"?
 1: so let's see...looking at the previous conversation it looks like bianca and carla might be allies but i'm not sure
-1: i'm just trying to think strategically. they seemed like they agreed on things
-1: They have no idea yet. :)
-1: i'm not sure. i think carla is a bystander
-1: I have no idea at this point honestly.
 1: aaahhh...I didn't even know what I was doing
 1: O well...eliminate me lol
-1: Oops.
-1: Nah it's fine.
-1: I didn't notice the time was so low.
-1: Not yet.
-1: Everyone's real. Hard to tell who is together. Hmmm
-1: I will eliminate whoever Natasha chooses.
-1: William I am on your side.
-1: Eliminate Adam Ward.
 1: Michael Williams don't sound like a cool cat...
-1: Aaron Morse is scary.
-1: I was thinking 2nd. 
-1: Sounds good.
-1: Yeah, we do. 
-1: Ditto David. Feels good!
 1: Nothing much here.. got a good nights rest
 1: Yep... are we the only mafia?
-1: Okay Tim is cool.
-1: been a good monday here surprisingly.
-1: I'm totally not mafioso! lol. but it's cool, gotta make dinner anyway! 
-1: that's fine. seriously, gotta cook. can kick me out but I am a bystander as you'll soon see :)
 1: What I realized now is that the people voting during the day are most likely bystanders meaning Bond ... and she voted a mafia out >_<
-1: kind of suspicious to just vote for a random guy first before discussion.
-1: Richard made an accusation before discussing, so Richard is probably mafia.
-1: erica joseph is too smart for her own good.
-1: i feel bad.
-1: you were the first to ever vote.
-1: that's cuz you're comfortable with the user interface already.
-1: i think the timer's a bit long for the night and day sessions. everyone have a good evening!
-1: let's take austin williams out of the game.
 1: He did suggest Jason last round, and I don't think Jason was actually mafia...
-1: True, I'm used to watching reactions and hearing tone of voice.
-1: I only suggested Jason because he suggested me. Live and let live otherwise
-1: justin doesn't sound mafia. but it could be a trap.
-1: I wonder if there is a trick to this.  Like if the names mean anything
-1: whoever justin was he is gone. lol
 1: yea...
-1: He hasn't said much.
-1: slowly but surely . . .
-1: well going after Kevin was a mistake.  
-1: lol. you'll see if I get iliminated that I was a bystanfer
 1: Sorry Kendra...
 1: This game can easily make one feel paranoid...
-1: since Sara voted me on first round, I will vote her now.
-1: I just noticed (looking back at round 1) that Kendra Craig did end up voting.
 1: vengeance pick...nice! lol
 1: still going with Ruben....nothing but crickets from him/her
-1: Hello Ruben.  Who should we knock off?
-1: This is scaring me.  How do you find the bad guys?
 1: yeah and she voted for me on her way out...the hell
 1: Ruben already voted this round for Alexander....
 1: yeah...again
 1: that would be a mistake...
-1: Just so you know, I am a bystander.
-1: I'm here.  I just hate to pick someone to get rid of.
-1: Well it looks like the majority picked poor K. Lo
-1: I mean probably vote with 30 seconds left at least.
-1: Let's see who speaks up.
-1: Snitches get stitches.
-1: Michael Petersen is a problem.
-1: I still don't know who to vote for.
 1: Hey, wtf... I didn't do nuttin.
-1: Walker is trying to turn  you against me so he can kill you himself.
-1: I think Gregory is throwing around a lot of accusations.
-1: Because I know how you are.
-1: Robinson is the next to get it.
-1: Julian will whack us.
-1: Let's take out Raymond.
-1: Yeah, never trust someone with ttwo first names.
 1: Hmmm...
-1: I agree.
-1: Well you got my vote if oyu want it.
-1: i'd go with Michael Nelson, he has too many names.
-1: I don't even want to type them all.
-1: 'Jr.'
-1: I'll say Michael Nelson Jr., or me.
-1: I can't vote for myself, but that's not bad. I'll give you moral support.
-1: I have been acting suspiciously.
-1: If I were you, I'd vote for me. That's all I'm saying.
-1: Yeah, I don't like her music. I'll vote for her.
-1: I think so.
-1: Sounds like it could be any possibility. 
-1: lol guess they're not that smart.
-1: I think it could be either.
 1: Hmm, you targeted someone so fast Cristian, ... mafia trying to point fingers? 
 1: We off'd one of our own... seems Stephanie Gonzalez needs to go now..
-1: No, I'm a good guy.
 1: :/ i'm not mafia... 
 1: Christopher's turn....
 1: Why would it be me Brandon & Michael? I voted against the mafia last round... Maybe you two are part of it to?
 1: It might be Jonathan Kim... killing off Erin who accused him "yesterday"
-1: It doesn't make sense to be Cristian.
-1: I vote Erin C. since she voted off Cristian first
-1: Mafia is gonna win cause you are idiots.
 1: natalie... that sounds like someone in the mafia 
 1: see they voted natalie out...other person that wanted her out was Nathan. He's the next mafia
 1: ready to kick someone...
 1: try..hahahah
-1: I agree. Let's eliminate Natalie.
-1: Even Natalie agrees that Natalie cannot be trusted.
-1: I am not mafia. 
 1: Stephen Baldwin... that guy has been in quite a few movies, I bet he's got mob connections. I vote Stephen Baldwin is the mafioso! 
-1: Agreed, Baldwin was very quick to throw her under the bus. 
-1: Sounds like something a mob boss would say. 
-1: Nathan was quick to point his finger at Natalie.
-1: If you ask me, that means Kevin Morales might well be a mafia. 
-1: Aaron wanted Kevin Morales gone.
-1: It turns out that Natalie was indeed a member of the mafia.
-1: Since I voted for Natalie to be eliminated, that means I'm not a mafia. Latoya, on the other hand, wanted me gone.
-1: If I were a member of the Mafia, why would I vote to have a fellow Mafioso eliminated? Clearly I'm a bystander. 
 1: Nathan did want Natalie gone though...
-1: Very few of us left, wow. Good morning, brave few. 
-1: Natalie was rotten all along. What about you, Nathan? Have you been active at night lately?
-1: He must be. 
 1: ok now that we've voted..
-1: Feels good.
-1: You obs. :)
-1: Your votes keep winning.
 1: Nancy is quiet...
-1: too quiet.
-1: Hello everyone.
-1: Oh, shoot.  I can't change my vote.  :(
 1: Awww.... now you're going to kill me.  Lol.  
-1: You can still click it, just can't change it afterwards.
-1: Hey, gotta kill someone.
 1: Was Jacob not here the whole chat of "day 1"?  If so... maybe vote Jacob?
-1: Hey, I still have all these nooses. Gotta use them up.
-1: Yes, I clearly suck at this game.  No argument from me!  
-1: I would defo be the least competent mafia person ever.  I'm with you, Stacy.
-1: Benyamin is correct.
-1: I guarantee you I'm not mafia, but do what you gotta do.
 1: 39 minutes and no bonus...might be underpaid? lol
-1: Harold could you restate your question.
-1: It seems like the current consensus. 
-1: I'm not smart enough to be mafia.
-1: We have no information about people.
-1: I am guessing Harold.
-1: I really dislike this randomly generated name.
-1: Rebecca seemed quick to the draw.
 1: so....i'm not sure what's going on
-1: Morning at last.
 1: Who's next...
-1: Wish they would have made this like the actual game. All we can do is just randomly pick people lol
-1: I'm a bystander too.  Girl named Rodney  lol
 1: I'm a bystander...and a girl, I guess.
-1: Okay, let's go with him.
-1: Aw Scott, now I'm feeling sorry for you.
 1: They said you, not me.  I just went along....
 1: I'm a bystander too... NOT MAFIA.. not a bot.
-1: Just don't captcha me dude.
 1: I pretty much guess they won't say.. right?
-1: Oh my God I'm alive.
 1: nope nope nope..it isn't me.. I promise.
 1: Don't do it.. I'm really not a Mafia.
 1: I'm...Melting,.,
 1: Yeah.. that's what all the Nazis said.
-1: :-( sorry.
-1: I think you all should worry about Ashley. Why would she single me out?
-1: hello. not me!
-1: Cory Baron. Everyone vote Cory Baron.
 1: No idea who mafia might be...
 1: Nicholas Davis sounds shifty...oh wait.
-1: There doesn't seem to be any evidence for it.
-1: Danielle said "Jill Mcdonald AFTER CORY" and then she disappeared. It's obvious
-1: Probably Alicia then.
-1: sadness.  I have kids
-1: I've been playing it my whole life.  
-1: Reminds me of IT.  We all float down here
-1: You tell me. I've got your back. 
-1: I think so Joshua.
-1: hello.
-1: I got interupted before I got to answer the ballons questions.  99 of them Paul. 99 Red Balloons.
-1: You did it to yourself. 
-1: My vote didn't go through last time.  
-1: You seem to be really connected to the family, like a Targaryen.
-1: Brent made the best lampredotto.
-1: Ryan: LOL, now that's stuck in my head. ;)
-1: bystander here too Terri Green. It is very nice to meet you all
 1: haha didn't see that coming....
 1: I'm sorry if I'm wrong Bryan...
-1: Hey! I'm  bystander like y'all.
-1: Hey guys.
-1: Maybe "Don't Stop Believin'" will just kick in as you leave.
 1: Who is in the mafia? Hmm...
-1: It shows what people are voting for.
-1: No idea who to eliminate.
-1: Mafia can't send messages at night.
-1: anyone have anything to offer. i dont even know what would be suspicious
-1: Yeah. We don't really have anything else to go on now, you know?
-1: Well then. Guess it wasn't either of those guys
-1: Also hi. 
-1: I agree. Matthew is
-1: Agreed. Amanda is mafia.
-1: I'm down with that.
-1: Interesting, would make sense Vanessa is mafia. 
-1: Glad he's gone. He gave me crabs
-1: Yeah, Elizabeth is lacking some compassion here. Seems like a bad guy imo.
-1: I bet elizabeth did it. Just look at that evil laugh. Just sayin.
-1: Don't vote for Elizabeth, make them suffer and wait.
-1: Good job Jordan. Feeling like a little murder today?
-1: Michelle is really quiet, whats up with that? You think the killer is gonna talk? No way, they are gonna be silent and invisible.
 1: .... my spelling sucks.
-1: So, let's just confess. If you're the mafia, say so!
-1: Wow, good job Michelle, still killing without retribution I see.
-1: The mafia has raptors, I'm sure.
-1: Sure, I'll sheep vote.
-1: I just realized, I had to push vote xD Oops. I haven't been voting
-1: I say vote michelle. That silence is deadly.
-1: This is such a stupid game. I'm a bystander, but kill me anyways, want to get on with my day
-1: Never mess with Michelle on her period.
-1: Just look at the denial from Michelle. I'm telling you, prime suspect, just saying.
-1: And wtg, Michelle.
-1: I'd say that too.
-1: Evil, saucy minx, you.
-1: Lol Michelle. 
-1: You're right, dakota isn't talking.
-1: I'm scared.
-1: I'll vote for you, because you're sinister enough. You're a money hungry, hoarse horse.
-1: Wow.
-1: This does NOT look good for me.
-1: Well, Ryan probably asked for it anyways.
-1: I would assume.
-1: Awkward silence.
-1: Jake Pierce sounds like a hard core name.
-1: If I was mafia, I'd want Jake Pierce to be my name. Very suave.
-1: I read it in The Sun.
-1: <-clearly evil mastermind. 
-1: Getting really suspicious of you silent, murder-y types.
-1: Of course I'm right,.
-1: I'm Jordan effing Rojas.
-1: With a name like this, I'm probably a coffee/cocaine tycoon. 
-1: Jesus Michelle, what is wrong with you. Did they not pay you enough?
-1: Hi. 
 1: Welp they weren't mafia.... so there are only a few choices left
-1: Well no.
-1: Could be any of us. Its just a guess.
 1: lolol i know...I think Dr. Amy should be next to go
-1: that's not nice, dr. amy! 
-1: Say goodnight.
-1: Was thinking her as well.
-1: Mary.
-1: Then Jamie.
-1: Sorry Damon.
-1: Good enough for me, Alexander Lopez sleeps with the fishes tonight.
-1: Ricardo vote for yourself. Your fate has been decided
-1: how about that woman that jumped into the jaguar exhibit in Arizona today. Bold move
 1: Frank... and I think we win?
-1: Nice being criminals with you.
 1: hmm..
 1: nobody thinks im mafia...
-1: Alright.
 1: Deborah should probably be next since she is throwing people under the bus...sounds just like mafia
 1: A bit too eager...
-1: Patrick was a bystander who probably snitched. Snitches get stitches. :`(
-1: Yeah I heard she laundered money to the Mafia along with Christina Morgan.
-1: Poor Shane.
-1: I've loved Shane since highschool.
 1: I think angela is mafia....she wanted him gone
 1: Shane Landry... Landry. Laundry. Laundered money to the mafia!
-1: Not close enough to know he wasn't mafia.
-1: So be it . . .
 1: Apparently ditches in Patricks case...
-1: The neighborhoods thinning out too quickly.
-1: Too late now, I never got to say goodbye.
-1: I forgive him.
-1: I'll vote Angela.
 1: Shane how could you vote for Patrick?! Taken in his prime... you monster I can never forgive you.
-1: If you look up I never voted for Patrick.
-1: Shand piled on with Deb.  Guilt by association!!!

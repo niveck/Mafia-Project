@@ -3,169 +3,14 @@ Sentences that exist in both upper and lower case forms:
 Total amount: 49
 
 Sentence:
-HELLO
-Count with upper case: 1
-Count with lower case: 35
-
-Sentence:
-What?
-Count with upper case: 1
-Count with lower case: 1
-
-Sentence:
-Poor guy
-Count with upper case: 1
-Count with lower case: 1
-
-Sentence:
-NO
-Count with upper case: 1
-Count with lower case: 4
-
-Sentence:
-Me too!
-Count with upper case: 1
-Count with lower case: 1
-
-Sentence:
-What
-Count with upper case: 1
-Count with lower case: 1
-
-Sentence:
-Zachary
-Count with upper case: 1
-Count with lower case: 1
-
-Sentence:
-Ok
-Count with upper case: 3
-Count with lower case: 14
-
-Sentence:
-No
-Count with upper case: 2
-Count with lower case: 4
-
-Sentence:
-HI
-Count with upper case: 4
-Count with lower case: 52
-
-Sentence:
-Why not
-Count with upper case: 1
-Count with lower case: 1
-
-Sentence:
-I agree
-Count with upper case: 4
-Count with lower case: 1
-
-Sentence:
-THANK YOU
-Count with upper case: 1
-Count with lower case: 1
-
-Sentence:
-Who now?
-Count with upper case: 1
-Count with lower case: 2
-
-Sentence:
-Hi
-Count with upper case: 27
-Count with lower case: 52
-
-Sentence:
-Okay
-Count with upper case: 1
-Count with lower case: 3
-
-Sentence:
-Hello?
-Count with upper case: 1
-Count with lower case: 1
-
-Sentence:
-Hello
-Count with upper case: 45
-Count with lower case: 35
-
-Sentence:
-Hello 
-Count with upper case: 1
-Count with lower case: 1
-
-Sentence:
-Why?
-Count with upper case: 4
-Count with lower case: 1
-
-Sentence:
-LOL
-Count with upper case: 1
-Count with lower case: 27
-
-Sentence:
-Brent Graham
-Count with upper case: 1
-Count with lower case: 3
-
-Sentence:
-True
-Count with upper case: 1
-Count with lower case: 1
-
-Sentence:
-Yes
-Count with upper case: 2
-Count with lower case: 6
-
-Sentence:
-Right.
-Count with upper case: 1
-Count with lower case: 1
-
-Sentence:
-Hello all
-Count with upper case: 2
-Count with lower case: 1
-
-Sentence:
-Lol
-Count with upper case: 1
-Count with lower case: 27
-
-Sentence:
-Hello.
-Count with upper case: 2
-Count with lower case: 1
-
-Sentence:
-Sure
-Count with upper case: 2
-Count with lower case: 6
-
-Sentence:
-RIP me
-Count with upper case: 1
-Count with lower case: 1
-
-Sentence:
-Oh boy
-Count with upper case: 1
-Count with lower case: 1
-
-Sentence:
-Hi all
-Count with upper case: 2
-Count with lower case: 1
-
-Sentence:
-Haha
+HAHA
 Count with upper case: 1
 Count with lower case: 6
+
+Sentence:
+I'm here
+Count with upper case: 2
+Count with lower case: 1
 
 Sentence:
 Sup
@@ -173,42 +18,7 @@ Count with upper case: 1
 Count with lower case: 2
 
 Sentence:
-Get him!
-Count with upper case: 1
-Count with lower case: 1
-
-Sentence:
-Sounds good
-Count with upper case: 1
-Count with lower case: 2
-
-Sentence:
-Same
-Count with upper case: 1
-Count with lower case: 1
-
-Sentence:
-Yo
-Count with upper case: 2
-Count with lower case: 3
-
-Sentence:
-Hey!
-Count with upper case: 4
-Count with lower case: 1
-
-Sentence:
-HAHA
-Count with upper case: 1
-Count with lower case: 6
-
-Sentence:
-Bye
-Count with upper case: 1
-Count with lower case: 2
-
-Sentence:
-Hello Everyone
+Laura
 Count with upper case: 1
 Count with lower case: 1
 
@@ -218,18 +28,23 @@ Count with upper case: 1
 Count with lower case: 1
 
 Sentence:
-Hey
-Count with upper case: 12
-Count with lower case: 12
-
-Sentence:
-Hai
+Who's next?
 Count with upper case: 1
-Count with lower case: 1
+Count with lower case: 2
 
 Sentence:
-I'm here
+Okay
+Count with upper case: 1
+Count with lower case: 3
+
+Sentence:
+Sure
 Count with upper case: 2
+Count with lower case: 6
+
+Sentence:
+What
+Count with upper case: 1
 Count with lower case: 1
 
 Sentence:
@@ -238,12 +53,197 @@ Count with upper case: 1
 Count with lower case: 2
 
 Sentence:
-Who's next?
+LOL
+Count with upper case: 1
+Count with lower case: 27
+
+Sentence:
+THANK YOU
+Count with upper case: 1
+Count with lower case: 1
+
+Sentence:
+Hello all
+Count with upper case: 2
+Count with lower case: 1
+
+Sentence:
+Hi all
+Count with upper case: 2
+Count with lower case: 1
+
+Sentence:
+I agree
+Count with upper case: 4
+Count with lower case: 1
+
+Sentence:
+Hai
+Count with upper case: 1
+Count with lower case: 1
+
+Sentence:
+HELLO
+Count with upper case: 1
+Count with lower case: 35
+
+Sentence:
+Lol
+Count with upper case: 1
+Count with lower case: 27
+
+Sentence:
+No
+Count with upper case: 2
+Count with lower case: 4
+
+Sentence:
+What?
+Count with upper case: 1
+Count with lower case: 1
+
+Sentence:
+Hello.
+Count with upper case: 2
+Count with lower case: 1
+
+Sentence:
+Zachary
+Count with upper case: 1
+Count with lower case: 1
+
+Sentence:
+HI
+Count with upper case: 4
+Count with lower case: 52
+
+Sentence:
+Sounds good
 Count with upper case: 1
 Count with lower case: 2
 
 Sentence:
-Laura
+Oh boy
+Count with upper case: 1
+Count with lower case: 1
+
+Sentence:
+Haha
+Count with upper case: 1
+Count with lower case: 6
+
+Sentence:
+Poor guy
+Count with upper case: 1
+Count with lower case: 1
+
+Sentence:
+Ok
+Count with upper case: 3
+Count with lower case: 14
+
+Sentence:
+Brent Graham
+Count with upper case: 1
+Count with lower case: 3
+
+Sentence:
+Get him!
+Count with upper case: 1
+Count with lower case: 1
+
+Sentence:
+Same
+Count with upper case: 1
+Count with lower case: 1
+
+Sentence:
+NO
+Count with upper case: 1
+Count with lower case: 4
+
+Sentence:
+Bye
+Count with upper case: 1
+Count with lower case: 2
+
+Sentence:
+Yo
+Count with upper case: 2
+Count with lower case: 3
+
+Sentence:
+Hello?
+Count with upper case: 1
+Count with lower case: 1
+
+Sentence:
+Hey!
+Count with upper case: 4
+Count with lower case: 1
+
+Sentence:
+Right.
+Count with upper case: 1
+Count with lower case: 1
+
+Sentence:
+Who now?
+Count with upper case: 1
+Count with lower case: 2
+
+Sentence:
+Yes
+Count with upper case: 2
+Count with lower case: 6
+
+Sentence:
+Me too!
+Count with upper case: 1
+Count with lower case: 1
+
+Sentence:
+Hello
+Count with upper case: 45
+Count with lower case: 35
+
+Sentence:
+Hello Everyone
+Count with upper case: 1
+Count with lower case: 1
+
+Sentence:
+Why not
+Count with upper case: 1
+Count with lower case: 1
+
+Sentence:
+Hello 
+Count with upper case: 1
+Count with lower case: 1
+
+Sentence:
+True
+Count with upper case: 1
+Count with lower case: 1
+
+Sentence:
+Hi
+Count with upper case: 27
+Count with lower case: 52
+
+Sentence:
+Why?
+Count with upper case: 4
+Count with lower case: 1
+
+Sentence:
+Hey
+Count with upper case: 12
+Count with lower case: 12
+
+Sentence:
+RIP me
 Count with upper case: 1
 Count with lower case: 1
 

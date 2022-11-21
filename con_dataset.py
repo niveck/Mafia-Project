@@ -160,6 +160,9 @@ class ConDataset(BaseDataset):
         file
         :return: None
         """
+        # TODO there is a bug, because searching for "hey" gets also "they"
+        # TODO but notice you can't just wrap each word with \b because then signs won't work
+        # TODO should treat real words and signs differently! (maybe another flag)
         if not group_of_words and not pattern:
             raise RuntimeError("Method must get either group_of_words or "
                                "pattern")

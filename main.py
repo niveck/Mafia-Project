@@ -40,6 +40,7 @@ def main():
                                             pattern=DOUBLE_PUNCTUATION)
     data.find_sentences_with_str_from_group("sentences_with_triplets.txt",
                                             pattern=TRIPLE_LETTERS)
+    data.cluster_sentences()
 
 
 if __name__ == "__main__":

@@ -4,8 +4,12 @@ import os
 import pandas as pd
 from collections import defaultdict
 import warnings
+from sentence_transformers import SentenceTransformer
+from sklearn.cluster import KMeans
 
 UPPER_WORDS_PATTERN = r"\b[A-Z][A-Z]+\b"
+MODEL_NAME = "all-MiniLM-L6-v2"
+NUMBER_OF_CLUSTERS = 100
 
 
 class ConDataset(BaseDataset):
@@ -23,6 +27,8 @@ class ConDataset(BaseDataset):
         :return: a new dataset object
         """
         super().__init__(folder_path)
+        self.language_model = None
+        self.embedding = None
         self.game_dirs = [os.path.join(folder_path, subdir)
                           for subdir in os.listdir(folder_path)
                           if os.path.isdir(os.path.join(folder_path, subdir))]
@@ -229,9 +235,35 @@ class ConDataset(BaseDataset):
                                                 output_string_beginning=
                                                 output_string_beginning)
 
-    def cluster_sentences(self):
+    def embed_sentences(self):
         """
-        Clusters all sentences in the dataset, using todo complete chosen model
+        Downloads a language model (if not already downloaded) and
+        saves an embedding of all sentences by self.language_model.
         :return: None
         """
-        raise NotImplementedError()
+        if not self.language_model:
+            print("Language Model is being downloaded...")
+            self.language_model = SentenceTransformer(MODEL_NAME)
+            print("Language Model downloaded successfully")
+        self.embedding = self.language_model.encode(self.sentences.to_list())
+
+    def cluster_sentences(self, number_of_clusters=NUMBER_OF_CLUSTERS,
+                          export_to_csv=True):
+        """
+        Clusters all sentences by their embedding,
+        using number_of_clusters-Means clustering
+        :param number_of_clusters: requested number of clusters
+        :param export_to_csv: whether to export the cluster of each sentence to
+        csv
+        :return: clustering of the sentences (into number_of_clusters clusters)
+        """
+        if not self.embedding:
+            self.embed_sentences()
+        kmeans_model = KMeans(n_clusters=NUMBER_OF_CLUSTERS, random_state=0)
+        kmeans_model.fit(self.embedding)
+        if export_to_csv:
+            pd.concat([self.sentences.reset_index(),
+                       pd.Series(kmeans_model.labels_)],
+                      axis=1, ignore_index=True).loc[:, 1:2].to_csv(
+                f"{number_of_clusters}_clusters.csv")
+        return kmeans_model.labels_

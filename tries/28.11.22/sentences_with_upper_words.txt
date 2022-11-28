@@ -1,0 +1,215 @@
+Sentences with all-upper case words:
+
+Total amount: 51
+
+All words and their counts (sorted):
+LOL: 8
+RIP: 4
+HI: 4
+OK: 3
+YOU: 3
+MD: 3
+NOW: 2
+NOT: 2
+AFTER: 2
+GO: 2
+OOF: 1
+OH: 1
+TV: 1
+HAHA: 1
+IDK: 1
+MR: 1
+GOOD: 1
+THINK: 1
+ELIMINATE: 1
+MATHEW: 1
+YES: 1
+WAIT: 1
+AM: 1
+SURE: 1
+ON: 1
+THIS: 1
+ONW: 1
+MADE: 1
+MY: 1
+VOTE: 1
+HEY: 1
+RE: 1
+AN: 1
+ALL: 1
+STAR: 1
+MAFIA: 1
+IT: 1
+HIT: 1
+CM: 1
+NO: 1
+HII: 1
+HELLO: 1
+EXIT: 1
+FINISH: 1
+THANK: 1
+ALSO: 1
+ARE: 1
+IS: 1
+THERE: 1
+IN: 1
+THE: 1
+HOUSE: 1
+XD: 1
+SO: 1
+
+All sentences: (Each sentence is followed by itsall-upper case words)
+
+seem OK
+Words: OK
+
+LOL I hope your doctor doesn't do the same
+Words: LOL
+
+YOU ARE?!
+Words: YOU, ARE
+
+LOL
+Words: LOL
+
+HELLO
+Words: HELLO
+
+firstname needs to GO next
+Words: GO
+
+ELIMINATE MATHEW lastname
+Words: ELIMINATE, MATHEW
+
+HEY NOW
+Words: HEY, NOW
+
+THANK YOU
+Words: THANK, YOU
+
+Any of you'se want a big screen TV, I got a bunch of 'em, 80% off!
+Words: TV
+
+OK I'M FINISH
+Words: OK, FINISH
+
+LOL :(
+Words: LOL
+
+Ok obviously firstname lastname MD
+Words: MD
+
+IS THERE A firstname IN THE HOUSE?!
+Words: IS, THERE, IN, THE, HOUSE
+
+firstname firstname MD 
+Words: MD
+
+GOOD THINK
+Words: GOOD, THINK
+
+OK. nice being a criminal with you.
+Words: OK
+
+firstname lastname AFTER firstname
+Words: AFTER
+
+I'm a bystander too... NOT MAFIA.. not a bot.
+Words: NOT, MAFIA
+
+Ok obviously firstname firstname MD
+Words: MD
+
+I MADE MY VOTE
+Words: MADE, MY, VOTE
+
+YOU'RE AN ALL STAR
+Words: YOU, RE, AN, ALL, STAR
+
+I AM NOW SURE ON THIS ONW
+Words: AM, NOW, SURE, ON, THIS, ONW
+
+firstname: LOL, now that's stuck in my head. ;)
+Words: LOL
+
+Mr. firstname is only MR. lol
+Words: MR
+
+Reminds me of IT.  We all float down here
+Words: IT
+
+Bystander CM
+Words: CM
+
+OOF
+Words: OOF
+
+HAHA
+Words: HAHA
+
+IDK
+Words: IDK
+
+ah WAIT
+Words: WAIT
+
+firstname said "firstname lastname AFTER firstname" and then she disappeared. It's obvious
+Words: AFTER
+
+ALSO,
+Words: ALSO
+
+Im just talkative LOL
+Words: LOL
+
+firstname needs to GO 100%
+Words: GO
+
+SO is firstname next
+Words: SO
+
+LOL! Awe, firstname
+Words: LOL
+
+RIP Matt 
+Words: RIP
+
+This does NOT look good for me.
+Words: NOT
+
+YES!
+Words: YES
+
+HII
+Words: HII
+
+EXIT
+Words: EXIT
+
+NO
+Words: NO
+
+LOL, the pressure!
+Words: LOL
+
+HI
+Words: HI
+
+XD
+Words: XD
+
+RIP me
+Words: RIP
+
+I'd almost say vote me out so I can complete this HIT faster lol
+Words: HIT
+
+OH yeah
+Words: OH
+
+LOL touche
+Words: LOL
+
+RIP firstname
+Words: RIP
+

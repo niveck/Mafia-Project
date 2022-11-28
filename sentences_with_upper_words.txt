@@ -1,8 +1,8 @@
 Sentences with all-upper case words:
 
-Total amount: 57
+Total amount: 51
 
-All words and their counts (sorted):
+All strings and their counts (sorted):
 LOL: 8
 RIP: 4
 HI: 4
@@ -12,27 +12,19 @@ MD: 3
 NOW: 2
 NOT: 2
 AFTER: 2
-CORY: 2
 GO: 2
-DONNA: 2
-DAKOTA: 2
 OOF: 1
 OH: 1
 TV: 1
 HAHA: 1
 IDK: 1
 MR: 1
-SARA: 1
-MARSHALL: 1
 GOOD: 1
 THINK: 1
 ELIMINATE: 1
 MATHEW: 1
-FRANCO: 1
 YES: 1
 WAIT: 1
-JOHN: 1
-LUNA: 1
 AM: 1
 SURE: 1
 ON: 1
@@ -47,8 +39,6 @@ AN: 1
 ALL: 1
 STAR: 1
 MAFIA: 1
-ASHLEY: 1
-ABIGAIL: 1
 IT: 1
 HIT: 1
 CM: 1
@@ -68,176 +58,158 @@ HOUSE: 1
 XD: 1
 SO: 1
 
-All sentences: (Each sentence is followed by itsall-upper case words)
-
-JOHN LUNA
-Words: JOHN, LUNA
-
-Ok obviously firstname lastname MD
-Words: MD
-
-LOL :(
-Words: LOL
-
-ELIMINATE MATHEW FRANCO
-Words: ELIMINATE, MATHEW, FRANCO
-
-LOL
-Words: LOL
-
-ABIGAIL
-Words: ABIGAIL
-
-OH yeah
-Words: OH
-
-firstname Mcfirstname AFTER CORY
-Words: AFTER, CORY
-
-Reminds me of IT.  We all float down here
-Words: IT
-
-I'd almost say vote me out so I can complastnamete this HIT faster lol
-Words: HIT
-
-firstname needs to GO 100%
-Words: GO
-
-Bystander CM
-Words: CM
-
-DAKOTA
-Words: DAKOTA
-
-LOL touche
-Words: LOL
-
-THANK YOU
-Words: THANK, YOU
-
-I MADE MY VOTE
-Words: MADE, MY, VOTE
-
-ah WAIT
-Words: WAIT
-
-IS THERE A DAKOTA IN THE HOUSE?!
-Words: IS, THERE, DAKOTA, IN, THE, HOUSE
-
-EXIT
-Words: EXIT
-
-LOL! Awe, firstname
-Words: LOL
-
-HII
-Words: HII
-
-SARA MARSHALL
-Words: SARA, MARSHALL
-
-RIP me
-Words: RIP
-
-ALSO,
-Words: ALSO
-
-SO is firstname next
-Words: SO
-
-firstname said "firstname Mcfirstname AFTER CORY" and then she disappeared. It's obvious
-Words: AFTER, CORY
-
-HAHA
-Words: HAHA
-
-IDK
-Words: IDK
-
-OOF
-Words: OOF
+All sentences: (Each sentence is followed by its requested strings)
 
 OK. nice being a criminal with you.
-Words: OK
+Strings: OK
 
-HI
-Words: HI
+LOL :(
+Strings: LOL
 
 firstname: LOL, now that's stuck in my head. ;)
-Words: LOL
-
-HELLO
-Words: HELLO
-
-XD
-Words: XD
-
-YOU ARE?!
-Words: YOU, ARE
-
-This does NOT look good for me.
-Words: NOT
-
-LOL, the pressure!
-Words: LOL
-
-OK I'M FINISH
-Words: OK, FINISH
-
-YES!
-Words: YES
-
-firstname firstname MD 
-Words: MD
-
-GOOD THINK
-Words: GOOD, THINK
-
-firstname firstname is only MR. lol
-Words: MR
-
-HEY NOW
-Words: HEY, NOW
-
-firstname then DONNA
-Words: DONNA
-
-seem OK
-Words: OK
-
-YOU'RE AN ALL STAR
-Words: YOU, RE, AN, ALL, STAR
-
-Any of you'se want a big screen TV, I got a bunch of 'em, 80% off!
-Words: TV
+Strings: LOL
 
 RIP Matt 
-Words: RIP
+Strings: RIP
 
-I AM NOW SURE ON THIS ONW
-Words: AM, NOW, SURE, ON, THIS, ONW
+HI
+Strings: HI
 
-NO
-Words: NO
+YOU'RE AN ALL STAR
+Strings: YOU, RE, AN, ALL, STAR
 
-I'm a bystander too... NOT MAFIA.. not a bot.
-Words: NOT, MAFIA
+XD
+Strings: XD
+
+Reminds me of IT.  We all float down here
+Strings: IT
 
 Im just talkative LOL
-Words: LOL
-
-100 % ASHLEY
-Words: ASHLEY
-
-Ok obviously firstname firstname MD
-Words: MD
+Strings: LOL
 
 LOL I hope your doctor doesn't do the same
-Words: LOL
+Strings: LOL
 
-DONNA needs to GO next
-Words: DONNA, GO
+ah WAIT
+Strings: WAIT
+
+HELLO
+Strings: HELLO
+
+firstname firstname MD 
+Strings: MD
+
+LOL! Awe, firstname
+Strings: LOL
+
+OH yeah
+Strings: OH
+
+IS THERE A firstname IN THE HOUSE?!
+Strings: IS, THERE, IN, THE, HOUSE
+
+LOL touche
+Strings: LOL
+
+This does NOT look good for me.
+Strings: NOT
+
+LOL, the pressure!
+Strings: LOL
+
+I'd almost say vote me out so I can complete this HIT faster lol
+Strings: HIT
+
+firstname lastname AFTER firstname
+Strings: AFTER
+
+ALSO,
+Strings: ALSO
+
+HAHA
+Strings: HAHA
+
+NO
+Strings: NO
+
+YOU ARE?!
+Strings: YOU, ARE
+
+Ok obviously firstname firstname MD
+Strings: MD
+
+SO is firstname next
+Strings: SO
+
+OK I'M FINISH
+Strings: OK, FINISH
+
+GOOD THINK
+Strings: GOOD, THINK
+
+I'm a bystander too... NOT MAFIA.. not a bot.
+Strings: NOT, MAFIA
+
+THANK YOU
+Strings: THANK, YOU
+
+YES!
+Strings: YES
+
+Ok obviously firstname lastname MD
+Strings: MD
+
+Bystander CM
+Strings: CM
+
+HEY NOW
+Strings: HEY, NOW
+
+ELIMINATE MATHEW lastname
+Strings: ELIMINATE, MATHEW
+
+RIP me
+Strings: RIP
+
+I MADE MY VOTE
+Strings: MADE, MY, VOTE
+
+Mr. firstname is only MR. lol
+Strings: MR
+
+IDK
+Strings: IDK
+
+LOL
+Strings: LOL
+
+OOF
+Strings: OOF
+
+firstname needs to GO 100%
+Strings: GO
+
+Any of you'se want a big screen TV, I got a bunch of 'em, 80% off!
+Strings: TV
 
 RIP firstname
-Words: RIP
+Strings: RIP
+
+seem OK
+Strings: OK
+
+firstname needs to GO next
+Strings: GO
+
+HII
+Strings: HII
+
+EXIT
+Strings: EXIT
+
+firstname said "firstname lastname AFTER firstname" and then she disappeared. It's obvious
+Strings: AFTER
+
+I AM NOW SURE ON THIS ONW
+Strings: AM, NOW, SURE, ON, THIS, ONW
 

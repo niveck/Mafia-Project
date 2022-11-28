@@ -5,6 +5,8 @@ import pandas as pd
 from collections import defaultdict
 import warnings
 
+UPPER_WORDS_PATTERN = r"\b[A-Z][A-Z]+\b"
+
 
 class ConDataset(BaseDataset):
     """
@@ -80,18 +82,23 @@ class ConDataset(BaseDataset):
         """
         return self.raw_sentences.apply(self.remove_speaker_name_from_sentence)
 
+    @staticmethod
+    def names_pattern(names):
+        """
+        :param names: list of strings representing names
+        :return: a regex pattern for all case versions of all names
+        """
+        return "|".join([rf"\b{name}\b|\b{name.lower()}\b|\b{name.upper()}\b"
+                         for name in names])
+
     def replace_name_with_placeholder(self, sentence):
         """
         :param sentence: a string of text said by a player
         :return: a placeholder instead of a name reference
         (with distinction between first and last name)
         """
-        first_names_pattern = "|".join([r"\b" + name + r"\b"
-                                        for name in self.first_names])
-        last_names_pattern = "|".join([r"\b" + name + r"\b"
-                                       for name in self.last_names])
-        first_names_pattern += first_names_pattern.lower()
-        last_names_pattern += last_names_pattern.lower()
+        first_names_pattern = ConDataset.names_pattern(self.first_names)
+        last_names_pattern = ConDataset.names_pattern(self.last_names)
         return re.sub(last_names_pattern, self.LASTNAME_PLACE_HOLDER,
                       re.sub(first_names_pattern, self.FIRSTNAME_PLACE_HOLDER,
                              sentence))
@@ -149,31 +156,34 @@ class ConDataset(BaseDataset):
         print(f"{len(sentences_with_both_cases)} unique sentences were found."
               f"\nFull results were saved in {dest_path}")
 
-    def find_sentences_with_groups_of_words(self, dest_path,
-                                            group_of_words=None, pattern=None,
-                                            output_string_beginning=None):
+    def find_sentences_with_str_from_group(self, dest_path, pattern=None,
+                                           group_of_strs=None,
+                                           strs_are_words=False,
+                                           output_string_beginning=None):
         """
-        Finds and counts all unique sentences that contain at least one word of
-        the group or the pattern.
-        Saves them in dest_path
+        Finds and counts all unique sentences that contain at least one string
+        of the group or the pattern. Saves them in dest_path
         :param dest_path: destination path to save results
-        :param group_of_words: list of strings
         :param pattern: regex pattern
+        :param group_of_strs: list of strings
+        :param strs_are_words: whether to treat group_of_strs as words
         :param output_string_beginning: The requested beginning of the results
         file
         :return: None
         """
-        # TODO there is a bug, because searching for "hey" gets also "they"
-        # TODO but notice you can't just wrap each word with \b because then signs won't work
-        # TODO should treat real words and signs differently! (maybe another flag)
-        if not group_of_words and not pattern:
-            raise RuntimeError("Method must get either group_of_words or "
+        if not group_of_strs and not pattern:
+            raise RuntimeError("Method must get either group_of_strs or "
                                "pattern")
-        if group_of_words and pattern:
-            warnings.warn("Both group_of_words and pattern were supplied,"
-                          "so only pattern will be taken into account")
-        if group_of_words:
-            pattern = "|".join(group_of_words)
+        if not group_of_strs and strs_are_words:
+            warnings.warn("strs_are_words=True has no meaning when"
+                          "group_of_strs is None")
+        if group_of_strs and pattern:
+            warnings.warn("Both group_of_strs and pattern were supplied,"
+                          "so only group_of_strs will be taken into account")
+        if group_of_strs:
+            if strs_are_words:
+                group_of_strs = [fr"\b{word}\b" for word in group_of_strs]
+            pattern = "|".join(group_of_strs)
         sentences_with_words = set()
         all_words = defaultdict(int)
         for sentence in self.sentences:
@@ -183,23 +193,24 @@ class ConDataset(BaseDataset):
                 for word in words:
                     all_words[word] += 1
         if not output_string_beginning:
-            output_string_beginning = f"All sentence with requested words:"
-        output_string = output_string_beginning + f"\n\nTotal amount: " + \
-                        f"{len(sentences_with_words)}\n\n" \
-                        f"All words and their counts (sorted):\n"
+            output_string_beginning = "All sentence with requested strings:"
+        amount = len(sentences_with_words)
+        output_string = output_string_beginning + f"\n\nTotal amount: " \
+                                                  f"{amount}\n\nAll strings " \
+                                                  f"and their counts " \
+                                                  f"(sorted):\n"
         for word_count in sorted(all_words.items(),
                                  key=lambda item: item[1], reverse=True):
             output_string += f"{word_count[0]}: {word_count[1]}\n"
         output_string += "\nAll sentences: (Each sentence is followed by its" \
-                         "requested words)\n\n"
+                         " requested strings)\n\n"
         for sentence_and_words in sentences_with_words:
-            output_string += sentence_and_words[0] + "\nWords: " + \
+            output_string += sentence_and_words[0] + "\nStrings: " + \
                              ", ".join(sentence_and_words[1]) + "\n\n"
         with open(dest_path, "w") as f:
             f.write(output_string)
-        print(f"{len(sentences_with_words)} unique sentences were found."
+        print(f"{amount} unique sentences were found."
               f"\nFull results were saved in {dest_path}")
-        # TODO - make all other find-and-count methods more generic with no code duplication
 
     def find_sentences_with_all_upper_words(self, dest_path="./sentences_with"
                                                             "_upper_words."
@@ -212,72 +223,11 @@ class ConDataset(BaseDataset):
         """
         if self.sentences_lowered:
             raise RuntimeError("All sentences were already lowered")
-        sentences_with_upper_words = set()
-        all_upper_words = defaultdict(int)
-        for sentence in self.sentences:
-            upper_words = tuple(re.findall(r"\b[A-Z][A-Z]+\b", sentence))
-            if upper_words:
-                sentences_with_upper_words.add((sentence, upper_words))
-                for word in upper_words:
-                    all_upper_words[word] += 1
-        output_string = f"Sentences with all-upper case words:\n\n" \
-                        f"Total amount: {len(sentences_with_upper_words)}" \
-                        f"\n\nAll words and their counts (sorted):\n"
-        for word_count in sorted(all_upper_words.items(),
-                                 key=lambda item: item[1], reverse=True):
-            output_string += f"{word_count[0]}: {word_count[1]}\n"
-        output_string += "\nAll sentences: (Each sentence is followed by its" \
-                         "all-upper case words)\n\n"
-        for sentence_and_words in sentences_with_upper_words:
-            output_string += sentence_and_words[0] + "\nWords: " + \
-                             ", ".join(sentence_and_words[1]) + "\n\n"
-        with open(dest_path, "w") as f:
-            f.write(output_string)
-        print(f"{len(sentences_with_upper_words)} unique sentences were found."
-              f"\nFull results were saved in {dest_path}")
-
-    def find_and_count_sentences_with_sequence(self, sequence, dest_path=None,
-                                               prefix=False, suffix=False):
-        """
-        Finds and counts all unique sentences that contain sequence
-        :param sequence: any requested string
-        :param dest_path: destination path to save results
-        :param prefix: whether to search pattern in beginning of sentences
-        :param suffix: whether to search pattern in end of sentences
-        :return: None
-        """
-        if prefix and suffix:
-            raise RuntimeError("This method doesn't supports simultaneous"
-                               "prefix and suffix search")
-        if not dest_path:
-            if sequence.isalpha():
-                dest_path = f"./sentences_with_{sequence}_pattern.txt"
-            else:
-                raise RuntimeError("dest_path could not be automatically"
-                                   "generated, should be given")
-        if self.sentences_lowered and \
-                re.match(r".*[A-Z].*", sequence):  # contains upper case chars
-            warnings.warn("All sentence were lowered, but prefix contains "
-                          "upper case letters.")
-        if prefix:
-            pattern = rf"\A{sequence}.*"
-        elif suffix:
-            pattern = rf".*{sequence}\Z"
-        else:
-            pattern = f".*{sequence}.*"
-        sentences_with_pattern = defaultdict(int)
-        for sentence in self.sentences:
-            if re.match(pattern, sentence):
-                sentences_with_pattern[sentence] += 1
-        output_string = f"All sentences with the requested pattern of " \
-                        f"{sequence}, preceded by their count (sorted):\n\n"
-        for sentences_count in sorted(sentences_with_pattern.items(),
-                                      key=lambda item: item[1], reverse=True):
-            output_string += f"{sentences_count[1]}: {sentences_count[0]}\n"
-        with open(dest_path, "w") as f:
-            f.write(output_string)
-        print(f"{len(sentences_with_pattern)} unique sentences were found."
-              f"\nFull results were saved in {dest_path}")
+        output_string_beginning = "Sentences with all-upper case words:"
+        self.find_sentences_with_str_from_group(dest_path,
+                                                pattern=UPPER_WORDS_PATTERN,
+                                                output_string_beginning=
+                                                output_string_beginning)
 
     def cluster_sentences(self):
         """

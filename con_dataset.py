@@ -2,14 +2,17 @@ from base_dataset import BaseDataset
 import re
 import os
 import pandas as pd
+import numpy as np
 from collections import defaultdict
 import warnings
 from sentence_transformers import SentenceTransformer
 from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
 
 UPPER_WORDS_PATTERN = r"\b[A-Z][A-Z]+\b"
 MODEL_NAME = "all-MiniLM-L6-v2"
-NUMBER_OF_CLUSTERS = 100
+MARKER_SIZE = 2
 
 
 class ConDataset(BaseDataset):
@@ -29,6 +32,7 @@ class ConDataset(BaseDataset):
         super().__init__(folder_path)
         self.language_model = None
         self.embedding = None
+        self.sentences_with_clusters = None
         self.game_dirs = [os.path.join(folder_path, subdir)
                           for subdir in os.listdir(folder_path)
                           if os.path.isdir(os.path.join(folder_path, subdir))]
@@ -241,7 +245,7 @@ class ConDataset(BaseDataset):
         saves an embedding of all sentences by self.language_model.
         :return: None
         """
-        if not self.language_model:
+        if self.language_model is None:
             print("Language Model is being downloaded...")
             self.language_model = SentenceTransformer(MODEL_NAME)
             print("Language Model downloaded successfully")
@@ -254,16 +258,87 @@ class ConDataset(BaseDataset):
         using number_of_clusters-Means clustering
         :param number_of_clusters: requested number of clusters
         :param export_to_csv: whether to export the cluster of each sentence to
-        csv
+        csv, including distance from cluster's center
         :return: clustering of the sentences (into number_of_clusters clusters)
         """
-        if not self.embedding:
+        if self.embedding is None:
             self.embed_sentences()
-        kmeans_model = KMeans(n_clusters=NUMBER_OF_CLUSTERS, random_state=0)
+        kmeans_model = KMeans(n_clusters=number_of_clusters, random_state=0)
         kmeans_model.fit(self.embedding)
+        sentences_with_clusters = pd.concat([self.sentences.reset_index(),
+                                            pd.Series(kmeans_model.labels_)],
+                                            axis=1,
+                                            ignore_index=True).loc[:, 1:2]
+        sentences_with_clusters.columns = ["sentence", "cluster"]
+
+        # calculate center of each cluster:
+        all_centers = np.zeros((number_of_clusters, self.embedding.shape[1]))
+        clusters_count = np.unique(kmeans_model.labels_, return_counts=True)[1]
+        for i, sentence_embedding in enumerate(self.embedding):
+            all_centers[kmeans_model.labels_[i]] += sentence_embedding
+        for i, cluster_count in enumerate(clusters_count):
+            all_centers[kmeans_model.labels_[i]] /= cluster_count
+
+        # calculate distance from cluster center of each sentence:
+        sentences_with_clusters["distance_from_cluster_center"] = \
+            np.apply_along_axis(np.linalg.norm, 1,
+                                self.embedding[sentences_with_clusters.index]
+                                - all_centers[kmeans_model.labels_
+                                              [sentences_with_clusters.index]])
+
+        # # add the average distance of each cluster as another column for convenience:
+        # sentences_with_clusters["cluster_average_distance_from_center"] = \
+        #     sentences_with_clusters.groupby("cluster")[
+        #         "distance_from_cluster_center"].mean()[
+        #         sentences_with_clusters["cluster"]].values
+
+        # add the deviation of the distance from cluster center of each
+        # sentence, from the cluster's average distance
+        sentences_with_clusters["deviation_from_mean_dist_from_center"] = \
+            np.abs(sentences_with_clusters.groupby("cluster")[
+                       "distance_from_cluster_center"].mean()[
+                       sentences_with_clusters["cluster"]].values
+                   - sentences_with_clusters["distance_from_cluster_center"])
+
+        # add the standart deviation of the distance from cluster center
+        # of each cluster as another column for convenience:
+        sentences_with_clusters["cluster_distance_std_from_center"] = \
+            sentences_with_clusters.groupby("cluster")[
+                "distance_from_cluster_center"].std()[
+                sentences_with_clusters["cluster"]].values
+
+        self.sentences_with_clusters = sentences_with_clusters
+
         if export_to_csv:
-            pd.concat([self.sentences.reset_index(),
-                       pd.Series(kmeans_model.labels_)],
-                      axis=1, ignore_index=True).loc[:, 1:2].to_csv(
+            sentences_with_clusters.to_csv(
                 f"{number_of_clusters}_clusters.csv")
+
         return kmeans_model.labels_
+
+    def reduce_dimension_and_plot_clusters(self,
+                                           dimension=REDUCED_DIMENSION_3D):
+        """
+        Reduces dimension and plots the clusters
+        :param dimension: either 3 or 2
+        :return: None
+        """
+        if self.sentences_with_clusters is None:
+            self.cluster_sentences(export_to_csv=False)
+        if dimension not in (2, 3):
+            raise ValueError("dimension must be either 2 or 3")
+        pca = PCA(n_components=dimension)
+        reduced_dimension_embedding = pca.fit_transform(self.embedding)
+        fig = plt.figure()
+        if dimension == 3:
+            ax = fig.gca(projection='3d')
+            ax.scatter(reduced_dimension_embedding[:, 0],
+                       reduced_dimension_embedding[:, 1],
+                       reduced_dimension_embedding[:, 2],
+                       s=MARKER_SIZE,
+                       c=self.sentences_with_clusters.cluster.values)
+        else:  # dimension == 2
+            plt.scatter(reduced_dimension_embedding[:, 0],
+                        reduced_dimension_embedding[:, 1],
+                        s=MARKER_SIZE,
+                        c=self.sentences_with_clusters.cluster.values)
+        plt.show()

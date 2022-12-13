@@ -16,31 +16,34 @@ DOUBLE_PUNCTUATION = ("[" + string.punctuation + "]") * 2
 TRIPLE_LETTERS = "|".join([char * 3 for char in string.ascii_lowercase])
 HMM_PATTERN="\\W*\\bhm+[.]*\\b\\W*"
 ONLY_HMM_PATTERN = "\\A" + HMM_PATTERN + "\\Z"
+NUMBER_OF_CLUSTERS = 100
+REDUCED_DIMENSION_3D = 3
 
 
 def main():
     data = ConDataset(CON_DATASET_DIR_PATH)
     data.replace_all_names_with_placeholders()
-    data.find_identical_sentences_with_different_case()
-    data.find_sentences_with_all_upper_words()
+    # data.find_identical_sentences_with_different_case()
+    # data.find_sentences_with_all_upper_words()
     data.lower_all_sentences()
-    data.find_sentences_with_str_from_group("sentences_with_hmm.txt",
-                                            pattern=HMM_PATTERN)
-    data.find_sentences_with_str_from_group("only_hmm_sentences.txt",
-                                            pattern=ONLY_HMM_PATTERN)
-    data.find_sentences_with_str_from_group("sentences_with_laughs.txt",
-                                            pattern=LAUGHS_PATTERN)
-    data.find_sentences_with_str_from_group("sentences_with_greeting.txt",
-                                            group_of_strs=GREETING_PATTERNS,
-                                            strs_are_words=False)
-    data.find_sentences_with_str_from_group("sentences_with_emojis.txt",
-                                            group_of_strs=EMOJIS_FOR_REGEX,
-                                            strs_are_words=False)
-    data.find_sentences_with_str_from_group("sentences_with_double_punc.txt",
-                                            pattern=DOUBLE_PUNCTUATION)
-    data.find_sentences_with_str_from_group("sentences_with_triplets.txt",
-                                            pattern=TRIPLE_LETTERS)
-    data.cluster_sentences()
+    # data.find_sentences_with_str_from_group("sentences_with_hmm.txt",
+    #                                         pattern=HMM_PATTERN)
+    # data.find_sentences_with_str_from_group("only_hmm_sentences.txt",
+    #                                         pattern=ONLY_HMM_PATTERN)
+    # data.find_sentences_with_str_from_group("sentences_with_laughs.txt",
+    #                                         pattern=LAUGHS_PATTERN)
+    # data.find_sentences_with_str_from_group("sentences_with_greeting.txt",
+    #                                         group_of_strs=GREETING_PATTERNS,
+    #                                         strs_are_words=False)
+    # data.find_sentences_with_str_from_group("sentences_with_emojis.txt",
+    #                                         group_of_strs=EMOJIS_FOR_REGEX,
+    #                                         strs_are_words=False)
+    # data.find_sentences_with_str_from_group("sentences_with_double_punc.txt",
+    #                                         pattern=DOUBLE_PUNCTUATION)
+    # data.find_sentences_with_str_from_group("sentences_with_triplets.txt",
+    #                                         pattern=TRIPLE_LETTERS)
+    data.cluster_sentences(number_of_clusters=NUMBER_OF_CLUSTERS)
+    data.reduce_dimension_and_plot_clusters(dimension=REDUCED_DIMENSION_3D)
 
 
 if __name__ == "__main__":

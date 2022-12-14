@@ -1,6 +1,6 @@
 import string
 from con_dataset import ConDataset
-from docopt import docopt  # todo use this for usage and argv instead of paths
+# from docopt import docopt  # todo use this for usage and argv instead of paths
 
 CON_DATASET_DIR_PATH = r"./datasets/Con article"
 EMOJIS = [":)", ":(", "(:", "):", ":D", "D:",
@@ -14,7 +14,7 @@ DIFFERENT_LENGTHS_HAHA = [rf"\ba*{'ha' * i}h*\b" for i in range(1, 21)]
 LAUGHS_PATTERN = "|".join(DIFFERENT_LENGTHS_HAHA) + r"|\blol+\b|\blmao+\b"
 DOUBLE_PUNCTUATION = ("[" + string.punctuation + "]") * 2
 TRIPLE_LETTERS = "|".join([char * 3 for char in string.ascii_lowercase])
-HMM_PATTERN="\\W*\\bhm+[.]*\\b\\W*"
+HMM_PATTERN = "\\W*\\bhm+[.]*\\b\\W*"
 ONLY_HMM_PATTERN = "\\A" + HMM_PATTERN + "\\Z"
 NUMBER_OF_CLUSTERS = 100
 REDUCED_DIMENSION_3D = 3

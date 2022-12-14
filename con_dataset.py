@@ -9,10 +9,14 @@ from sentence_transformers import SentenceTransformer
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
+from matplotlib.colors import BoundaryNorm
+import streamlit as st
 
 UPPER_WORDS_PATTERN = r"\b[A-Z][A-Z]+\b"
 MODEL_NAME = "all-MiniLM-L6-v2"
 MARKER_SIZE = 2
+COLOR_MAP = plt.cm.gist_rainbow
+NUMBER_OF_CLUSTERS = 100
 
 
 class ConDataset(BaseDataset):
@@ -251,7 +255,7 @@ class ConDataset(BaseDataset):
             print("Language Model downloaded successfully")
         self.embedding = self.language_model.encode(self.sentences.to_list())
 
-    def cluster_sentences(self, number_of_clusters=NUMBER_OF_CLUSTERS,
+    def cluster_sentences(self, number_of_clusters,
                           export_to_csv=True):
         """
         Clusters all sentences by their embedding,
@@ -266,7 +270,7 @@ class ConDataset(BaseDataset):
         kmeans_model = KMeans(n_clusters=number_of_clusters, random_state=0)
         kmeans_model.fit(self.embedding)
         sentences_with_clusters = pd.concat([self.sentences.reset_index(),
-                                            pd.Series(kmeans_model.labels_)],
+                                             pd.Series(kmeans_model.labels_)],
                                             axis=1,
                                             ignore_index=True).loc[:, 1:2]
         sentences_with_clusters.columns = ["sentence", "cluster"]
@@ -284,7 +288,7 @@ class ConDataset(BaseDataset):
             np.apply_along_axis(np.linalg.norm, 1,
                                 self.embedding[sentences_with_clusters.index]
                                 - all_centers[kmeans_model.labels_
-                                              [sentences_with_clusters.index]])
+                                [sentences_with_clusters.index]])
 
         # # add the average distance of each cluster as another column for convenience:
         # sentences_with_clusters["cluster_average_distance_from_center"] = \
@@ -315,30 +319,36 @@ class ConDataset(BaseDataset):
 
         return kmeans_model.labels_
 
-    def reduce_dimension_and_plot_clusters(self,
-                                           dimension=REDUCED_DIMENSION_3D):
+    def reduce_dimension_and_plot_clusters(self, dimension):
         """
         Reduces dimension and plots the clusters
         :param dimension: either 3 or 2
         :return: None
         """
         if self.sentences_with_clusters is None:
-            self.cluster_sentences(export_to_csv=False)
+            self.cluster_sentences(number_of_clusters=NUMBER_OF_CLUSTERS,
+                                   export_to_csv=False)
         if dimension not in (2, 3):
             raise ValueError("dimension must be either 2 or 3")
         pca = PCA(n_components=dimension)
         reduced_dimension_embedding = pca.fit_transform(self.embedding)
         fig = plt.figure()
+        # norm = BoundaryNorm(np.arange(self.sentences_with_clusters.cluster.max() + 1),
+        #                     COLOR_MAP.N)
         if dimension == 3:
             ax = fig.gca(projection='3d')
             ax.scatter(reduced_dimension_embedding[:, 0],
                        reduced_dimension_embedding[:, 1],
                        reduced_dimension_embedding[:, 2],
                        s=MARKER_SIZE,
-                       c=self.sentences_with_clusters.cluster.values)
+                       c=self.sentences_with_clusters.cluster.values,
+                       # cmap=COLOR_MAP,
+                       # norm=norm
+                       )
         else:  # dimension == 2
             plt.scatter(reduced_dimension_embedding[:, 0],
                         reduced_dimension_embedding[:, 1],
                         s=MARKER_SIZE,
                         c=self.sentences_with_clusters.cluster.values)
-        plt.show()
+        # plt.show()
+        st.write(fig)

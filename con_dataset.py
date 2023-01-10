@@ -269,46 +269,29 @@ class ConDataset(BaseDataset):
             self.embed_sentences()
         kmeans_model = KMeans(n_clusters=number_of_clusters, random_state=0)
         kmeans_model.fit(self.embedding)
-        sentences_with_clusters = pd.concat([self.sentences.reset_index(),
+        sentences_with_clusters = pd.concat([self.sentences.reset_index(drop=True),
                                              pd.Series(kmeans_model.labels_)],
                                             axis=1,
-                                            ignore_index=True).loc[:, 1:2]
+                                            ignore_index=True)
         sentences_with_clusters.columns = ["sentence", "cluster"]
-
-        # calculate center of each cluster:
-        all_centers = np.zeros((number_of_clusters, self.embedding.shape[1]))
-        clusters_count = np.unique(kmeans_model.labels_, return_counts=True)[1]
-        for i, sentence_embedding in enumerate(self.embedding):
-            all_centers[kmeans_model.labels_[i]] += sentence_embedding
-        for i, cluster_count in enumerate(clusters_count):
-            all_centers[kmeans_model.labels_[i]] /= cluster_count
 
         # calculate distance from cluster center of each sentence:
         sentences_with_clusters["distance_from_cluster_center"] = \
-            np.apply_along_axis(np.linalg.norm, 1,
-                                self.embedding[sentences_with_clusters.index]
-                                - all_centers[kmeans_model.labels_
-                                [sentences_with_clusters.index]])
+            np.linalg.norm(self.embedding - kmeans_model.cluster_centers_[kmeans_model.labels_], axis=1)
+            # np.apply_along_axis(np.linalg.norm, 1,
+            #                     self.embedding[sentences_with_clusters.index]
+            #                     - all_centers[kmeans_model.labels_
+            #                     [sentences_with_clusters.index]])
 
-        # # add the average distance of each cluster as another column for convenience:
-        # sentences_with_clusters["cluster_average_distance_from_center"] = \
-        #     sentences_with_clusters.groupby("cluster")[
-        #         "distance_from_cluster_center"].mean()[
-        #         sentences_with_clusters["cluster"]].values
+        # add the average distance of each cluster as another column for convenience:
+        sentences_with_clusters["cluster_average_distance_from_center"] = \
+            sentences_with_clusters.groupby("cluster")["distance_from_cluster_center"].mean()[
+                sentences_with_clusters["cluster"]].values
 
-        # add the deviation of the distance from cluster center of each
-        # sentence, from the cluster's average distance
-        sentences_with_clusters["deviation_from_mean_dist_from_center"] = \
-            np.abs(sentences_with_clusters.groupby("cluster")[
-                       "distance_from_cluster_center"].mean()[
-                       sentences_with_clusters["cluster"]].values
-                   - sentences_with_clusters["distance_from_cluster_center"])
-
-        # add the standart deviation of the distance from cluster center
+        # add the standard deviation of the distance from cluster center
         # of each cluster as another column for convenience:
         sentences_with_clusters["cluster_distance_std_from_center"] = \
-            sentences_with_clusters.groupby("cluster")[
-                "distance_from_cluster_center"].std()[
+            sentences_with_clusters.groupby("cluster")["distance_from_cluster_center"].std()[
                 sentences_with_clusters["cluster"]].values
 
         self.sentences_with_clusters = sentences_with_clusters

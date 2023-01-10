@@ -31,9 +31,10 @@ class BaseDataset(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def cluster_sentences(self):
+    def cluster_sentences(self, number_of_clusters):
         """
         Clusters all sentences in the dataset, using todo complete chosen model
+        :param number_of_clusters: requested number of clusters
         :return: None
         """
         raise NotImplementedError()

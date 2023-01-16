@@ -18,6 +18,8 @@ class TrainRunner:
         cmd_to_run = inter_path + ' ' + exec_path + ' ' + flags_str
         print('Running command:')
         print(cmd_to_run)
+        es = os.system(cmd_to_run)
+        print('Got exit status ' + str(es))
 
 config_path = sys.argv[1]
 runner = TrainRunner(config_path)

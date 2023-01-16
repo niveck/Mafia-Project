@@ -22,7 +22,8 @@ class TrainConfig:
         per_device_train_batch_size='64',
         gradient_accumulation_steps='1',
         do_train='True',
-        do_eval='True'         
+        do_eval='True',
+        predict_with_generate='True'
     ):
         self.model_name_or_path = model_name_or_path
         self.cache_dir = cache_dir
@@ -52,6 +53,7 @@ class TrainConfig:
         self.gradient_accumulation_steps = gradient_accumulation_steps
         self.do_train = do_train
         self.do_eval = do_eval
+        self.predict_with_generate = predict_with_generate
         
         assert input_column is not None, 'ERROR: please provide input column'
         assert target_column is not None, 'ERROR: please provide target column'

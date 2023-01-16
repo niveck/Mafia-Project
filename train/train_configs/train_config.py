@@ -18,7 +18,7 @@ class TrainConfig:
         max_predict_samples=None,
         num_beams=None,
         output_dir='train_output',
-        num_epochs='5'
+        num_train_epochs='5'
     ):
         self.model_name_or_path = model_name_or_path
         self.cache_dir = cache_dir
@@ -37,9 +37,9 @@ class TrainConfig:
         self.max_predict_samples = max_predict_samples
         self.output_dir = output_dir
         self.num_beams = num_beams
-        if num_epochs is None:
-            num_epochs = '5'
-        self.num_epochs = num_epochs
+        if num_train_epochs is None:
+            num_train_epochs = '5'
+        self.num_train_epochs = num_train_epochs
 
         assert input_column is not None, 'ERROR: please provide input column'
         assert target_column is not None, 'ERROR: please provide target column'

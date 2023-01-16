@@ -10,5 +10,5 @@ class SummTrialConfig(DefaultConfig):
             max_train_samples='100',
             max_eval_samples='100',
             max_predict_samples='100',
-            num_epochs='1'
+            num_train_epochs='1'
         )

@@ -12,7 +12,7 @@ class DefaultConfig(TrainConfig):
         max_train_samples=None,
         max_eval_samples=None,
         max_predict_samples=None,
-        num_epochs=None
+        num_train_epochs=None
         ):
         super().__init__(
             dataset_name=dataset_name,
@@ -30,5 +30,5 @@ class DefaultConfig(TrainConfig):
             max_target_length='128',
             val_max_target_length='128',
             num_beams='3',
-            num_epochs=num_epochs
+            num_train_epochs=num_train_epochs
         )

@@ -17,6 +17,7 @@ class TrainConfig:
         max_eval_samples=None,
         max_predict_samples=None,
         num_beams=None,
+        output_dir='train_output',
         num_epochs='5'
     ):
         self.model_name_or_path = model_name_or_path
@@ -34,6 +35,7 @@ class TrainConfig:
         self.max_train_samples = max_train_samples
         self.max_eval_samples = max_eval_samples
         self.max_predict_samples = max_predict_samples
+        self.output_dir = output_dir
         self.num_beams = num_beams
         if num_epochs is None:
             num_epochs = '5'

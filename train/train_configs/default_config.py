@@ -1,0 +1,34 @@
+from train_configs.train_config import TrainConfig
+
+class DefaultConfig(TrainConfig):
+    def __init__(self,
+        dataset_name=None,
+        dataset_config_name=None,
+        input_column=None,
+        target_column=None,
+        train_file=None,
+        validation_file=None,
+        test_file=None,
+        max_train_samples=None,
+        max_eval_samples=None,
+        max_predict_samples=None,
+        num_epochs=None
+        ):
+        super().__init__(
+            dataset_name=dataset_name,
+            dataset_config_name=dataset_config_name,
+            input_column=input_column,
+            target_column=target_column,
+            train_file=train_file,
+            validation_file=validation_file,
+            test_file=test_file,
+            max_train_samples=max_train_samples,
+            max_eval_samples=max_eval_samples,
+            max_predict_samples=max_predict_samples,
+            cache_dir='hf_cache',
+            max_source_length='512',
+            max_target_length='128',
+            val_max_target_length='128',
+            num_beams='3',
+            num_epochs=num_epochs
+        )

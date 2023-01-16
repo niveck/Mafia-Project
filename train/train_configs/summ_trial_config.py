@@ -10,5 +10,7 @@ class SummTrialConfig(DefaultConfig):
             max_train_samples='100',
             max_eval_samples='100',
             max_predict_samples='100',
-            num_train_epochs='1'
+            num_train_epochs='1',
+            per_device_train_batch_size='1',
+            gradient_accumulation_steps='8'
         )

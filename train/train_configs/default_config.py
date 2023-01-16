@@ -12,7 +12,9 @@ class DefaultConfig(TrainConfig):
         max_train_samples=None,
         max_eval_samples=None,
         max_predict_samples=None,
-        num_train_epochs=None
+        num_train_epochs=None,
+        per_device_train_batch_size=None,
+        gradient_accumulation_steps=None
         ):
         super().__init__(
             dataset_name=dataset_name,
@@ -30,5 +32,7 @@ class DefaultConfig(TrainConfig):
             max_target_length='128',
             val_max_target_length='128',
             num_beams='3',
-            num_train_epochs=num_train_epochs
+            num_train_epochs=num_train_epochs,
+            per_device_train_batch_size=per_device_train_batch_size,
+            gradient_accumulation_steps=gradient_accumulation_steps
         )

@@ -19,6 +19,8 @@ class TrainConfig:
         num_beams=None,
         output_dir='train_output',
         num_train_epochs='5',
+        per_device_train_batch_size='64',
+        gradient_accumulation_steps='1',
         do_train='True',
         do_eval='True'         
     ):
@@ -41,7 +43,13 @@ class TrainConfig:
         self.num_beams = num_beams
         if num_train_epochs is None:
             num_train_epochs = '5'
+        if per_device_train_batch_size is None:
+            per_device_train_batch_size = '64'
+        if gradient_accumulation_steps is None:
+            gradient_accumulation_steps = '1'
         self.num_train_epochs = num_train_epochs
+        self.per_device_train_batch_size = per_device_train_batch_size
+        self.gradient_accumulation_steps = gradient_accumulation_steps
         self.do_train = do_train
         self.do_eval = do_eval
         

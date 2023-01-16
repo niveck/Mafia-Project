@@ -18,7 +18,9 @@ class TrainConfig:
         max_predict_samples=None,
         num_beams=None,
         output_dir='train_output',
-        num_train_epochs='5'
+        num_train_epochs='5',
+        do_train='True',
+        do_eval='True'         
     ):
         self.model_name_or_path = model_name_or_path
         self.cache_dir = cache_dir
@@ -40,7 +42,9 @@ class TrainConfig:
         if num_train_epochs is None:
             num_train_epochs = '5'
         self.num_train_epochs = num_train_epochs
-
+        self.do_train = do_train
+        self.do_eval = do_eval
+        
         assert input_column is not None, 'ERROR: please provide input column'
         assert target_column is not None, 'ERROR: please provide target column'
 

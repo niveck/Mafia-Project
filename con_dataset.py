@@ -19,6 +19,63 @@ COLOR_MAP = plt.cm.gist_rainbow
 NUMBER_OF_CLUSTERS = 100
 
 
+def get_training_format_message(message):
+    """
+    :param message: a pandas Series with "contents" in one of the following formats:
+        type: "info", contents: "Phase Change to Nighttime/Daytime[: Victim - {player name}]"
+        type: "vote", contents: "{player name}: {other player name}"
+        type: "text", contents: "{player name}: {message}"
+    :return: tuple of: (current turn's info, current turn's player's message) in the following formats:
+        "<phase change> {Nighttime/Daytime} [<victim> {player name}] ", ""
+        "<player name> {player name} <vote> ", "{other player name} "
+        "<player name> {player name} <text> ", "{message} "
+    """
+    if message["type"] == "info":
+        tokens = re.search("(Phase Change) to (Nighttime|Daytime)(: Victim - (.*))?", message["contents"])
+        tokened_message = f"<{tokens.group(1).lower()}> {tokens.group(2)} "
+        if tokens.group(3):
+            return tokened_message + f"<victim> {tokens.group(4)} ", ""
+        else:
+            return tokened_message, ""
+    else:  # message["type"] in ("text", "vote")
+        tokens = re.search("(.*?): (.*)", message["contents"])
+        return f"<player name> {tokens.group(1)} <{message['type']}> ", f"{tokens.group(2)} "
+
+
+def create_player_ids_dicts(all_players):
+    """
+    :param all_players: dataframe of all players in a specific game
+    :return: dict of 3 keys: "full", "first", "last",
+             each one has a dict as value, with keys of all possible names (in the relevant format) as a
+             case-insensitive regex, and their ids
+    """
+    player_id_dict_full = dict()
+    player_id_dict_first = dict()
+    player_id_dict_last = dict()
+    for player_id in all_players["id"]:
+        if player_id == 1:  # no name, only network info
+            continue
+        player_name = all_players[all_players['id'] == player_id]['property1'].values.item()
+        player_id_dict_full[fr"\b(?i){player_name}\b"] = f"Player {player_id}"
+        names = player_name.split()
+        player_id_dict_first[fr"\b(?i){names[0]}\b"] = f"Player {player_id}"
+        if len(names) > 1:
+            player_id_dict_last[fr"\b(?i){names[1]}\b"] = f"Player {player_id}"
+    return {"full": player_id_dict_full, "first": player_id_dict_first, "last": player_id_dict_last}
+
+
+def replace_names_with_player_ids(message, player_id_dicts):
+    """
+    :param message: string representing a turn in the game
+    :param player_id_dicts: dict of the format described in the documentation of create_player_ids_dicts
+    :return: message, with names replaces with
+    """
+    for name_format in ["full", "first", "last"]:
+        for name_pattern in player_id_dicts[name_format]:
+            message = re.sub(name_pattern, player_id_dicts[name_format][name_pattern], message)
+    return message
+
+
 class ConDataset(BaseDataset):
     """
     Dataset object, designated to represent the dataset from the Con article
@@ -37,12 +94,10 @@ class ConDataset(BaseDataset):
         self.language_model = None
         self.embedding = None
         self.sentences_with_clusters = None
-        self.game_dirs = [os.path.join(folder_path, subdir)
-                          for subdir in os.listdir(folder_path)
+        self.game_dirs = [os.path.join(folder_path, subdir) for subdir in os.listdir(folder_path)
                           if os.path.isdir(os.path.join(folder_path, subdir))]
         self.raw_sentences = self.extract_raw_sentences()
-        self.all_names, self.first_names, self.last_names = \
-            self.extract_players_names()
+        self.all_names, self.first_names, self.last_names = self.extract_players_names()
         self.sentences_lowered = False
         self.sentences = self.remove_speaker_names_from_all_sentences()
         self.placeholders_for_names = False
@@ -56,6 +111,53 @@ class ConDataset(BaseDataset):
         """
         return pd.concat([pd.read_csv(os.path.join(game, table_name + ".csv"))
                           for game in self.game_dirs], ignore_index=True)
+
+    def get_data_of_winning_players_by_role(self, role, use_player_ids=False):
+        """
+        Gets all the games' data where players with `role` have won, for all of those players
+        :param role: either 'mafia' / 'mafioso' or 'bystanders' / 'bystander'
+        :param use_player_ids: whether to use players' ids instead of names
+        :return: the requested data as a dataframe
+        """
+        training_data = pd.DataFrame()
+        player_id_dicts = dict()
+        team = "mafia" if role in ("mafia", "mafioso") else "bystanders"
+        role = "mafioso" if role in ("mafia", "mafioso") else "bystander"
+        for game in self.game_dirs:
+            game_id = os.path.basename(game)
+            # column of "property2" in network.csv (which has only 1 rows) is the group who won
+            if pd.read_csv(os.path.join(game, "network.csv")).loc[0]["property2"] == team:
+                all_messages = pd.read_csv(os.path.join(game, "info.csv")).sort_values("id")
+                all_players = pd.read_csv(os.path.join(game, "node.csv"))
+                if use_player_ids:
+                    player_id_dicts = create_player_ids_dicts(all_players)
+                winning_players_ids = all_players[(all_players.type == role) & all_players.property2]["id"]
+                for player_id in winning_players_ids:
+                    # "property1" in node.csv is the player name
+                    player_name = all_players[all_players.id == player_id]["property1"].values.item()
+                    accumulated_messages = ""
+                    is_it_nighttime = True
+                    for index, message in all_messages.iterrows():
+                        if message["type"] == "info":
+                            if "Nighttime" in message["contents"]: is_it_nighttime = True
+                            elif "Daytime" in message["contents"]: is_it_nighttime = False
+                        if is_it_nighttime and role == "bystander":
+                            continue
+                        current_turn_info, current_turn_player_message = get_training_format_message(message)
+                        if use_player_ids:
+                            current_turn_info = replace_names_with_player_ids(
+                                current_turn_info, player_id_dicts)
+                            current_turn_player_message = replace_names_with_player_ids(
+                                current_turn_player_message, player_id_dicts)
+                            player_name = replace_names_with_player_ids(player_name, player_id_dicts)
+                        accumulated_messages += current_turn_info
+                        if message["origin_id"] == player_id:
+                            new_row = {"game_id": game_id, "player_name": player_name,
+                                       "accumulated_messages": accumulated_messages,
+                                       "current_turn_player_message": current_turn_player_message}
+                            training_data = training_data.append(new_row, ignore_index=True)
+                        accumulated_messages += current_turn_player_message  # empty str if only info
+        return training_data
 
     def extract_players_names(self):
         """
@@ -102,8 +204,7 @@ class ConDataset(BaseDataset):
         :param names: list of strings representing names
         :return: a regex pattern for all case versions of all names
         """
-        return "|".join([rf"\b{name}\b|\b{name.lower()}\b|\b{name.upper()}\b"
-                         for name in names])
+        return "|".join([rf"\b{name}\b|\b{name.lower()}\b|\b{name.upper()}\b" for name in names])
 
     def replace_name_with_placeholder(self, sentence):
         """
@@ -114,8 +215,7 @@ class ConDataset(BaseDataset):
         first_names_pattern = ConDataset.names_pattern(self.first_names)
         last_names_pattern = ConDataset.names_pattern(self.last_names)
         return re.sub(last_names_pattern, self.LASTNAME_PLACE_HOLDER,
-                      re.sub(first_names_pattern, self.FIRSTNAME_PLACE_HOLDER,
-                             sentence))
+                      re.sub(first_names_pattern, self.FIRSTNAME_PLACE_HOLDER, sentence))
 
     def replace_all_names_with_placeholders(self):
         """
@@ -123,8 +223,7 @@ class ConDataset(BaseDataset):
         self.placeholders_for_names field
         :return: None
         """
-        self.sentences = self.sentences.apply(
-            self.replace_name_with_placeholder)
+        self.sentences = self.sentences.apply(self.replace_name_with_placeholder)
         self.placeholders_for_names = True
 
     def lower_all_sentences(self):
@@ -135,11 +234,7 @@ class ConDataset(BaseDataset):
         self.sentences = self.sentences.apply(lambda x: x.lower())
         self.sentences_lowered = True
 
-    def find_identical_sentences_with_different_case(self,
-                                                     dest_path="./double_case"
-                                                               "_form_"
-                                                               "sentences"
-                                                               ".txt"):
+    def find_identical_sentences_with_different_case(self, dest_path="./double_case_form_sentences.txt"):
         """
         Finds and counts all sentences that appear in both all-lower case and
         not-all-lower case forms. Used to determine how much data we will lose
@@ -170,10 +265,8 @@ class ConDataset(BaseDataset):
         print(f"{len(sentences_with_both_cases)} unique sentences were found."
               f"\nFull results were saved in {dest_path}")
 
-    def find_sentences_with_str_from_group(self, dest_path, pattern=None,
-                                           group_of_strs=None,
-                                           strs_are_words=False,
-                                           output_string_beginning=None):
+    def find_sentences_with_str_from_group(self, dest_path, pattern=None, group_of_strs=None,
+                                           strs_are_words=False, output_string_beginning=None):
         """
         Finds and counts all unique sentences that contain at least one string
         of the group or the pattern. Saves them in dest_path
@@ -186,11 +279,9 @@ class ConDataset(BaseDataset):
         :return: None
         """
         if not group_of_strs and not pattern:
-            raise RuntimeError("Method must get either group_of_strs or "
-                               "pattern")
+            raise RuntimeError("Method must get either group_of_strs or  pattern")
         if not group_of_strs and strs_are_words:
-            warnings.warn("strs_are_words=True has no meaning when"
-                          "group_of_strs is None")
+            warnings.warn("strs_are_words=True has no meaning when group_of_strs is None")
         if group_of_strs and pattern:
             warnings.warn("Both group_of_strs and pattern were supplied,"
                           "so only group_of_strs will be taken into account")
@@ -209,26 +300,20 @@ class ConDataset(BaseDataset):
         if not output_string_beginning:
             output_string_beginning = "All sentence with requested strings:"
         amount = len(sentences_with_words)
-        output_string = output_string_beginning + f"\n\nTotal amount: " \
-                                                  f"{amount}\n\nAll strings " \
-                                                  f"and their counts " \
-                                                  f"(sorted):\n"
+        output_string = output_string_beginning + f"\n\nTotal amount: {amount}\n\nAll strings and their " \
+                                                  f"counts (sorted):\n"
         for word_count in sorted(all_words.items(),
                                  key=lambda item: item[1], reverse=True):
             output_string += f"{word_count[0]}: {word_count[1]}\n"
-        output_string += "\nAll sentences: (Each sentence is followed by its" \
-                         " requested strings)\n\n"
+        output_string += "\nAll sentences: (Each sentence is followed by its requested strings)\n\n"
         for sentence_and_words in sentences_with_words:
             output_string += sentence_and_words[0] + "\nStrings: " + \
                              ", ".join(sentence_and_words[1]) + "\n\n"
         with open(dest_path, "w") as f:
             f.write(output_string)
-        print(f"{amount} unique sentences were found."
-              f"\nFull results were saved in {dest_path}")
+        print(f"{amount} unique sentences were found.\nFull results were saved in {dest_path}")
 
-    def find_sentences_with_all_upper_words(self, dest_path="./sentences_with"
-                                                            "_upper_words."
-                                                            "txt"):
+    def find_sentences_with_all_upper_words(self, dest_path="./sentences_with_upper_words.txt"):
         """
         Finds all unique sentences that contain all-upper case words.
         Saves them in dest_path
@@ -238,10 +323,8 @@ class ConDataset(BaseDataset):
         if self.sentences_lowered:
             raise RuntimeError("All sentences were already lowered")
         output_string_beginning = "Sentences with all-upper case words:"
-        self.find_sentences_with_str_from_group(dest_path,
-                                                pattern=UPPER_WORDS_PATTERN,
-                                                output_string_beginning=
-                                                output_string_beginning)
+        self.find_sentences_with_str_from_group(dest_path, pattern=UPPER_WORDS_PATTERN,
+                                                output_string_beginning=output_string_beginning)
 
     def embed_sentences(self):
         """
@@ -255,8 +338,7 @@ class ConDataset(BaseDataset):
             print("Language Model downloaded successfully")
         self.embedding = self.language_model.encode(self.sentences.to_list())
 
-    def cluster_sentences(self, number_of_clusters,
-                          export_to_csv=True):
+    def cluster_sentences(self, number_of_clusters, export_to_csv=True):
         """
         Clusters all sentences by their embedding,
         using number_of_clusters-Means clustering
@@ -278,10 +360,10 @@ class ConDataset(BaseDataset):
         # calculate distance from cluster center of each sentence:
         sentences_with_clusters["distance_from_cluster_center"] = \
             np.linalg.norm(self.embedding - kmeans_model.cluster_centers_[kmeans_model.labels_], axis=1)
-            # np.apply_along_axis(np.linalg.norm, 1,
-            #                     self.embedding[sentences_with_clusters.index]
-            #                     - all_centers[kmeans_model.labels_
-            #                     [sentences_with_clusters.index]])
+        # np.apply_along_axis(np.linalg.norm, 1,
+        #                     self.embedding[sentences_with_clusters.index]
+        #                     - all_centers[kmeans_model.labels_
+        #                     [sentences_with_clusters.index]])
 
         # add the average distance of each cluster as another column for convenience:
         sentences_with_clusters["cluster_average_distance_from_center"] = \
@@ -297,12 +379,11 @@ class ConDataset(BaseDataset):
         self.sentences_with_clusters = sentences_with_clusters
 
         if export_to_csv:
-            sentences_with_clusters.to_csv(
-                f"{number_of_clusters}_clusters.csv")
+            sentences_with_clusters.to_csv(f"{number_of_clusters}_clusters.csv")
 
         return kmeans_model.labels_
 
-    def reduce_dimension_and_plot_clusters(self, dimension):
+    def reduce_dimension_and_plot_clusters(self, dimension):  # todo maybe make it a method of BaseDataset (also in Con)
         """
         Reduces dimension and plots the clusters
         :param dimension: either 3 or 2

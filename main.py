@@ -1,8 +1,11 @@
 import string
 from con_dataset import ConDataset
+from mafiasum_dataset import MafiascumDataset
+
 # from docopt import docopt  # todo use this for usage and argv instead of paths
 
 CON_DATASET_DIR_PATH = r"./datasets/Con article"
+MAFIASCUM_DATASET_DIR_PATH = r"./datasets/Mafiascum"
 EMOJIS = [":)", ":(", "(:", "):", ":D", "D:",
           "XD", ":P", "XP", "P:", ":O", "O:",
           ":/", "\\:"]
@@ -20,7 +23,10 @@ NUMBER_OF_CLUSTERS = 100
 REDUCED_DIMENSION_3D = 3
 
 
-def main():
+def con_dataset_main():
+    """
+    Main method runs for the Con dataset
+    """
     data = ConDataset(CON_DATASET_DIR_PATH)
     data.replace_all_names_with_placeholders()
     # data.find_identical_sentences_with_different_case()
@@ -46,5 +52,32 @@ def main():
     data.reduce_dimension_and_plot_clusters(dimension=REDUCED_DIMENSION_3D)
 
 
+def mafiascum_dataset_main():
+    """
+    Main method runs for the Con dataset
+    """
+    data = MafiascumDataset(MAFIASCUM_DATASET_DIR_PATH)
+    raw_dataset = data.raw_dataset
+    print("breaking point")
+
+
+def preprocess_con_data_for_training():
+    """
+    Saves csv files with tables for training model over the Con Dataset
+    """
+    data = ConDataset(CON_DATASET_DIR_PATH)
+    bystanders_training_data_with_names = data.get_data_of_winning_players_by_role("bystander")
+    bystanders_training_data_with_ids = data.get_data_of_winning_players_by_role("bystander",
+                                                                                 use_player_ids=True)
+    bystanders_training_data_with_names.to_csv("bystanders_training_data_with_names.csv")
+    bystanders_training_data_with_ids.to_csv("bystanders_training_data_with_ids.csv")
+    mafia_training_data_with_names = data.get_data_of_winning_players_by_role("mafia")
+    mafia_training_data_with_ids = data.get_data_of_winning_players_by_role("mafia", use_player_ids=True)
+    mafia_training_data_with_names.to_csv("mafia_training_data_with_names.csv")
+    mafia_training_data_with_ids.to_csv("mafia_training_data_with_ids.csv")
+
+
 if __name__ == "__main__":
-    main()
+    # con_dataset_main()
+    # mafiascum_dataset_main()
+    preprocess_con_data_for_training()

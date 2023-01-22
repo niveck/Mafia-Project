@@ -17,6 +17,7 @@ class TrainConfig:
         max_eval_samples=None,
         max_predict_samples=None,
         num_beams=None,
+        learning_rate=None,
         output_dir='train_output',
         num_train_epochs='5',
         per_device_train_batch_size='64',
@@ -42,6 +43,7 @@ class TrainConfig:
         self.max_predict_samples = max_predict_samples
         self.output_dir = output_dir
         self.num_beams = num_beams
+        self.learning_rate = learning_rate
         if num_train_epochs is None:
             num_train_epochs = '5'
         if per_device_train_batch_size is None:

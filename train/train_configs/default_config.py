@@ -29,7 +29,7 @@ class DefaultConfig(TrainConfig):
             max_eval_samples=max_eval_samples,
             max_predict_samples=max_predict_samples,
             cache_dir='hf_cache',
-            max_source_length='2048',
+            max_source_length='1024',
             max_target_length='64',
             val_max_target_length='128',
             num_beams='3',

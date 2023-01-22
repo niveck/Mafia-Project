@@ -3,8 +3,8 @@ from train_configs.default_config import DefaultConfig
 class T5MultitaskBystanderWithNamesConfig(DefaultConfig):
     def __init__(self):
         super().__init__(
-            train_file='bystanders_training_data_with_names',
-            validation_file='bystanders_val_data_with_names',
+            train_file='bystanders_training_data_with_names.csv',
+            validation_file='bystanders_val_data_with_names.csv',
             input_column='accumulated_messages',
             target_column='current_turn_player_message',
             num_train_epochs='5',

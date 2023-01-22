@@ -1,6 +1,6 @@
 from train_configs.default_config import DefaultConfig
 
-class SummTrialConfig(DefaultConfig):
+class T5MultitaskBystanderWithNamesConfig(DefaultConfig):
     def __init__(self):
         super().__init__(
             train_file='bystanders_training_data_with_names',

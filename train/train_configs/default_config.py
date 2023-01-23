@@ -15,7 +15,8 @@ class DefaultConfig(TrainConfig):
         num_train_epochs=None,
         learning_rate=None,
         per_device_train_batch_size=None,
-        gradient_accumulation_steps=None
+        gradient_accumulation_steps=None,
+        output_dir='train_output',
         ):
         super().__init__(
             dataset_name=dataset_name,
@@ -36,5 +37,6 @@ class DefaultConfig(TrainConfig):
             num_train_epochs=num_train_epochs,
             learning_rate=learning_rate,
             per_device_train_batch_size=per_device_train_batch_size,
-            gradient_accumulation_steps=gradient_accumulation_steps
+            gradient_accumulation_steps=gradient_accumulation_steps,
+            output_dir=output_dir
         )

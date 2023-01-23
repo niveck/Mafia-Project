@@ -23,7 +23,7 @@ class TrainConfig:
         per_device_train_batch_size='64',
         gradient_accumulation_steps='1',
         do_train='True',
-        do_eval='True',
+        do_eval='False',
         predict_with_generate='True'
     ):
         self.model_name_or_path = model_name_or_path

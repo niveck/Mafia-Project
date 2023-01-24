@@ -407,7 +407,7 @@ def main():
         use_auth_token=True if model_args.use_auth_token else None,
     )
 
-    tokenizer.add_tokens(['<player name>', '<phase change>', '<vote>', '<victim>', '<text>'])
+    tokenizer.add_special_tokens({'additional_special_tokens': ['<player name>', '<phase change>', '<vote>', '<victim>', '<text>']})
 
     # We resize the embeddings only when necessary to avoid index errors. If you are creating a model from scratch
     # on a small vocab and want a smaller embedding size, remove this test.

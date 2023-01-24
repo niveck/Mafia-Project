@@ -10,7 +10,7 @@ def evaluate_on_game(model, sample_list, player_name):
 	with open(player_name + '.csv', 'w') as fp:
 		cur_pred_ind = 0
 		my_writer = writer(fp)
-		my_writer.write_row(['Type', 'Player name', 'Action', 'Prediction'])
+		my_writer.writerow(['Type', 'Player name', 'Action', 'Prediction'])
 		full_text = sample_list[-1][0] + sample_list[-1][1]
 		text_parts = full_text.split('<')
 		
@@ -24,7 +24,7 @@ def evaluate_on_game(model, sample_list, player_name):
 				assert 'Daytime' in cur_part
 			elif cur_part.startswith('victim'):
 				victim_name = cur_part.split('> ')[1]
-				my_writer.write_row(['victim', victim_name, '', ''])
+				my_writer.writerow(['victim', victim_name, '', ''])
 				in_phase_change = False
 			elif in_phase_change:
 				assert False
@@ -32,12 +32,12 @@ def evaluate_on_game(model, sample_list, player_name):
 				cur_player = cur_part.split('> ')[1]
 			elif cur_part.startswith('text'):
 				text = cur_part.split('> ')[1]
-				my_writer.write_row(['text', player_name, text, preds[cur_pred_ind]])
+				my_writer.writerow(['text', player_name, text, preds[cur_pred_ind]])
 				cur_pred_ind += 1
 				cur_player = None
 			elif cur_part.startswith('vote'):
 				vote = cur_part.split('> ')[1]
-				my_writer.write_row(['vote', player_name, vote, ''])
+				my_writer.writerow(['vote', player_name, vote, ''])
 				cur_player = None
 			elif cur_player is not None:
 				assert False

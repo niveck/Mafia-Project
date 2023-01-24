@@ -1,4 +1,18 @@
 from transformers import AutoConfig, AutoModelForSeq2SeqLM, AutoTokenizer
+from csv import reader
+
+def load_dataset_from_csv(path):
+    res = []
+    with open(path, 'r') as fp:
+        my_reader = reader(fp)
+        first = True
+        for line in my_reader:
+            if first:
+                first = False
+                continue
+            res.append((line[3], line[4]))
+
+    return res
 
 class Demonstrator:
     def __init__(self, model_path):

@@ -32,12 +32,15 @@ def evaluate_on_game(model, sample_list, player_name):
 				cur_player = cur_part.split('> ')[1]
 			elif cur_part.startswith('text'):
 				text = cur_part.split('> ')[1]
-				my_writer.writerow(['text', player_name, text, preds[cur_pred_ind]])
-				cur_pred_ind += 1
-				cur_player = None
-			elif cur_part.startswith('vote'):
+                                if cur_player == player_name:
+                                    my_writer.writerow(['text', cur_player, text, preds[cur_pred_ind]])
+                                    cur_pred_ind += 1
+                                else:
+                                    my_writer.writerow(['text', cur_player, text, ''])
+                                cur_player = None
+                        elif cur_part.startswith('vote'):
 				vote = cur_part.split('> ')[1]
-				my_writer.writerow(['vote', player_name, vote, ''])
+				my_writer.writerow(['vote', cur_player, vote, ''])
 				cur_player = None
 			elif cur_player is not None:
 				assert False

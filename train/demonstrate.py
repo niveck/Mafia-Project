@@ -12,5 +12,6 @@ class Demonstrator:
         return model, tokenizer
 
     def predict(self, input_text):
-        inputs = self.tokenizer(input_text)
-        return inputs
+        input_ids = self.tokenizer(input_text, return_tensors="pt").input_ids
+        outputs = self.model.generate(input_ids)
+        return self.tokenizer.decode(outputs[0], skip_special_tokens=True)

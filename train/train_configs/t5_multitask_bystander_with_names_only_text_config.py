@@ -3,7 +3,7 @@ from train_configs.default_config import DefaultConfig
 class T5MultitaskBystanderWithNamesOnlyTextConfig(DefaultConfig):
     def __init__(self):
         super().__init__(
-            train_file='bystanders_training_data_with_names.csv',
+            train_file='bystanders_training_data_with_names_only_text.csv',
             validation_file='bystanders_val_data_with_names.csv',
             input_column='accumulated_messages',
             target_column='current_turn_player_message',

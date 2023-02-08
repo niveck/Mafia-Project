@@ -24,7 +24,7 @@ def load_game_from_csv(path, game_id):
                 first = False
                 continue
             if line[1] == game_id:
-                res.append((line[3], line[4]))
+                res.append((line[3], line[4], line[2]))
 
     return res
 

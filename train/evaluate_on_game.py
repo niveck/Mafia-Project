@@ -7,10 +7,14 @@ def evaluate_on_game(model_path, dataset_path, game_id):
 
     preds = []
     predicted_players = []
+    count = 1
     for source, _, player_name in sample_list:
         if source.strip().endswith('<text>'):
-            preds.append(model.predict(source))
+            prediction = model.predict(source)
+            preds.append((prediction, player_name))
             predicted_players.append(player_name)
+            print('Prediction ' + str(count) + ': player "' + player_name + '" says "' + prediction + '"')
+            count += 1
     predicted_players = {x: True for x in predicted_players}
 
     csv_name = game_id + '.csv'
@@ -40,7 +44,8 @@ def evaluate_on_game(model_path, dataset_path, game_id):
             elif cur_part.startswith('text'):
                 text = cur_part.split('> ')[1]
                 if cur_player in predicted_players:
-                    my_writer.writerow(['text', cur_player, text, preds[cur_pred_ind]])
+                    assert cur_player == preds[cur_pred_ind][1], 'Error: for prediction ' + str(cur_pred_ind+1) + ', current player name "' + cur_player + '" differs from recorded player name "' + preds[cur_pred_ind][1] + '"'
+                    my_writer.writerow(['text', cur_player, text, preds[cur_pred_ind][0]])
                     cur_pred_ind += 1
                 else:
                     my_writer.writerow(['text', cur_player, text, ''])

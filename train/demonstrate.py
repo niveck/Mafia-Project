@@ -10,7 +10,7 @@ def load_dataset_from_csv(path):
             if first:
                 first = False
                 continue
-            res.append((line[3], line[4]))
+            res.append((line[3], line[4], line[2]))
 
     return res
 

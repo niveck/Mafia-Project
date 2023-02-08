@@ -6,9 +6,12 @@ def evaluate_on_game(model_path, dataset_path, game_id):
     sample_list = load_game_from_csv(dataset_path, game_id)
 
     preds = []
-    for source, _ in sample_list:
+    predicted_players = []
+    for source, _, player_name in sample_list:
         if source.strip().endswith('<text>'):
             preds.append(model.predict(source))
+            predicted_players.append(player_name)
+    predicted_players = {x: True for x in predicted_players}
 
     csv_name = game_id + '.csv'
     with open(csv_name, 'w') as fp:
@@ -36,8 +39,11 @@ def evaluate_on_game(model_path, dataset_path, game_id):
                 cur_player = cur_part.split('> ')[1].strip()
             elif cur_part.startswith('text'):
                 text = cur_part.split('> ')[1]
-                my_writer.writerow(['text', cur_player, text, preds[cur_pred_ind]])
-                cur_pred_ind += 1
+                if cur_player in predicted_players:
+                    my_writer.writerow(['text', cur_player, text, preds[cur_pred_ind]])
+                    cur_pred_ind += 1
+                else:
+                    my_writer.writerow(['text', cur_player, text, ''])
                 cur_player = None
             elif cur_part.startswith('vote'):
                 vote = cur_part.split('> ')[1]

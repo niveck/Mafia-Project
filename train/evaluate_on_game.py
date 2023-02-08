@@ -4,6 +4,7 @@ from train.demonstrate import load_game_from_csv, Demonstrator
 def evaluate_on_game(model_path, dataset_path, game_id):
     model = Demonstrator(model_path)
     sample_list = load_game_from_csv(dataset_path, game_id)
+    sample_list.sort(key=lambda x:len(x[0]))
 
     preds = []
     predicted_players = []

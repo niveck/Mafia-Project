@@ -14,6 +14,20 @@ def load_dataset_from_csv(path):
 
     return res
 
+def load_game_from_csv(path, game_id):
+    res = []
+    with open(path, 'r') as fp:
+        my_reader = reader(fp)
+        first = True
+        for line in my_reader:
+            if first:
+                first = False
+                continue
+            if line[1] == game_id:
+                res.append((line[3], line[4]))
+
+    return res
+
 class Demonstrator:
     def __init__(self, model_path):
         self.model, self.tokenizer = self.load_model(model_path)

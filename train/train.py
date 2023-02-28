@@ -407,6 +407,8 @@ def main():
         use_auth_token=True if model_args.use_auth_token else None,
     )
 
+    tokenizer.add_special_tokens({'additional_special_tokens': ['<player name>', '<phase change>', '<vote>', '<victim>', '<text>']})
+
     # We resize the embeddings only when necessary to avoid index errors. If you are creating a model from scratch
     # on a small vocab and want a smaller embedding size, remove this test.
     embedding_size = model.get_input_embeddings().weight.shape[0]
@@ -520,6 +522,10 @@ def main():
                 load_from_cache_file=not data_args.overwrite_cache,
                 desc="Running tokenizer on train dataset",
             )
+        # Filter long samples
+        print('Train set size before long samples filtering: ' + str(len(train_dataset)))
+        train_dataset = train_dataset.filter(lambda x:len(x['input_ids']) < data_args.max_source_length and len(x['labels']) < data_args.max_target_length)
+        print('Train set size after long samples filtering: ' + str(len(train_dataset)))
 
     if training_args.do_eval:
         max_target_length = data_args.val_max_target_length
@@ -538,6 +544,10 @@ def main():
                 load_from_cache_file=not data_args.overwrite_cache,
                 desc="Running tokenizer on validation dataset",
             )
+        # Filter long samples
+        print('Val set size before long samples filtering: ' + str(len(eval_dataset)))
+        eval_dataset = eval_dataset.filter(lambda x:len(x['input_ids']) < data_args.max_source_length and len(x['labels']) < data_args.max_target_length)
+        print('Val set size after long samples filtering: ' + str(len(eval_dataset)))
 
     if training_args.do_predict:
         max_target_length = data_args.val_max_target_length
@@ -556,6 +566,10 @@ def main():
                 load_from_cache_file=not data_args.overwrite_cache,
                 desc="Running tokenizer on prediction dataset",
             )
+        # Filter long samples
+        print('Test set size before long samples filtering: ' + str(len(predict_dataset)))
+        predict_dataset = predict_dataset.filter(lambda x:len(x['input_ids']) < data_args.max_source_length and len(x['labels']) < data_args.max_target_length)
+        print('Test set size after long samples filtering: ' + str(len(predict_dataset)))
 
     # Data collator
     label_pad_token_id = -100 if data_args.ignore_pad_token_for_loss else tokenizer.pad_token_id

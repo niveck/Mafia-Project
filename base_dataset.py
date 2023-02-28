@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 
+NUMBER_OF_BINS = 25
+
 
 class BaseDataset(ABC):
     """
@@ -14,6 +16,7 @@ class BaseDataset(ABC):
         :return: a new dataset object
         """
         self.folder_path = folder_path
+        self.sentences = None
 
     @abstractmethod
     def extract_players_names(self):
@@ -29,6 +32,12 @@ class BaseDataset(ABC):
         :return: todo decide what data structure of the sentences will be returned
         """
         raise NotImplementedError()
+
+    def sentence_length_histogram(self):
+        """
+        Presents a histogram for lengths of sentences in dataset, by number of words
+        """
+        self.sentences.apply(lambda sentence: len(sentence.split(" "))).plot.hist(bins=NUMBER_OF_BINS)
 
     @abstractmethod
     def cluster_sentences(self, number_of_clusters):

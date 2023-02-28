@@ -159,6 +159,44 @@ class ConDataset(BaseDataset):
                         accumulated_messages += current_turn_player_message  # empty str if only info
         return training_data
 
+    def get_data_for_all_players(self, include_votes=True, use_player_ids=False):
+        """
+        Gets all the games' data in a training-suitable format
+        :param include_votes: whether to include votes or just text
+        :param use_player_ids: whether to use players' ids instead of names
+        :return: the requested data as a dataframe
+        """
+        training_data = pd.DataFrame()
+        player_id_dicts = dict()
+        for game in self.game_dirs:
+            game_id = os.path.basename(game)
+            all_messages = pd.read_csv(os.path.join(game, "info.csv")).sort_values("id")
+            all_players = pd.read_csv(os.path.join(game, "node.csv"))
+            if use_player_ids:
+                player_id_dicts = create_player_ids_dicts(all_players)
+            for player_id in all_players["id"]:
+                # "property1" in node.csv is the player name
+                player_name = all_players[all_players.id == player_id]["property1"].values.item()
+                if type(player_name) != str:  # probably the network's main node, not a real player
+                    continue
+                accumulated_messages = ""
+                for index, message in all_messages.iterrows():
+                    current_turn_info, current_turn_player_message = get_training_format_message(message)
+                    if use_player_ids:
+                        current_turn_info = replace_names_with_player_ids(
+                            current_turn_info, player_id_dicts)
+                        current_turn_player_message = replace_names_with_player_ids(
+                            current_turn_player_message, player_id_dicts)
+                        player_name = replace_names_with_player_ids(player_name, player_id_dicts)
+                    accumulated_messages += current_turn_info
+                    if current_turn_player_message and (include_votes or "<vote>" not in current_turn_info):
+                        new_row = {"game_id": game_id, "player_name": player_name,
+                                   "accumulated_messages": accumulated_messages,
+                                   "current_turn_player_message": current_turn_player_message}
+                        training_data = training_data.append(new_row, ignore_index=True)
+                    accumulated_messages += current_turn_player_message  # empty str if only info
+        return training_data
+
     def extract_players_names(self):
         """
         :return: 3 sets of all unique names in the game: full names, only first

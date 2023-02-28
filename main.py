@@ -61,9 +61,9 @@ def mafiascum_dataset_main():
     print("breaking point")
 
 
-def preprocess_con_data_for_training():
+def preprocess_con_data_for_training_by_role():
     """
-    Saves csv files with tables for training model over the Con Dataset
+    Saves csv files with tables for training model over the Con Dataset, with messages distinguished by role
     """
     data = ConDataset(CON_DATASET_DIR_PATH)
     bystanders_training_data_with_names = data.get_data_of_winning_players_by_role("bystander")
@@ -77,7 +77,25 @@ def preprocess_con_data_for_training():
     mafia_training_data_with_ids.to_csv("mafia_training_data_with_ids.csv")
 
 
+def preprocess_all_con_data_for_training():
+    """
+    Saves csv files with tables for training model over the Con Dataset, with no distinction by role
+    """
+    data = ConDataset(CON_DATASET_DIR_PATH)
+    # get_data_for_all_players
+    path_prefix = "./training_data/training_by_all_data_with_or_without_votes_february_2023/"
+    data.get_data_for_all_players(include_votes=True, use_player_ids=True).to_csv(
+        path_prefix + "train_and_validation_data_combined_with_votes_with_ids.csv")
+    data.get_data_for_all_players(include_votes=False, use_player_ids=True).to_csv(
+        path_prefix + "train_and_validation_data_combined_without_votes_with_ids.csv")
+    data.get_data_for_all_players(include_votes=True, use_player_ids=False).to_csv(
+        path_prefix + "train_and_validation_data_combined_with_votes_with_names.csv")
+    data.get_data_for_all_players(include_votes=False, use_player_ids=False).to_csv(
+        path_prefix + "train_and_validation_data_combined_without_votes_with_names.csv")
+
+
 if __name__ == "__main__":
     # con_dataset_main()
     # mafiascum_dataset_main()
-    preprocess_con_data_for_training()
+    # preprocess_con_data_for_training_by_role()
+    preprocess_all_con_data_for_training()

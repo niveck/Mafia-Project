@@ -33,7 +33,7 @@ def evaluate_on_game(model_path, dataset_path, game_id):
                 continue
             elif cur_part.startswith('phase change'):
                 in_phase_change = True
-                assert 'Daytime' in cur_part
+                assert 'Daytime' in cur_part or 'Nighttime' in cur_part
             elif cur_part.startswith('victim'):
                 victim_name = cur_part.split('> ')[1]
                 my_writer.writerow(['victim', victim_name, '', ''])

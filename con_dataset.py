@@ -189,7 +189,8 @@ class ConDataset(BaseDataset):
                             current_turn_player_message, player_id_dicts)
                         player_name = replace_names_with_player_ids(player_name, player_id_dicts)
                     accumulated_messages += current_turn_info
-                    if current_turn_player_message and (include_votes or "<vote>" not in current_turn_info):
+                    if message["origin_id"] == player_id and current_turn_player_message and \
+                            (include_votes or "<vote>" not in current_turn_info):
                         new_row = {"game_id": game_id, "player_name": player_name,
                                    "accumulated_messages": accumulated_messages,
                                    "current_turn_player_message": current_turn_player_message}

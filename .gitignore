@@ -4,3 +4,6 @@ venv/
 tries/
 /*.txt
 *~
+train_script
+train_output_*
+hf_cache/*

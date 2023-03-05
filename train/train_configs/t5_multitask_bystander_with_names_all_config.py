@@ -11,5 +11,5 @@ class T5MultitaskBystanderWithNamesAllConfig(DefaultConfig):
             per_device_train_batch_size='1',
             gradient_accumulation_steps='8',
             learning_rate='1e-4',
-            output_dir='train_output_bystander_ids'
+            output_dir='train_output_bystander_names_all'
         )

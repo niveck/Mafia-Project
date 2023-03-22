@@ -1,9 +1,9 @@
 import torch
 
 def extract_loss_per_token(model, tokenizer, text):
-    cur_ids_list = []
     loss_list = []
     all_input_ids = tokenizer(text, return_tensors="pt").input_ids
+    cur_ids_list = [all_input_ids[0, 0]]
     while len(cur_ids_list) < all_input_ids.shape[1]:
         cur_input_ids = torch.tensor([cur_ids_list])
         next_token = all_input_ids[0, len(cur_ids_list)].item()

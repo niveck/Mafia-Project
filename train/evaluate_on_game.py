@@ -1,5 +1,6 @@
 from csv import writer
 from train.demonstrate import load_game_from_csv, Demonstrator
+from metrics.loss_metric import loss_metric
 
 def evaluate_on_game(model_path, dataset_path, game_id):
     model = Demonstrator(model_path)
@@ -9,13 +10,16 @@ def evaluate_on_game(model_path, dataset_path, game_id):
     preds = []
     predicted_players = []
     count = 1
-    for source, _, player_name in sample_list:
+    loss_sum = 0
+    for source, target, player_name in sample_list:
         if source.strip().endswith('<text>'):
             prediction = model.predict(source)
             preds.append((prediction, player_name))
             predicted_players.append(player_name)
             print('Prediction ' + str(count) + ': player "' + player_name + '" says "' + prediction + '"')
+            loss_sum += loss_metric(model.model, model.tokenizer, source, target)
             count += 1
+    print('Mean loss: ' + str(loss_sum/(count - 1)))
     predicted_players = {x: True for x in predicted_players}
 
     csv_name = game_id + '.csv'

@@ -11,12 +11,8 @@ def calc_metrics(model, tokenizer, prefix, text):
     logits = outputs.logits[0, :, :]
     probs = torch.softmax(logits, dim=1)
     text_ids = tokenizer(text).input_ids[:-1]
-    seq_prob = 1
-    cur_ind = 0
-    while cur_ind < len(text_ids):
-        cur_id = text_ids[cur_ind]
-        seq_prob *= probs[cur_ind, cur_id]
-        cur_ind += 1
-    perplexity = (1/seq_prob)**(1/len(text_ids))
+    log_prob_sum = sum([torch.log(probs[i, text_ids[i]]) for i in range(len(text_ids))])
+    log_perplexity = ((-1)/len(text_ids))*log_prob_sum
+    perplexity = torch.exp(log_perplexity)
 
     return loss, perplexity

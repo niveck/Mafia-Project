@@ -1,6 +1,6 @@
 from csv import writer
 from train.demonstrate import load_game_from_csv, Demonstrator
-from metrics.loss_metric import loss_metric
+from metrics.calc_metrics import calc_metrics
 
 def evaluate_on_game(model_path, dataset_path, game_id):
     model = Demonstrator(model_path)
@@ -11,15 +11,19 @@ def evaluate_on_game(model_path, dataset_path, game_id):
     predicted_players = []
     count = 1
     loss_sum = 0
+    perplexity_sum = 0
     for source, target, player_name in sample_list:
         if source.strip().endswith('<text>'):
             prediction = model.predict(source)
             preds.append((prediction, player_name))
             predicted_players.append(player_name)
             print('Prediction ' + str(count) + ': player "' + player_name + '" says "' + prediction + '"')
-            loss_sum += loss_metric(model.model, model.tokenizer, source, target)
+            cur_loss, cur_perplexity = calc_metrics(model.model, model.tokenizer, source, target)
+            loss_sum += cur_loss
+            perplexity_sum += cur_perplexity
             count += 1
     print('Mean loss: ' + str(loss_sum/(count - 1)))
+    print('Mean perplexity: ' + str(perplexity_sum/(count - 1)))
     predicted_players = {x: True for x in predicted_players}
 
     csv_name = game_id + '.csv'

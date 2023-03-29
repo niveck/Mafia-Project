@@ -1,7 +1,7 @@
 from metrics.generate_outputs import generate_outputs
 import torch
 
-def generate_outputs(model, tokenizer, prefix, text):
+def calc_metrics(model, tokenizer, prefix, text):
     outputs = generate_outputs(model, tokenizer, prefix, text)
 
     # Loss

@@ -174,7 +174,6 @@ class ConDataset(BaseDataset):
             game_id = os.path.basename(game)
             all_messages = pd.read_csv(os.path.join(game, "info.csv")).sort_values("id")
             all_players = pd.read_csv(os.path.join(game, "node.csv"))
-            game_data = ConGameData(all_players, use_player_ids) if add_structured_data else None
             if use_player_ids:
                 player_id_dicts = create_player_ids_dicts(all_players)
             for player_id in all_players["id"]:
@@ -182,6 +181,7 @@ class ConDataset(BaseDataset):
                 player_name = all_players[all_players.id == player_id]["property1"].values.item()
                 if type(player_name) != str:  # probably the network's main node, not a real player
                     continue
+                game_data = ConGameData(all_players, use_player_ids) if add_structured_data else None
                 accumulated_messages = ""
                 for index, message in all_messages.iterrows():
                     turn_info, player_message = get_training_format_message(message)

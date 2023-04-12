@@ -50,7 +50,7 @@ class ConGameData:
         """
         Updates the game state's data fields
         """
-        tokens = re.search("<(phase change|player name)> ([^<]+)(<(victim|vote|text)> ((.+) )?)?", turn_info)
+        tokens = re.search("<(phase change|player name)> ([^<]+) (<(victim|vote|text)> ((.+) )?)?", turn_info)
         if tokens.group(4) == "victim":
             self.eliminated_players.add(tokens.group(6))
             if not INCLUDE_MENTIONS_BY_ELIMINATED_PLAYERS:
@@ -88,5 +88,5 @@ class ConGameData:
         """
         all_percentages = []
         for player, count in self.player_messages_counter.most_common():
-            all_percentages.append(f"{player}: {round(count / self.total_messages_counter) * 100}%")
+            all_percentages.append(f"{player}: {round(count / self.total_messages_counter * 100)}%")
         return ', '.join(all_percentages)

@@ -123,7 +123,7 @@ class ConDataset(BaseDataset):
         :param use_player_ids: whether to use players' ids instead of names
         :return: the requested data as a dataframe
         """
-        training_data = pd.DataFrame()
+        training_data_records = []
         player_id_dicts = dict()
         team = "mafia" if role in ("mafia", "mafioso") else "bystanders"
         role = "mafioso" if role in ("mafia", "mafioso") else "bystander"
@@ -154,12 +154,11 @@ class ConDataset(BaseDataset):
                             player_name = replace_names_with_player_ids(player_name, player_id_dicts)
                         accumulated_messages += turn_info
                         if message["origin_id"] == player_id:
-                            new_row = {"game_id": game_id, "player_name": player_name,
-                                       "accumulated_messages": accumulated_messages,
-                                       "player_message": player_message}
-                            training_data = training_data.append(new_row, ignore_index=True)
+                            training_data_records.append({"game_id": game_id, "player_name": player_name,
+                                                          "accumulated_messages": accumulated_messages,
+                                                          "player_message": player_message})
                         accumulated_messages += player_message  # empty str if only info
-        return training_data
+        return pd.DataFrame.from_records(training_data_records)
 
     def get_data_for_all_players(self, include_votes=True, use_player_ids=False, add_structured_data=False):
         """
@@ -169,7 +168,7 @@ class ConDataset(BaseDataset):
         :param add_structured_data: whether to add structured data to each row
         :return: the requested data as a dataframe
         """
-        training_data = pd.DataFrame()
+        training_data_records = []
         player_id_dicts = dict()
         for game in self.game_dirs:
             game_id = os.path.basename(game)
@@ -193,14 +192,14 @@ class ConDataset(BaseDataset):
                     if message["origin_id"] == player_id and player_message and \
                             (include_votes or "<vote>" not in turn_info):
                         structured_data = game_data.get_as_text() if add_structured_data else ""
-                        new_row = {"game_id": game_id, "player_name": player_name,
-                                   "game_data_until_now": accumulated_messages + structured_data + turn_info,
-                                   "player_message": player_message}
-                        training_data = training_data.append(new_row, ignore_index=True)
+                        training_data_records.append({
+                            "game_id": game_id, "player_name": player_name,
+                            "game_data_until_now": accumulated_messages + structured_data + turn_info,
+                            "player_message": player_message})
                     if add_structured_data:
                         game_data.update_game_data(turn_info, player_message)
                     accumulated_messages += turn_info + player_message  # player_message is empty if only info
-        return training_data
+        return pd.DataFrame.from_records(training_data_records)
 
     def extract_players_names(self):
         """

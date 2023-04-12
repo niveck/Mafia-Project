@@ -77,21 +77,24 @@ def preprocess_con_data_for_training_by_role():
     mafia_training_data_with_ids.to_csv("mafia_training_data_with_ids.csv")
 
 
-def preprocess_all_con_data_for_training():
+def preprocess_all_con_data_for_training(add_structured_data=True):
     """
     Saves csv files with tables for training model over the Con Dataset, with no distinction by role
     """
     data = ConDataset(CON_DATASET_DIR_PATH)
     # get_data_for_all_players
-    path_prefix = "./training_data/training_by_all_data_with_or_without_votes_february_2023/"
-    data.get_data_for_all_players(include_votes=True, use_player_ids=True).to_csv(
-        path_prefix + "train_and_validation_data_combined_with_votes_with_ids.csv")
-    data.get_data_for_all_players(include_votes=False, use_player_ids=True).to_csv(
-        path_prefix + "train_and_validation_data_combined_without_votes_with_ids.csv")
-    data.get_data_for_all_players(include_votes=True, use_player_ids=False).to_csv(
-        path_prefix + "train_and_validation_data_combined_with_votes_with_names.csv")
-    data.get_data_for_all_players(include_votes=False, use_player_ids=False).to_csv(
-        path_prefix + "train_and_validation_data_combined_without_votes_with_names.csv")
+    path_prefix = "./training_data/training_by_all_data_with_structured_data_april_2023/"
+    file_prefix = "train_and_validation_data_combined"
+    if add_structured_data:
+        file_prefix += "_with_structured_data"
+    data.get_data_for_all_players(include_votes=True, use_player_ids=True, add_structured_data=add_structured_data)\
+        .to_csv(path_prefix + file_prefix + "_with_votes_with_ids.csv")
+    data.get_data_for_all_players(include_votes=False, use_player_ids=True, add_structured_data=add_structured_data)\
+        .to_csv(path_prefix + file_prefix + "_without_votes_with_ids.csv")
+    data.get_data_for_all_players(include_votes=True, use_player_ids=False, add_structured_data=add_structured_data)\
+        .to_csv(path_prefix + file_prefix + "_with_votes_with_names.csv")
+    data.get_data_for_all_players(include_votes=False, use_player_ids=False, add_structured_data=add_structured_data)\
+        .to_csv(path_prefix + file_prefix + "_without_votes_with_names.csv")
 
 
 if __name__ == "__main__":

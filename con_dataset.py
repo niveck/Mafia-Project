@@ -1,4 +1,5 @@
 from base_dataset import BaseDataset
+from con_game_data import ConGameData
 import re
 import os
 import pandas as pd
@@ -10,7 +11,7 @@ from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 from matplotlib.colors import BoundaryNorm
-import streamlit as st
+# import streamlit as st
 
 UPPER_WORDS_PATTERN = r"\b[A-Z][A-Z]+\b"
 MODEL_NAME = "all-MiniLM-L6-v2"
@@ -25,8 +26,8 @@ def get_training_format_message(message):
         type: "info", contents: "Phase Change to Nighttime/Daytime[: Victim - {player name}]"
         type: "vote", contents: "{player name}: {other player name}"
         type: "text", contents: "{player name}: {message}"
-    :return: tuple of: (current turn's info, current turn's player's message) in the following formats:
-        "<phase change> {Nighttime/Daytime} [<victim> {player name}] ", ""
+    :return: tuple of current turn's (info, player's message) in the following formats:
+        "<phase change> {Nighttime/Daytime} [<victim> {player name} ]", ""
         "<player name> {player name} <vote> ", "{other player name} "
         "<player name> {player name} <text> ", "{message} "
     """
@@ -56,11 +57,11 @@ def create_player_ids_dicts(all_players):
         if player_id == 1:  # no name, only network info
             continue
         player_name = all_players[all_players['id'] == player_id]['property1'].values.item()
-        player_id_dict_full[fr"\b(?i){player_name}\b"] = f"Player {player_id}"
+        player_id_dict_full[fr"(?i)\b{player_name}\b"] = f"Player {player_id}"
         names = player_name.split()
-        player_id_dict_first[fr"\b(?i){names[0]}\b"] = f"Player {player_id}"
+        player_id_dict_first[fr"(?i)\b{names[0]}\b"] = f"Player {player_id}"
         if len(names) > 1:
-            player_id_dict_last[fr"\b(?i){names[1]}\b"] = f"Player {player_id}"
+            player_id_dict_last[fr"(?i)\b{names[1]}\b"] = f"Player {player_id}"
     return {"full": player_id_dict_full, "first": player_id_dict_first, "last": player_id_dict_last}
 
 
@@ -78,7 +79,10 @@ def replace_names_with_player_ids(message, player_id_dicts):
 
 class ConDataset(BaseDataset):
     """
-    Dataset object, designated to represent the dataset from the Con article
+    Dataset object, designated to represent the dataset from the Con article.
+
+    Current used special tokens:
+        <phase change>, <victim>, <player name>, <vote>, <text> and additional tokens used by the ConGameData class.
     """
     FIRSTNAME_PLACE_HOLDER = "firstname"
     LASTNAME_PLACE_HOLDER = "lastname"
@@ -104,7 +108,7 @@ class ConDataset(BaseDataset):
 
     def extract_table_from_all_games(self, table_name):
         """
-        Merges into one pandas dataframe all the tables with the same name from
+        Merges into one pandas-dataframe all the tables with the same name from
         all game dirs.
         :param table_name: 'info' / 'network' / 'node' (without .csv suffix)
         :return: Merged tables as dataframe
@@ -119,7 +123,7 @@ class ConDataset(BaseDataset):
         :param use_player_ids: whether to use players' ids instead of names
         :return: the requested data as a dataframe
         """
-        training_data = pd.DataFrame()
+        training_data_records = []
         player_id_dicts = dict()
         team = "mafia" if role in ("mafia", "mafioso") else "bystanders"
         role = "mafioso" if role in ("mafia", "mafioso") else "bystander"
@@ -143,30 +147,28 @@ class ConDataset(BaseDataset):
                             elif "Daytime" in message["contents"]: is_it_nighttime = False
                         if is_it_nighttime and role == "bystander":
                             continue
-                        current_turn_info, current_turn_player_message = get_training_format_message(message)
+                        turn_info, player_message = get_training_format_message(message)
                         if use_player_ids:
-                            current_turn_info = replace_names_with_player_ids(
-                                current_turn_info, player_id_dicts)
-                            current_turn_player_message = replace_names_with_player_ids(
-                                current_turn_player_message, player_id_dicts)
+                            turn_info = replace_names_with_player_ids(turn_info, player_id_dicts)
+                            player_message = replace_names_with_player_ids(player_message, player_id_dicts)
                             player_name = replace_names_with_player_ids(player_name, player_id_dicts)
-                        accumulated_messages += current_turn_info
+                        accumulated_messages += turn_info
                         if message["origin_id"] == player_id:
-                            new_row = {"game_id": game_id, "player_name": player_name,
-                                       "accumulated_messages": accumulated_messages,
-                                       "current_turn_player_message": current_turn_player_message}
-                            training_data = training_data.append(new_row, ignore_index=True)
-                        accumulated_messages += current_turn_player_message  # empty str if only info
-        return training_data
+                            training_data_records.append({"game_id": game_id, "player_name": player_name,
+                                                          "accumulated_messages": accumulated_messages,
+                                                          "player_message": player_message})
+                        accumulated_messages += player_message  # empty str if only info
+        return pd.DataFrame.from_records(training_data_records)
 
-    def get_data_for_all_players(self, include_votes=True, use_player_ids=False):
+    def get_data_for_all_players(self, include_votes=True, use_player_ids=False, add_structured_data=False):
         """
         Gets all the games' data in a training-suitable format
         :param include_votes: whether to include votes or just text
         :param use_player_ids: whether to use players' ids instead of names
+        :param add_structured_data: whether to add structured data to each row
         :return: the requested data as a dataframe
         """
-        training_data = pd.DataFrame()
+        training_data_records = []
         player_id_dicts = dict()
         for game in self.game_dirs:
             game_id = os.path.basename(game)
@@ -179,24 +181,25 @@ class ConDataset(BaseDataset):
                 player_name = all_players[all_players.id == player_id]["property1"].values.item()
                 if type(player_name) != str:  # probably the network's main node, not a real player
                     continue
+                game_data = ConGameData(all_players, use_player_ids) if add_structured_data else None
                 accumulated_messages = ""
                 for index, message in all_messages.iterrows():
-                    current_turn_info, current_turn_player_message = get_training_format_message(message)
+                    turn_info, player_message = get_training_format_message(message)
                     if use_player_ids:
-                        current_turn_info = replace_names_with_player_ids(
-                            current_turn_info, player_id_dicts)
-                        current_turn_player_message = replace_names_with_player_ids(
-                            current_turn_player_message, player_id_dicts)
+                        turn_info = replace_names_with_player_ids(turn_info, player_id_dicts)
+                        player_message = replace_names_with_player_ids(player_message, player_id_dicts)
                         player_name = replace_names_with_player_ids(player_name, player_id_dicts)
-                    accumulated_messages += current_turn_info
-                    if message["origin_id"] == player_id and current_turn_player_message and \
-                            (include_votes or "<vote>" not in current_turn_info):
-                        new_row = {"game_id": game_id, "player_name": player_name,
-                                   "accumulated_messages": accumulated_messages,
-                                   "current_turn_player_message": current_turn_player_message}
-                        training_data = training_data.append(new_row, ignore_index=True)
-                    accumulated_messages += current_turn_player_message  # empty str if only info
-        return training_data
+                    if message["origin_id"] == player_id and player_message and \
+                            (include_votes or "<vote>" not in turn_info):
+                        structured_data = game_data.get_as_text() if add_structured_data else ""
+                        training_data_records.append({
+                            "game_id": game_id, "player_name": player_name,
+                            "game_data_until_now": accumulated_messages + structured_data + turn_info,
+                            "player_message": player_message})
+                    if add_structured_data:
+                        game_data.update_game_data(turn_info, player_message)
+                    accumulated_messages += turn_info + player_message  # player_message is empty if only info
+        return pd.DataFrame.from_records(training_data_records)
 
     def extract_players_names(self):
         """
@@ -453,5 +456,5 @@ class ConDataset(BaseDataset):
                         reduced_dimension_embedding[:, 1],
                         s=MARKER_SIZE,
                         c=self.sentences_with_clusters.cluster.values)
-        # plt.show()
-        st.write(fig)
+        plt.show()
+        # st.write(fig)

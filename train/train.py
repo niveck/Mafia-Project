@@ -485,6 +485,9 @@ def main():
 
     def smart_truncation(sample):
         ''' Truncate: leave only the last data_args.max_source_length tokens, and the filter all the tokens until the first special one. '''
+        if len(sample['input_ids']) <= data_args.max_source_length:
+            return sample
+        
         def find_first_special_token():
             for i in range(len(sample['input_ids']) - data_args.max_source_length, len(sample['input_ids'])):
                 if sample['input_ids'][i] in special_token_ids:
@@ -492,7 +495,7 @@ def main():
             return len(sample['input_ids']) - data_args.max_source_length
         
         def bart_smart_truncation():
-            special_token_ind = find_first_special_token(sample, data_args.max_source_length)
+            special_token_ind = find_first_special_token()
             sample.input_ids = sample.input_ids[:, special_token_ind:]
             sample.attention_mask = sample.attention_mask[:, special_token_ind:]
             return sample

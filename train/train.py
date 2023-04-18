@@ -503,8 +503,8 @@ def main():
             return len(sample['input_ids']) - data_args.max_source_length
         
         def bart_truncate(start_ind, end_ind):
-            sample['input_ids'] = sample['input_ids'][:, start_ind:end_ind]
-            sample.attention_mask = sample.attention_mask[:, start_ind:end_ind]
+            sample['input_ids'] = sample['input_ids'][start_ind:end_ind]
+            sample['attention_mask'] = sample['attention_mask'][start_ind:end_ind]
             return sample
         
         if model_args.model_name_or_path == 'facebook/bart-large':

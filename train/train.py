@@ -488,22 +488,38 @@ def main():
         if len(sample['input_ids']) <= data_args.max_source_length:
             return sample
         
+        def get_truncate_pad_tokens_num(pad_token_id):
+            sample_length = len(sample['input_ids'])
+            pad_token_num = 0
+            while sample['input_ids'][sample_length - pad_token_num - 1] == pad_token_id:
+                pad_token_num += 1
+            truncate_num = min(pad_token_num, sample_length - data_args.max_source_length)
+            return truncate_num
+        
         def find_first_special_token():
             for i in range(len(sample['input_ids']) - data_args.max_source_length, len(sample['input_ids'])):
                 if sample['input_ids'][i] in special_token_ids:
                     return i
             return len(sample['input_ids']) - data_args.max_source_length
         
-        def bart_smart_truncation():
-            special_token_ind = find_first_special_token()
-            sample.input_ids = sample.input_ids[:, special_token_ind:]
-            sample.attention_mask = sample.attention_mask[:, special_token_ind:]
+        def bart_truncate(start_ind, end_ind):
+            sample.input_ids = sample.input_ids[:, start_ind:end_ind]
+            sample.attention_mask = sample.attention_mask[:, start_ind:end_ind]
             return sample
         
         if model_args.model_name_or_path == 'facebook/bart-large':
-            return bart_smart_truncation()
+            pad_token_id = 1
+            truncation_func = bart_truncate
         else:
             assert False, 'Truncation not implemented for model ' + model_args.model_name_or_path
+
+        sample_length = len(sample['input_ids'])
+        pad_truncate_num = get_truncate_pad_tokens_num(pad_token_id)
+        sample = truncation_func(0, sample_length - pad_truncate_num)
+        sample_length = len(sample['input_ids'])
+        special_token_ind = find_first_special_token()
+        sample = truncation_func(special_token_ind, sample_length)
+        return sample
     
     def preprocess_function(examples):
         # remove pairs where at least one record is None
@@ -515,7 +531,7 @@ def main():
                 targets.append(examples[target_column][i])
 
         inputs = [prefix + inp for inp in inputs]
-        model_inputs = tokenizer(inputs, max_length=data_args.max_source_length, padding=padding, truncation=True)
+        model_inputs = tokenizer(inputs, padding=padding)
 
         # Tokenize targets with the `text_target` keyword argument
         labels = tokenizer(text_target=targets, max_length=max_target_length, padding=padding, truncation=True)

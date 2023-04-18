@@ -407,7 +407,9 @@ def main():
         use_auth_token=True if model_args.use_auth_token else None,
     )
 
-    tokenizer.add_special_tokens({'additional_special_tokens': ['<player name>', '<phase change>', '<vote>', '<victim>', '<text>']})
+    special_tokens = ['<player name>', '<phase change>', '<vote>', '<victim>', '<text>']
+    tokenizer.add_special_tokens({'additional_special_tokens': special_tokens})
+    special_token_ids = tokenizer(' '.join(special_tokens)).input_ids
 
     # We resize the embeddings only when necessary to avoid index errors. If you are creating a model from scratch
     # on a small vocab and want a smaller embedding size, remove this test.
@@ -481,6 +483,25 @@ def main():
             f"`{model.__class__.__name__}`. This will lead to loss being calculated twice and will take up more memory"
         )
 
+    def smart_truncation(sample):
+        ''' Truncate: leave only the last data_args.max_source_length tokens, and the filter all the tokens until the first special one. '''
+        def find_first_special_token():
+            for i in range(len(sample['input_ids']) - data_args.max_source_length, len(sample['input_ids'])):
+                if sample['input_ids'][i] in special_token_ids:
+                    return i
+            return len(sample['input_ids']) - data_args.max_source_length
+        
+        def bart_smart_truncation():
+            special_token_ind = find_first_special_token(sample, data_args.max_source_length)
+            sample.input_ids = sample.input_ids[:, special_token_ind:]
+            sample.attention_mask = sample.attention_mask[:, special_token_ind:]
+            return sample
+        
+        if model_args.model_name_or_path == 'facebook/bart-large':
+            return bart_smart_truncation()
+        else:
+            assert False, 'Truncation not implemented for model ' + model_args.model_name_or_path
+    
     def preprocess_function(examples):
         # remove pairs where at least one record is None
 
@@ -523,9 +544,12 @@ def main():
                 desc="Running tokenizer on train dataset",
             )
         # Filter long samples
-        print('Train set size before long samples filtering: ' + str(len(train_dataset)))
-        train_dataset = train_dataset.filter(lambda x:len(x['input_ids']) < data_args.max_source_length and len(x['labels']) < data_args.max_target_length)
-        print('Train set size after long samples filtering: ' + str(len(train_dataset)))
+        # print('Train set size before long samples filtering: ' + str(len(train_dataset)))
+        # train_dataset = train_dataset.filter(lambda x:len(x['input_ids']) < data_args.max_source_length and len(x['labels']) < data_args.max_target_length)
+        # print('Train set size after long samples filtering: ' + str(len(train_dataset)))
+
+        # Truncate long samples
+        train_dataset = train_dataset.map(smart_truncation, desc='Trauncating train dataset')
 
     if training_args.do_eval:
         max_target_length = data_args.val_max_target_length
@@ -545,9 +569,12 @@ def main():
                 desc="Running tokenizer on validation dataset",
             )
         # Filter long samples
-        print('Val set size before long samples filtering: ' + str(len(eval_dataset)))
-        eval_dataset = eval_dataset.filter(lambda x:len(x['input_ids']) < data_args.max_source_length and len(x['labels']) < data_args.max_target_length)
-        print('Val set size after long samples filtering: ' + str(len(eval_dataset)))
+        # print('Val set size before long samples filtering: ' + str(len(eval_dataset)))
+        # eval_dataset = eval_dataset.filter(lambda x:len(x['input_ids']) < data_args.max_source_length and len(x['labels']) < data_args.max_target_length)
+        # print('Val set size after long samples filtering: ' + str(len(eval_dataset)))
+
+        # Truncate long samples
+        eval_dataset = eval_dataset.map(smart_truncation, desc='Trauncating validation dataset')
 
     if training_args.do_predict:
         max_target_length = data_args.val_max_target_length
@@ -567,9 +594,12 @@ def main():
                 desc="Running tokenizer on prediction dataset",
             )
         # Filter long samples
-        print('Test set size before long samples filtering: ' + str(len(predict_dataset)))
-        predict_dataset = predict_dataset.filter(lambda x:len(x['input_ids']) < data_args.max_source_length and len(x['labels']) < data_args.max_target_length)
-        print('Test set size after long samples filtering: ' + str(len(predict_dataset)))
+        # print('Test set size before long samples filtering: ' + str(len(predict_dataset)))
+        # predict_dataset = predict_dataset.filter(lambda x:len(x['input_ids']) < data_args.max_source_length and len(x['labels']) < data_args.max_target_length)
+        # print('Test set size after long samples filtering: ' + str(len(predict_dataset)))
+        
+        # Truncate long samples
+        predict_dataset = predict_dataset.map(smart_truncation, desc='Trauncating test dataset')
 
     # Data collator
     label_pad_token_id = -100 if data_args.ignore_pad_token_for_loss else tokenizer.pad_token_id

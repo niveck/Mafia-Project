@@ -1,6 +1,6 @@
 from train_configs.default_config import DefaultConfig
 
-class BartMultitaskBystanderWithNamesAllConfig(DefaultConfig):
+class BartMultitaskBystanderWithStructDataWithNamesAllConfig(DefaultConfig):
     def __init__(self):
         super().__init__(
             train_file='training_data/training_by_all_data_with_structured_data_april_2023/train_data_with_structured_data_without_votes_with_names.csv',

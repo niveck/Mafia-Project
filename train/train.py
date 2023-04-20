@@ -407,7 +407,7 @@ def main():
         use_auth_token=True if model_args.use_auth_token else None,
     )
 
-    special_tokens = ['<player name>', '<phase change>', '<vote>', '<victim>', '<text>']
+    special_tokens = ['<player name>', '<phase change>', '<vote>', '<victim>', '<text>', '<voting history>', '<mention history>', '<talking percentage>']
     tokenizer.add_special_tokens({'additional_special_tokens': special_tokens})
     special_token_ids = tokenizer(' '.join(special_tokens)).input_ids
 

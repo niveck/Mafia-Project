@@ -1,6 +1,7 @@
 from csv import writer
 from train.demonstrate import load_game_from_csv, Demonstrator
 from metrics.calc_metrics import calc_metrics
+import sys
 
 def evaluate_on_game(model_path, dataset_path, game_id):
     model = Demonstrator(model_path)
@@ -14,6 +15,7 @@ def evaluate_on_game(model_path, dataset_path, game_id):
     perplexity_sum = 0
     for source, target, player_name in sample_list:
         if source.strip().endswith('<text>'):
+            print('Predicting for ' + source, flush=True)
             prediction = model.predict(source)
             preds.append((prediction, player_name))
             predicted_players.append(player_name)
@@ -66,4 +68,5 @@ def evaluate_on_game(model_path, dataset_path, game_id):
                 cur_player = None
             elif cur_player is not None:
                 assert False
-    
+
+evaluate_on_game(sys.argv[1], sys.argv[2], sys.argv[3])

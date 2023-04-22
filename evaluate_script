@@ -1,0 +1,10 @@
+#!/bin/sh
+
+export HF_DATASETS_CACHE=../cache/hf_cache/datasets
+export HF_METRICS_CACHE=../cache/hf_cache/metrics
+export HF_MODULES_CACHE=../cache/hf_cache/modules
+export HF_DATASETS_DOWNLOADED_EVALUATE_PATH=../cache/hf_cache/datasets_downloaded_evaluate
+export TRANSFORMERS_CACHE=../cache/transformers_cache
+export TORCH_HOME=../cache/torch_home
+
+venv/bin/python evaluate_on_game.py train_output_bart_base_bystander_names_all/checkpoint-1000 training_data/training_by_all_data_with_or_without_votes_february_2023/validation_data_without_votes_with_names.csv fb8339cf-c251-ac37-d742-4c4b3ee16a53-data

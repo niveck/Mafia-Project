@@ -507,7 +507,7 @@ def main():
             sample['attention_mask'] = sample['attention_mask'][start_ind:end_ind]
             return sample
         
-        if model_args.model_name_or_path == 'facebook/bart-large':
+        if 'facebook/bart' in model_args.model_name_or_path:
             pad_token_id = 1
             truncation_func = bart_truncate
         else:

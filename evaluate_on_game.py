@@ -69,4 +69,4 @@ def evaluate_on_game(model_path, dataset_path, game_id, max_source_length):
             elif cur_player is not None:
                 assert False
 
-evaluate_on_game(sys.argv[1], sys.argv[2], sys.argv[3])
+evaluate_on_game(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])

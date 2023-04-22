@@ -2,8 +2,8 @@ from csv import writer
 from train.demonstrate import load_game_from_csv, Demonstrator
 from metrics.calc_metrics import calc_metrics
 
-def evaluate_on_game(model_path, dataset_path, game_id):
-    model = Demonstrator(model_path)
+def evaluate_on_game(model_path, dataset_path, game_id, max_source_length):
+    model = Demonstrator(model_path, max_source_length)
     sample_list = load_game_from_csv(dataset_path, game_id)
     sample_list.sort(key=lambda x:len(x[0]))
 

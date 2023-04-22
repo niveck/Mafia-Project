@@ -279,6 +279,43 @@ column_name_mapping = {
     "multi_news": ("document", "summary"),
 }
 
+def smart_truncation(sample, max_source_length, special_token_ids, model_name):
+    ''' Truncate: leave only the last data_args.max_source_length tokens, and the filter all the tokens until the first special one. '''
+    if len(sample['input_ids']) <= max_source_length:
+        return sample
+    
+    def get_truncate_pad_tokens_num(pad_token_id):
+        sample_length = len(sample['input_ids'])
+        pad_token_num = 0
+        while sample['input_ids'][sample_length - pad_token_num - 1] == pad_token_id:
+            pad_token_num += 1
+        truncate_num = min(pad_token_num, sample_length - max_source_length)
+        return truncate_num
+    
+    def find_first_special_token():
+        for i in range(len(sample['input_ids']) - max_source_length, len(sample['input_ids'])):
+            if sample['input_ids'][i] in special_token_ids:
+                return i
+        return len(sample['input_ids']) - max_source_length
+    
+    def bart_truncate(start_ind, end_ind):
+        sample['input_ids'] = sample['input_ids'][start_ind:end_ind]
+        sample['attention_mask'] = sample['attention_mask'][start_ind:end_ind]
+        return sample
+    
+    if model_name == 'facebook/bart-large':
+        pad_token_id = 1
+        truncation_func = bart_truncate
+    else:
+        assert False, 'Truncation not implemented for model ' + model_name
+
+    sample_length = len(sample['input_ids'])
+    pad_truncate_num = get_truncate_pad_tokens_num(pad_token_id)
+    sample = truncation_func(0, sample_length - pad_truncate_num)
+    sample_length = len(sample['input_ids'])
+    special_token_ind = find_first_special_token()
+    sample = truncation_func(special_token_ind, sample_length)
+    return sample
 
 def main():
     # See all possible arguments in src/transformers/training_args.py
@@ -483,43 +520,8 @@ def main():
             f"`{model.__class__.__name__}`. This will lead to loss being calculated twice and will take up more memory"
         )
 
-    def smart_truncation(sample):
-        ''' Truncate: leave only the last data_args.max_source_length tokens, and the filter all the tokens until the first special one. '''
-        if len(sample['input_ids']) <= data_args.max_source_length:
-            return sample
-        
-        def get_truncate_pad_tokens_num(pad_token_id):
-            sample_length = len(sample['input_ids'])
-            pad_token_num = 0
-            while sample['input_ids'][sample_length - pad_token_num - 1] == pad_token_id:
-                pad_token_num += 1
-            truncate_num = min(pad_token_num, sample_length - data_args.max_source_length)
-            return truncate_num
-        
-        def find_first_special_token():
-            for i in range(len(sample['input_ids']) - data_args.max_source_length, len(sample['input_ids'])):
-                if sample['input_ids'][i] in special_token_ids:
-                    return i
-            return len(sample['input_ids']) - data_args.max_source_length
-        
-        def bart_truncate(start_ind, end_ind):
-            sample['input_ids'] = sample['input_ids'][start_ind:end_ind]
-            sample['attention_mask'] = sample['attention_mask'][start_ind:end_ind]
-            return sample
-        
-        if model_args.model_name_or_path == 'facebook/bart-large':
-            pad_token_id = 1
-            truncation_func = bart_truncate
-        else:
-            assert False, 'Truncation not implemented for model ' + model_args.model_name_or_path
-
-        sample_length = len(sample['input_ids'])
-        pad_truncate_num = get_truncate_pad_tokens_num(pad_token_id)
-        sample = truncation_func(0, sample_length - pad_truncate_num)
-        sample_length = len(sample['input_ids'])
-        special_token_ind = find_first_special_token()
-        sample = truncation_func(special_token_ind, sample_length)
-        return sample
+    def internal_smart_truncation(sample):
+        return smart_truncation(sample, data_args.max_source_length, special_token_ids, model_args.model_name_or_path)
     
     def preprocess_function(examples):
         # remove pairs where at least one record is None
@@ -568,7 +570,7 @@ def main():
         # print('Train set size after long samples filtering: ' + str(len(train_dataset)))
 
         # Truncate long samples
-        train_dataset = train_dataset.map(smart_truncation, desc='Trauncating train dataset')
+        train_dataset = train_dataset.map(internal_smart_truncation, desc='Trauncating train dataset')
 
     if training_args.do_eval:
         max_target_length = data_args.val_max_target_length

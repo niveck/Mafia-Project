@@ -19,7 +19,7 @@ def evaluate_on_game(model_path, dataset_path, game_id, max_source_length):
             preds.append((prediction, player_name))
             predicted_players.append(player_name)
             print('Prediction ' + str(count) + ': player "' + player_name + '" says "' + prediction + '"')
-            cur_loss, cur_perplexity = calc_metrics(model.model, model.tokenizer, source, target)
+            cur_loss, cur_perplexity = calc_metrics(model.model, model.tokenizer, source, target, max_source_length, model.special_token_ids, model.model_name)
             loss_sum += cur_loss
             perplexity_sum += cur_perplexity
             count += 1

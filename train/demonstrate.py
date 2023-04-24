@@ -3,6 +3,7 @@ from csv import reader
 from train.train import smart_truncation
 import json
 import os
+import torch
 
 def load_dataset_from_csv(path):
     res = []
@@ -51,6 +52,8 @@ class Demonstrator:
 
     def predict(self, input_text):
         inputs = self.tokenizer(input_text, return_tensors="pt")
+        inputs = {'input_ids': inputs.input_ids[0, :], 'attention_mask': inputs.attention_mask[0, :]}
         inputs = smart_truncation(inputs, self.max_source_length, self.special_token_ids, self.model_name)
+        inputs = {'input_ids': torch.unsqueeze(inputs['input_ids'], 0), 'attention_mask': torch.unsqueeze(inputs['attention_mask'], 0)}
         outputs = self.model.generate(**inputs)
         return self.tokenizer.decode(outputs[0], skip_special_tokens=True)

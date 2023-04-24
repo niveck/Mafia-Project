@@ -15,7 +15,6 @@ def evaluate_on_game(model_path, dataset_path, game_id, max_source_length):
     perplexity_sum = 0
     for source, target, player_name in sample_list:
         if source.strip().endswith('<text>'):
-            print('Predicting for ' + source, flush=True)
             prediction = model.predict(source)
             preds.append((prediction, player_name))
             predicted_players.append(player_name)
@@ -69,4 +68,4 @@ def evaluate_on_game(model_path, dataset_path, game_id, max_source_length):
             elif cur_player is not None:
                 assert False
 
-evaluate_on_game(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+evaluate_on_game(sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4]))

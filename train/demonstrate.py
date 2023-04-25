@@ -39,9 +39,9 @@ class Demonstrator:
             train_config = json.load(fp)
             self.model_name = train_config['_name_or_path']
         self.max_source_length = max_source_length
-        with open(os.path.join(model_path, 'added_tokens.json'), 'r') as fp:
-            added_tokens = json.load(fp)
-            self.special_token_ids = list(added_tokens.values())
+        with open(os.path.join(model_path, 'special_tokens_map.json'), 'r') as fp:
+            added_tokens = json.load(fp)['additional_special_tokens']
+            self.special_token_ids = [x for x in self.tokenizer(' '.join(added_tokens)).input_ids if self.tokenizer.decode(x) in added_tokens]
 
     def load_model(self, model_path):
         config = AutoConfig.from_pretrained(model_path)

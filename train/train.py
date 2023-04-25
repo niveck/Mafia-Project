@@ -449,7 +449,7 @@ def main():
 
     special_tokens = ['<player name>', '<phase change>', '<vote>', '<victim>', '<text>', '<voting history>', '<mention history>', '<talking percentage>']
     tokenizer.add_special_tokens({'additional_special_tokens': special_tokens})
-    special_token_ids = tokenizer(' '.join(special_tokens)).input_ids
+    special_token_ids = [x for x in tokenizer(' '.join(special_tokens)).input_ids if tokenizer.decode(x) in special_tokens]
 
     # We resize the embeddings only when necessary to avoid index errors. If you are creating a model from scratch
     # on a small vocab and want a smaller embedding size, remove this test.

@@ -35,21 +35,15 @@ def evaluate_on_game(model_path, dataset_path, game_id, max_source_length):
         full_text = sample_list[-1][0] + sample_list[-1][1]
         text_parts = full_text.split('<')
 
-        in_phase_change_to_daytime = False
         cur_player = None
         for cur_part in text_parts:
             if len(cur_part) == 0:
                 continue
             elif cur_part.startswith('phase change'):
                 assert 'Daytime' in cur_part or 'Nighttime' in cur_part
-                if 'Daytime' in cur_part:
-                    in_phase_change_to_daytime = True
             elif cur_part.startswith('victim'):
                 victim_name = cur_part.split('> ')[1]
                 my_writer.writerow(['victim', victim_name, '', ''])
-                in_phase_change_to_daytime = False
-            elif in_phase_change_to_daytime:
-                assert False
             elif cur_part.startswith('player name'):
                 cur_player = cur_part.split('> ')[1].strip()
             elif cur_part.startswith('text'):

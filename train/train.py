@@ -306,6 +306,9 @@ def smart_truncation(sample, max_source_length, special_token_ids, model_name):
     if 'facebook/bart-' in model_name:
         pad_token_id = 1
         truncation_func = bart_truncate
+    elif 't5-' in model_name:
+        pad_token_id = 0
+        truncation_func = bart_truncate
     else:
         assert False, 'Truncation not implemented for model ' + model_name
 

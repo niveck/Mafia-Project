@@ -6,7 +6,7 @@ import sys
 def evaluate_on_game(model_path, dataset_path, game_id, max_source_length):
     model = Demonstrator(model_path, max_source_length)
     sample_list = load_game_from_csv(dataset_path, game_id)
-    sample_list.sort(key=lambda x:len(x[0]))
+    sample_list.sort(key=lambda x:x[0].count('text') + x[0].count('vote'))
 
     preds = []
     predicted_players = []
@@ -43,7 +43,7 @@ def evaluate_on_game(model_path, dataset_path, game_id, max_source_length):
             elif cur_part.startswith('phase change'):
                 assert 'Daytime' in cur_part or 'Nighttime' in cur_part
                 if 'Daytime' in cur_part:
-                    in_phase_change_to_daytime
+                    in_phase_change_to_daytime = True
             elif cur_part.startswith('victim'):
                 victim_name = cur_part.split('> ')[1]
                 my_writer.writerow(['victim', victim_name, '', ''])

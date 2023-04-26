@@ -59,6 +59,8 @@ def evaluate_on_game(model_path, dataset_path, game_id, max_source_length):
                 vote = cur_part.split('> ')[1]
                 my_writer.writerow(['vote', cur_player, vote, ''])
                 cur_player = None
+            elif cur_part.startswith('voting history') or cur_part.startswith('mention history'):
+                cur_player = None
             elif cur_player is not None:
                 assert False
 

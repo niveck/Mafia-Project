@@ -2,6 +2,7 @@ from csv import writer
 from train.demonstrate import load_game_from_csv, Demonstrator
 from metrics.calc_metrics import calc_metrics
 import sys
+import torch
 
 def evaluate_on_game(model_path, dataset_path, game_id, max_source_length):
     model = Demonstrator(model_path, max_source_length)
@@ -15,7 +16,8 @@ def evaluate_on_game(model_path, dataset_path, game_id, max_source_length):
     perplexity_sum = 0
     for source, target, player_name in sample_list:
         if source.strip().endswith('<text>'):
-            prediction = model.predict(source)
+            with torch.no_grad():
+                prediction = model.predict(source)
             preds.append((prediction, player_name))
             predicted_players.append(player_name)
             print('Prediction ' + str(count) + ': player "' + player_name + '" says "' + prediction + '"')

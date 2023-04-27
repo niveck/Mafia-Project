@@ -47,6 +47,7 @@ class Demonstrator:
         config = AutoConfig.from_pretrained(model_path)
         tokenizer = AutoTokenizer.from_pretrained(model_path)
         model = AutoModelForSeq2SeqLM.from_pretrained(model_path, config=config)
+        model.eval()
         
         return model, tokenizer
 

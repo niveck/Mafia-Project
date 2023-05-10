@@ -56,5 +56,5 @@ class Demonstrator:
         inputs = {'input_ids': inputs.input_ids[0, :], 'attention_mask': inputs.attention_mask[0, :]}
         inputs = smart_truncation(inputs, self.max_source_length, self.special_token_ids, self.model_name)
         inputs = {'input_ids': torch.unsqueeze(inputs['input_ids'], 0), 'attention_mask': torch.unsqueeze(inputs['attention_mask'], 0)}
-        outputs = self.model.generate(**inputs)
+        outputs = self.model.generate(**inputs, num_beams=4)  # , num_return_sequence=1)  # TODO: remove this if unnecessary
         return self.tokenizer.decode(outputs[0], skip_special_tokens=True)

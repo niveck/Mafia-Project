@@ -1,0 +1,105 @@
+Type,Player name,Action,Prediction
+text,Jessica Michael,hey ,Hello
+text,Richard Stevens,hello ,Hello
+text,Jessica Michael,who do we eliminate ,hi
+text,Jessica Michael,tiffany? ,who do we eliminate?
+vote,Richard Stevens,Tiffany Baker ,
+victim,Tiffany Baker ,,
+text,Angela Murphy,Hello people! ,hello
+text,Amanda Stevens,Hello! ,Hello
+text,Deborah Alvarez,Patrick Gonzales is next ,Hello
+vote,Shane Landry,Patrick Gonzales ,
+vote,Deborah Alvarez,Patrick Gonzales ,
+text,Deborah Alvarez,I hate him ,who do we eliminate?
+text,Richard Stevens,ok ,I'm going to vote for Deborah Alvarez
+text,Jessica Michael,hi ,who do we eliminate?
+text,Nicole Barker,Patrick Gonzales ,Hello
+text,Amanda Stevens,Alright. ,ok
+text,Tammy Weaver,Why patrick gonzales? ,I'm voting for Deborah Alvarez
+text,Deborah Alvarez,Dirty Mafia ,I hate patrick gonzales
+vote,Angela Murphy,Deborah Alvarez ,
+text,Shane Landry,I just have that feeling about patrick ,"I'm not mafia, I'm a mafia member"
+text,Shane Landry,get him! ,I just have that feeling about patrick
+vote,Nicole Barker,Patrick Gonzales ,
+text,Tammy Weaver,Gonzales? Like the kind of thing a mafioso might say ,I'm voting for Deborah Alvarez
+vote,Amanda Stevens,Patrick Gonzales ,
+text,Shane Landry,X) ,I just have that feeling about patrick
+vote,Richard Stevens,Patrick Gonzales ,
+text,Tammy Weaver,I say vote for Deborah ,"I'm not mafioso, but I'm a maf"
+text,Amanda Stevens,Bye Patrick :( ,I say vote for Tammy
+text,Shane Landry,rip patrick ,I'm voting for you Tammy
+vote,Tammy Weaver,Deborah Alvarez ,
+text,Nicole Barker,Deborah should probably be next since she is throwing people under the bus...sounds just like mafia ,I say vote for Deborah
+text,Deborah Alvarez,Nicole is a Russian Spy ,I'm a bystander and I'm a bystander by day
+text,Angela Murphy,I agree ,I think Deborah is mafioso
+text,Amanda Stevens,A bit too eager... ,I'm a bystander. I'm not mafioso
+text,Shane Landry,this is gold ,rip him!
+vote,Jessica Michael,Deborah Alvarez ,
+victim,Patrick Gonzales ,,
+text,Richard Stevens,is deborah next ,I say we get rid of Deborah
+vote,Richard Stevens,Deborah Alvarez ,
+vote,Jessica Michael,Deborah Alvarez ,
+victim,Deborah Alvarez ,,
+text,Christina Morgan,Jessica ,Hello
+vote,Christina Morgan,Jessica Michael ,
+text,Tammy Weaver,Are we in agreement that Deb is Mafia? ,I say we get rid of nicole
+text,Nicole Barker,Why? ,I think Deb is mafia
+vote,Shane Landry,Christina Morgan ,
+text,Angela Murphy,Yeah I heard she laundered money to the Mafia along with Christina Morgan. ,I think Deb is mafia
+vote,Nicole Barker,Christina Morgan ,
+vote,Angela Murphy,Christina Morgan ,
+text,Tammy Weaver,"Oops, Deb's was taken in the night! :D ",I think Christina is mafia
+text,Shane Landry,XD ,this is gold
+vote,Tammy Weaver,Shane Landry ,
+vote,Richard Stevens,Christina Morgan ,
+text,Tammy Weaver,Maybe it was a heart attack :P ,I think Christina is a mafioso too.
+text,Angela Murphy,What did shane do? ,I don't know
+text,Amanda Stevens,I'll vote Christina too I guess! ,"I'm not mafioso, but I'm a bystand"
+text,Angela Murphy,Poor Shane. ,"I'm not mafia, I'm just voting for the mafi"
+vote,Amanda Stevens,Christina Morgan ,
+text,Angela Murphy,I've loved Shane since highschool. ,"I'm not mafia, I'm just a regular person."
+text,Tammy Weaver,Shand piled on with Deb.  Guilt by association!!! ,I say vote for shane
+text,Shane Landry,bless ,rip him!
+text,Richard Stevens,Not sure what Shane did ,RIP shane
+text,Angela Murphy,"Whoops, did I say that out loud? ","I'm not mafia, but I'm a bystander."
+text,Angela Murphy,Shane how could you vote for Patrick?! Taken in his prime... you monster I can never forgive you. ,"I'm not mafioso, I'm just a girl."
+text,Richard Stevens,He did have it out for Patrick though ,"I'm not mafioso, but I'm a bystand"
+text,Nicole Barker,odd ,"I'm not mafia, I'm just a bystander."
+text,Shane Landry,you wouldn't hurt this face! ,rip patrick
+vote,Jessica Michael,Christina Morgan ,
+text,Amanda Stevens,Patrick was a bystander who probably snitched. Snitches get stitches. :`( ,Bye Christina
+text,Nicole Barker,THats such a mafia thing to say!! ,"I'm not mafia, I'm just a bystander."
+text,Angela Murphy,Shane Landry... Landry. Laundry. Laundered money to the mafia! ,"I'm not mafia, I'm just a bystander."
+text,Shane Landry,Patrick had it coming we all know it ,this is gold
+text,Amanda Stevens,Apparently ditches in Patricks case... ,I'm a bystander. I'm a bystander too.
+victim,Christina Morgan ,,
+vote,Richard Stevens,Shane Landry ,
+text,Jessica Michael,wanna do angela? ,I'm not mafia. I'm just a bystander.
+text,Richard Stevens,i voted shane ,i'm voting for shane
+vote,Jessica Michael,Shane Landry ,
+victim,Shane Landry ,,
+text,Tammy Weaver,Well I'm stumpes ,Maybe it was a heart attack
+text,Tammy Weaver,Anyone want to confess? ,Maybe it was a heart attack
+text,Angela Murphy,"Gasp, so Shane wasn't Mafia? ","I'm not mafia, I'm just a bystander."
+text,Amanda Stevens,The neighborhoods thinning out too quickly. ,I'm not mafia. I'm just a bystander.
+text,Jessica Michael,Guess not :( ,:(
+text,Nicole Barker,I think angela is mafia....she wanted him gone ,I'm not mafia. I'm just a bystander.
+text,Angela Murphy,I forgive him. ,"I'm not mafia, I'm just a bystander."
+text,Tammy Weaver,Unless they killed him to make us confused ,"I'm not mafia, I'm just a bystander."
+text,Amanda Stevens,I'll vote Angela. ,"I'm not mafia, I'm just a bystander."
+vote,Amanda Stevens,Angela Murphy ,
+text,Angela Murphy,"Too late now, I never got to say goodbye. ","I'm not mafia, I'm just a bystander."
+vote,Nicole Barker,Angela Murphy ,
+text,Richard Stevens,Seemed like Angela and him were close ,"I'm not mafia, I'm just a bystander."
+vote,Richard Stevens,Angela Murphy ,
+text,Tammy Weaver,So be it . . . ,"I'm not mafia, I'm just a bystander."
+text,Angela Murphy,Not close enough to know he wasn't mafia. ,I'll vote for you Tammy
+text,Tammy Weaver,Sucks to your asmar ,So be it...
+text,Nicole Barker,"She threw him under the bus about patrick, who was also a bystander ","I'm not mafia, I'm just a bystander."
+vote,Tammy Weaver,Angela Murphy ,
+vote,Jessica Michael,Angela Murphy ,
+text,Angela Murphy,If you look up I never voted for Patrick. ,"I'm not mafia, I'm just a bystander."
+text,Angela Murphy,Joke is on you mafia! ,"I'm not mafia, I'm just a bystander."
+victim,Angela Murphy ,,
+text,Richard Stevens,SO is tammy next ,i voted for you mafia
+text,Jessica Michael,sure ,I'm not mafia. I'm just a bystander.

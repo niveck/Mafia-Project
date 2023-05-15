@@ -1,0 +1,85 @@
+Type,Player name,Action,Prediction
+vote,Jason Smith,Alexander Lopez ,
+text,Robert Anderson,"Good enough for me, Alexander Lopez sleeps with the fishes tonight. ",Hello
+vote,Robert Anderson,Alexander Lopez ,
+victim,Alexander Lopez ,,
+text,Katherine Hull,hi ,"Good enough for me, Alexander Lopez sleeps with the fishes tonight."
+vote,Stephen Frank,James Perez ,
+text,James Perez,hi ,Hello
+text,Robert Anderson,hello ,Hello
+text,Stephen Frank,hello ,Hello
+text,Kimberly Warren,hi ,hello
+text,Ricardo Owens,ello ,hello
+vote,James Perez,Ricardo Owens ,
+text,Stephen Frank,i know who is mafia ,hi
+vote,Katherine Harper,Ricardo Owens ,
+text,Katherine Hull,I am the mafia ,i know who is mafia
+text,James Perez,Im mafia ,i think kimberly writght is mafia
+text,Stephen Frank,i am too ,I am mafia
+vote,Robert Anderson,James Perez ,
+text,James Perez,lol ,hey
+vote,Katherine Hull,James Perez ,
+text,Jason Smith,Im too nice to be mafia ,i'm mafia too
+text,Stephen Frank,lol or im a bystander with a gun ,hey
+vote,Ricardo Owens,Jason Smith ,
+text,Stephen Frank,hmm.. ,i'm a bystander with a gun
+text,James Perez,Im both ,hmm
+vote,Kimberly Warren,James Perez ,
+text,Stephen Frank,jason smith mafia confirmed ,hmm
+text,James Perez,Ricardo is too quiet ,i think kimberly writght is mafia
+text,Robert Anderson,"One name is as good as another at this point, I guess ",James Perez is a bystander with a gun
+text,Katherine Hull,Ricardo def mafia ,James Perez is a bystander with a gun
+text,Ricardo Owens,i mean i'm just processing everyone admitting to being mafia even though they can't all be lol ,Ricardo is a bystander with a gun
+text,James Perez,sure ,"i'm not mafia, i'm a bystander"
+vote,Jason Smith,Ricardo Owens ,
+text,Robert Anderson,"That would be a short game, lol ",i'm a bystander with a gun
+text,James Perez,lol everyone had the same idea  ,i'm a bystander with a gun
+text,Katherine Hull,that's what someone in the mafia would say ,i think kimberly is a bystander with a gun
+victim,James Perez ,,
+text,Robert Anderson,Stephen Frank? ,"i'm not mafia, i'm a bystander"
+text,Jason Smith,james perez ,"i'm not mafia, i'm a bystander"
+text,Robert Anderson,Sure. ,"i'm not mafia, i'm a bystander"
+text,Stephen Frank,hmmm ,"i'm not mafia, i'm a bystander"
+vote,Katherine Hull,Ricardo Owens ,
+vote,Kimberly Warren,Ricardo Owens ,
+text,Robert Anderson,"Well, we were building some Ricardo momentum last time ","i'm not mafia, i'm a bystander"
+text,Stephen Frank,nobody thinks im mafia... ,i think kimberly is a bystander with a gun
+vote,Katherine Harper,Ricardo Owens ,
+text,Katherine Hull,Ricardo is sketchy as the day is long ,Ricardo is too quiet
+vote,Robert Anderson,Ricardo Owens ,
+vote,Stephen Frank,Ricardo Owens ,
+vote,Jason Smith,Ricardo Owens ,
+text,Ricardo Owens,sigh i should of just said i'm mafia like everyone else  ,Ricardo is sketchy as the day is long
+text,Katherine Hull,Ricardo vote for yourself. Your fate has been decided ,"i'm not mafia, i'm just saying i'"
+vote,Ricardo Owens,Katherine Hull ,
+text,Stephen Frank,i think we may be racists ,"i'm not mafia, i'm just saying i'"
+text,Stephen Frank,were building the wall in the mafia game ,"i think kimberly is right, she isn't mafia"
+text,Katherine Hull,how about that woman that jumped into the jaguar exhibit in Arizona today. Bold move ,i think we may be racists
+text,Stephen Frank,lol nice ,"i'm not mafia, but i'm trying to help"
+text,Robert Anderson,"She really liked jaguars, I guess ","i'm not mafia, but i'm trying to help"
+text,Stephen Frank,did she win? ,"i'm not mafia, i'm just a regular guy"
+text,Jason Smith,I want to take a selfie with the mafiosa ,"i'm not mafia, i'm just saying vote me out"
+text,Katherine Hull,"she tried to pet, it didn't work ","yea, i was thinking the same thing"
+victim,Ricardo Owens ,,
+text,Robert Anderson,"Hull or Frank, maybe? ",i'm mafiosa like everyone else
+text,Jason Smith,hull ,i think kimberly is mafiosa
+vote,Robert Anderson,Katherine Hull ,
+vote,Jason Smith,Katherine Hull ,
+victim,Katherine Hull ,,
+text,Robert Anderson,Any favorites? ,hahahahahahahahahahahahahahahahahahaha
+text,Jason Smith,you pick ,oh my gosh
+text,Stephen Frank,james ,"I'm a bystander, I'm not mafia, but"
+text,Robert Anderson,"LOL, the pressure! ","i'm not mafia, but i'm trying to get rid"
+vote,Stephen Frank,David Barnes ,
+text,Stephen Frank,im voting david ,"i'm not mafia, i'm just a regular guy"
+vote,Kimberly Warren,David Barnes ,
+vote,Robert Anderson,David Barnes ,
+vote,Katherine Harper,David Barnes ,
+vote,Jason Smith,David Barnes ,
+text,Stephen Frank,buh bye david ,"i'm not mafiosa, i'm just a"
+victim,David Barnes ,,
+text,Robert Anderson,Frank... and I think we win? ,i'm mafiosa like everyone else
+text,Jason Smith,frank it is ,i'm mafiosa like everyone else
+vote,Robert Anderson,Stephen Frank ,
+vote,Jason Smith,Stephen Frank ,
+text,Robert Anderson,Nice being criminals with you. ,"i'm not mafiosa, i'm just a"

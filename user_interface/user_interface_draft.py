@@ -73,4 +73,5 @@ only players that weren't voted out can write in chat, timer starts, they can vo
 when timer finishes they need to vote (but can also vote before)
 victim is declared
 if mafia or bystanders didnt win yet (by predefined numbers) then we continue nighttime and daytime
+Uri's ref: https://github.com/uriberger/iic_app/blob/9cd52fcd25ab42a572010b8c1bdff1ef6218359c/reformulation_app2.py#L205
 """

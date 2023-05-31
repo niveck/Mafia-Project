@@ -9,3 +9,4 @@ train_output_*
 hf_cache/*
 slurm-*
 uri_prepare.py
+.lock

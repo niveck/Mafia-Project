@@ -10,15 +10,19 @@ INSTRUCTIONS = 1
 NIGHTTIME = 2
 # NIGHTTIME_RELOAD = 2.1  # todo maybe unnecessary because of timer
 DAYTIME = 3
-# DAYTIME_RELOAD = 3.1
+# DAYTIME_RELOAD = 3.1  # todo maybe unnecessary because of timer
 GAME_ENDED = 4
 
 # Game hyperparameters:
 NUM_PLAYERS = 2
 NUM_MAFIA = 1
 
+# Game timers:
+ONE_SECOND = 100  # 100 milliseconds
+INSTRUCTION_READING_TIME = 5
+
 # Game data files:
-PARTICIPANTS_RECORD = "./participants_record.txt"
+PARTICIPANTS_RECORD = "./user_interface/participants_record.txt"
 
 
 def new_player_entry_page():
@@ -41,36 +45,53 @@ def move_to_page(page):
     st.session_state["page"] = page
 
 
-def check_if_all_players_entered():
+def all_players_entered():
     if "players" not in st.session_state:
         st.session_state["players"] = []
     with open(PARTICIPANTS_RECORD, "r") as f:
         st.session_state["players"] = f.readlines()
     if len(st.session_state["players"]) == NUM_PLAYERS:
-        move_to_page(INSTRUCTIONS)
+        return True
+    else:
+        return False
 
 
 def waiting_for_other_users_to_enter_page():
     st.title(f"**Welcome {st.session_state['name']}!**")
     st.info("Waiting for other players to enter...")
-    while True:
-        check_if_all_players_entered()
+    st_autorefresh(interval=ONE_SECOND, key="waiting_for_players")
+    if all_players_entered():
+        move_to_page(INSTRUCTIONS)
+
+
+def timer_and_move_to_page(seconds, page):
+    for _ in range(seconds):
         time.sleep(1)
+    move_to_page(NIGHTTIME)
+    st_autorefresh(interval=ONE_SECOND, key=f"timer_move_to_{page}")
+
+
+def instructions_page():
+    st.title(f"**Welcome all players:**")
+    for player_name in st.session_state["players"]:
+        st.text(player_name)
+    st.header("Game instructions:")
+    st.text("- Write in English\n- Don't reveal your role")
+    timer_and_move_to_page(INSTRUCTION_READING_TIME, NIGHTTIME)
 
 
 def nighttime_page():
-    pass
+    st.title("Nighttime")
+    # todo continue
 
 
 def daytime_page():
+    # todo continue
     pass
 
 
 def game_ended_page():
-    pass
-
-
-def instructions_page():
+    # todo continue
     pass
 
 

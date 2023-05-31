@@ -42,9 +42,9 @@ def messaging_page():
         st.text(message)
 
     def submit_message():
-        now = f"{str(datetime.now().hour).zfill(2)}:" \
-              f"{str(datetime.now().minute).zfill(2)}:" \
-              f"{str(datetime.now().second).zfill(2)}"
+        now = f"{datetime.now().hour:02d}:" \
+              f"{datetime.now().minute:02d}:" \
+              f"{datetime.now().second:02d}"
         line = f"{now},{name},text,{st.session_state['user_text_input']}"
         st.session_state["user_text_input"] = ""
         with open(OUTPUT_PATH, "a") as f:
@@ -58,20 +58,3 @@ if __name__ == "__main__":
     main()
 
 
-
-"""
-Design Ideas:
-
-players insert their names
-they wait until predefined number of players signed in
-they are assigned to roles
-they are presented with all game's player names and instructions
-they are moved to the nighttime screen where their role is always presented to them
-in nighttime screen bytanders dont see chat but only wait
-after victim is chosen everyone moves to daytime screen where victim is declared
-only players that weren't voted out can write in chat, timer starts, they can vote and change their votes
-when timer finishes they need to vote (but can also vote before)
-victim is declared
-if mafia or bystanders didnt win yet (by predefined numbers) then we continue nighttime and daytime
-Uri's ref: https://github.com/uriberger/iic_app/blob/9cd52fcd25ab42a572010b8c1bdff1ef6218359c/reformulation_app2.py#L205
-"""

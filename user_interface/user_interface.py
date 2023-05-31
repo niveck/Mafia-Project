@@ -2,74 +2,95 @@ import streamlit as st
 from streamlit_autorefresh import st_autorefresh
 from datetime import datetime
 import time
-OUTPUT_PATH = "/cs/snapless/gabis/nive/Mafia-Project/user_interface/game_output.csv" # todo validate relative path
-OUTPUT_FILE_HEADER = "time,name,type,message"
 
+# Pages IDs:
+NEW_PLAYER_ENTRY = 0
+WAITING_FOR_OTHER_USERS_TO_ENTER = 0.5
+INSTRUCTIONS = 1
+NIGHTTIME = 2
+# NIGHTTIME_RELOAD = 2.1  # todo maybe unnecessary because of timer
+DAYTIME = 3
+# DAYTIME_RELOAD = 3.1
+GAME_ENDED = 4
+
+# Game hyperparameters:
+NUM_PLAYERS = 2
+NUM_MAFIA = 1
+
+# Game data files:
+PARTICIPANTS_RECORD = "./participants_record.txt"
+
+
+def new_player_entry_page():
+    st.title("Welcome to the game of Mafia!")
+    st.text_input("Enter fake first name:", key="first_name")
+    st.text_input("Enter fake last name:", key="last_name")
+
+    def save_names_and_wait_for_others():
+        name = st.session_state["first_name"] + " " + st.session_state["last_name"]
+        st.session_state["name"] = name
+        with open(PARTICIPANTS_RECORD, "a") as f:
+            f.write(name + "\n")
+        move_to_page(WAITING_FOR_OTHER_USERS_TO_ENTER)
+
+    st.button("Send and wait for other players", key="send_names",
+              on_click=save_names_and_wait_for_others)
+
+
+def move_to_page(page):
+    st.session_state["page"] = page
+
+
+def check_if_all_players_entered():
+    if "players" not in st.session_state:
+        st.session_state["players"] = []
+    with open(PARTICIPANTS_RECORD, "r") as f:
+        st.session_state["players"] = f.readlines()
+    if len(st.session_state["players"]) == NUM_PLAYERS:
+        move_to_page(INSTRUCTIONS)
+
+
+def waiting_for_other_users_to_enter_page():
+    st.title(f"**Welcome {st.session_state['name']}!**")
+    st.info("Waiting for other players to enter...")
+    while True:
+        check_if_all_players_entered()
+        time.sleep(1)
+
+
+def nighttime_page():
+    pass
+
+
+def daytime_page():
+    pass
+
+
+def game_ended_page():
+    pass
+
+
+def instructions_page():
+    pass
 
 
 def main():
-
-    if 'name' not in st.session_state:
-        st.title("Welcome to the Messaging App")
-
-        def submit_name():
-            st.session_state["name"] = st.session_state["name_input"]
-            st.session_state["name_input"] = ""
-
-        st.text_input("Enter your name", key="name_input", on_change=submit_name)
-
-    else:
-        messaging_page()
-
-
-def messaging_page():
-
-    # todo maybe try https://stackoverflow.com/questions/74910140/how-do-i-update-values-in-streamlit-on-a-schedule
-    # todo or maybe https://stackoverflow.com/questions/62718133/how-to-make-streamlit-reloads-every-5-seconds
-    # todo or read more https://docs.streamlit.io/library/advanced-features/caching
-    # todo or databutton: https://discuss.streamlit.io/t/is-it-possible-to-include-a-kind-of-scheduler-within-streamlit/31279
-    st_autorefresh(interval=200, key="getting_game_data")
-    st.title("Messaging Page")
-
-    # Get the user's name from session state
-    name = st.session_state["name"]
-
-    with open(OUTPUT_PATH, "r") as f:
-        st.session_state["messages"] = f.readlines()
-
-    st.text("All messages:")
-    for message in st.session_state["messages"]:
-        st.text(message)
-
-    def submit_message():
-        now = f"{str(datetime.now().hour).zfill(2)}:" \
-              f"{str(datetime.now().minute).zfill(2)}:" \
-              f"{str(datetime.now().second).zfill(2)}"
-        line = f"{now},{name},text,{st.session_state['user_text_input']}"
-        st.session_state["user_text_input"] = ""
-        with open(OUTPUT_PATH, "a") as f:
-            f.write(line + "\n")
-
-    st.text_input("Write a message", key="user_text_input", on_change=submit_message)
-    time.sleep(4)
+    if "page" not in st.session_state:
+        st.session_state["page"] = NEW_PLAYER_ENTRY
+    page = st.session_state["page"]
+    if page == NEW_PLAYER_ENTRY:
+        new_player_entry_page()
+    elif page == WAITING_FOR_OTHER_USERS_TO_ENTER:
+        waiting_for_other_users_to_enter_page()
+    elif page == INSTRUCTIONS:
+        instructions_page()
+    elif page == NIGHTTIME:
+        nighttime_page()
+    elif page == DAYTIME:
+        daytime_page()
+    elif page == GAME_ENDED:
+        game_ended_page()
 
 
 if __name__ == "__main__":
     main()
-
-
-
-"""
-Design Ideas:
-
-players insert their names
-they wait until predefined number of players signed in
-they are assigned to roles
-they are moved to the nighttime screen where their role is always presented to them
-in nighttime screen bstanders dont see chat but only wait
-after victim is chosen everyone moves to daytime screen where victim is declared
-only players that weren't voted out can write in chat, timer starts, they can vote and change their votes
-when timer finishes they need to vote (but can also vote before)
-victim is declared
-if mafia or bystanders didnt win yet (by predefined numbers) then we continue nighttime and daytime
-"""

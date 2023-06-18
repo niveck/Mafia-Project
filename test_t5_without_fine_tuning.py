@@ -14,6 +14,8 @@ EXAMPLE_MESSAGE = "<phase change> Nighttime <player name> Natalie Morris <text> 
                   "vote for, I just chose Bryce Fields at random.. <player name> Ryan Hodges " \
                   "<text> hey <player name> Christopher Smith <text> Hello <player name> Diana " \
                   "Pennington <text> "
+OUTPUT_PATH_DIR = "./predictions/t5_large_not_fine_tuned/greedy/"
+TRAIN_SET = "./training_data/training_by_all_data_with_or_without_votes_february_2023/" #TODO continue
 
 
 def prepare():

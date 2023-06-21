@@ -4,10 +4,18 @@ from metrics.calc_metrics import calc_metrics
 import sys
 import torch
 
-def evaluate_on_game(model_path, dataset_path, game_id, max_source_length):
-    model = Demonstrator(model_path, max_source_length)
+
+def evaluate_on_game(dataset_path, game_id, max_source_length, model_path=None,
+                     pretrained_model_name=None):
+    if model_path:
+        model = Demonstrator(max_source_length=max_source_length, model_path=model_path)
+    elif pretrained_model_name:
+        model = Demonstrator(max_source_length=max_source_length,
+                             pretrained_model_name=pretrained_model_name)
+    else:
+        raise ValueError("Missing either model_path or pretrained_model_name")
     sample_list = load_game_from_csv(dataset_path, game_id)
-    sample_list.sort(key=lambda x:x[0].count('text') + x[0].count('vote'))
+    sample_list.sort(key=lambda x: x[0].count('text') + x[0].count('vote'))
 
     preds = []
     predicted_players = []
@@ -66,5 +74,7 @@ def evaluate_on_game(model_path, dataset_path, game_id, max_source_length):
             elif cur_player is not None:
                 assert False
 
+
 if __name__ == "__main__":
-    evaluate_on_game(sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4]))
+    evaluate_on_game(model_path=sys.argv[1], dataset_path=sys.argv[2], game_id=sys.argv[3],
+                     max_source_length=int(sys.argv[4]))

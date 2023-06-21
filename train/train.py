@@ -45,6 +45,9 @@ from transformers.trainer_utils import get_last_checkpoint
 from transformers.utils import check_min_version, is_offline_mode, send_example_telemetry
 from transformers.utils.versions import require_version
 
+SPECIAL_TOKENS = ['<player name>', '<phase change>', '<vote>', '<victim>', '<text>',
+                  '<voting history>', '<mention history>', '<talking percentage>']
+
 
 # Will error if the minimal version of Transformers is not installed. Remove at your own risks.
 check_min_version("4.26.0.dev0")
@@ -447,9 +450,7 @@ def main():
         use_auth_token=True if model_args.use_auth_token else None,
     )
 
-    special_tokens = ['<player name>', '<phase change>', '<vote>', '<victim>', '<text>', '<voting history>', '<mention history>', '<talking percentage>']
-    tokenizer.add_special_tokens({'additional_special_tokens': special_tokens})
-    special_token_ids = [x for x in tokenizer(' '.join(special_tokens)).input_ids if tokenizer.decode(x) in special_tokens]
+    special_token_ids = add_special_tokens_to_tokenizer_and_get_ids(tokenizer)
 
     # We resize the embeddings only when necessary to avoid index errors. If you are creating a model from scratch
     # on a small vocab and want a smaller embedding size, remove this test.
@@ -754,6 +755,13 @@ def main():
         trainer.create_model_card(**kwargs)
 
     return results
+
+
+def add_special_tokens_to_tokenizer_and_get_ids(tokenizer):
+    special_tokens = SPECIAL_TOKENS
+    tokenizer.add_special_tokens({'additional_special_tokens': special_tokens})
+    return [x for x in tokenizer(' '.join(special_tokens)).input_ids
+            if tokenizer.decode(x) in special_tokens]
 
 
 def _mp_fn(index):

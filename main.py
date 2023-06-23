@@ -1,6 +1,7 @@
 import string
 from con_dataset import ConDataset
 from mafiasum_dataset import MafiascumDataset
+import gzip
 
 # from docopt import docopt  # todo use this for usage and argv instead of paths
 
@@ -110,6 +111,20 @@ def preprocess_con_data_divided_to_turns():
     data.get_data_for_all_players_divided_to_turns(include_votes=False,
                                                    add_structured_data=False) \
         .to_csv(dir_path + target_file_name)
+
+
+def compress_file(file_to_compress_path):
+    with open(file_to_compress_path, "rb") as f_in:
+        with gzip.open(file_to_compress_path + ".gz", "wb") as f_out:
+            f_out.writelines(f_in)
+
+
+def uncompress_file(compressed_file_path, uncompressed_output_path=None):
+    if not uncompressed_output_path:
+        uncompressed_output_path = compressed_file_path.replace(".gz", "")
+    with gzip.open(compressed_file_path, "rb") as f_in:
+        with open(uncompressed_output_path, "wb") as f_out:
+            f_out.write(f_in.read())
 
 
 if __name__ == "__main__":

@@ -97,8 +97,25 @@ def preprocess_all_con_data_for_training(add_structured_data=True):
         .to_csv(path_prefix + file_prefix + "_without_votes_with_names.csv")
 
 
+def preprocess_con_data_divided_to_turns():
+    """
+    Saves csv files with tables for training model over the Con Dataset,
+    such that every message is a turn in the game where the current player sends it
+    and all other players send a message of <pass>
+    """
+    data = ConDataset(CON_DATASET_DIR_PATH)
+    # get_data_for_all_players
+    dir_path = "./training_data/training_by_all_messages_without_votes_divided_to_turns_june_2023/"
+    target_file_name = "train_and_validation_data_combined.csv"
+    data.get_data_for_all_players_divided_to_turns(include_votes=False,
+                                                   add_structured_data=False) \
+        .to_csv(dir_path + target_file_name)
+
+
 if __name__ == "__main__":
     # con_dataset_main()
     # mafiascum_dataset_main()
     # preprocess_con_data_for_training_by_role()
-    preprocess_all_con_data_for_training()
+    # preprocess_all_con_data_for_training()
+    preprocess_con_data_divided_to_turns()
+    # training_by_all_messages_without_votes_divided_to_turns_june_2023

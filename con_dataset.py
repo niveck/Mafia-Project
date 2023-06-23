@@ -33,11 +33,11 @@ def get_training_format_message(message):
     """
     if message["type"] == "info":
         tokens = re.search("(Phase Change) to (Nighttime|Daytime)(: Victim - (.*))?", message["contents"])
-        tokened_message = f"<{tokens.group(1).lower()}> {tokens.group(2)} "
+        tokenized_message = f"<{tokens.group(1).lower()}> {tokens.group(2)} "
         if tokens.group(3):
-            return tokened_message + f"<victim> {tokens.group(4)} ", ""
+            return tokenized_message + f"<victim> {tokens.group(4)} ", ""
         else:
-            return tokened_message, ""
+            return tokenized_message, ""
     else:  # message["type"] in ("text", "vote")
         tokens = re.search("(.*?): (.*)", message["contents"])
         return f"<player name> {tokens.group(1)} <{message['type']}> ", f"{tokens.group(2)} "
@@ -199,6 +199,49 @@ class ConDataset(BaseDataset):
                     if add_structured_data:
                         game_data.update_game_data(turn_info, player_message)
                     accumulated_messages += turn_info + player_message  # player_message is empty if only info
+        return pd.DataFrame.from_records(training_data_records)
+
+    def get_data_for_all_players_divided_to_turns(self, include_votes=False, add_structured_data=False):
+        """
+        Gets all the games' data in a training-suitable format,
+        such that every message is a turn in the game where the current player sends it
+        and all other players send a message of <pass>
+        :param include_votes: whether to include votes or just text
+        :param add_structured_data: whether to add structured data to each row
+        :return: the requested data as a dataframe
+        """
+        training_data_records = []
+        for game in self.game_dirs:
+            game_id = os.path.basename(game)
+            all_messages = pd.read_csv(os.path.join(game, "info.csv")).sort_values("id")
+            all_players = pd.read_csv(os.path.join(game, "node.csv"))
+            all_players_names = set(all_players["property1"].dropna())
+            game_data = ConGameData(all_players) if add_structured_data else None
+            accumulated_messages = ""
+            for index, message in all_messages.iterrows():
+                turn_info, player_message = get_training_format_message(message)
+                # "property1" in node.csv is the player name
+                player_name = all_players[all_players.id == message["origin_id"]]["property1"].values.item()
+                other_players = all_players_names - {player_name}
+                pass_history = ""
+                if player_message and (include_votes or "<vote>" not in turn_info):
+                    structured_data = game_data.get_as_text() if add_structured_data else ""
+                    training_data_records.append({
+                        "game_id": game_id, "player_name": player_name,
+                        "game_data_until_now": accumulated_messages + structured_data + turn_info,
+                        "player_message": player_message})
+                    for player in other_players:
+                        pass_history += f"<player name> {player} <text> "
+                        training_data_records.append({
+                            "game_id": game_id, "player_name": player,
+                            "game_data_until_now": accumulated_messages + structured_data
+                                                   + turn_info + player_message + pass_history,
+                            "player_message": "<pass> "})
+                        pass_history += "<pass> "
+                if add_structured_data:
+                    game_data.update_game_data(turn_info, player_message)
+                accumulated_messages += turn_info + player_message + pass_history
+                # player_message and pass_history are empty if only info
         return pd.DataFrame.from_records(training_data_records)
 
     def extract_players_names(self):

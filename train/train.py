@@ -46,7 +46,7 @@ from transformers.utils import check_min_version, is_offline_mode, send_example_
 from transformers.utils.versions import require_version
 
 SPECIAL_TOKENS = ['<player name>', '<phase change>', '<vote>', '<victim>', '<text>',
-                  '<voting history>', '<mention history>', '<talking percentage>']
+                  '<voting history>', '<mention history>', '<talking percentage>', '<pass>']
 
 
 # Will error if the minimal version of Transformers is not installed. Remove at your own risks.

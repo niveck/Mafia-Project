@@ -119,11 +119,11 @@ def compress_file(file_to_compress_path):
             f_out.writelines(f_in)
 
 
-def uncompress_file(compressed_file_path, uncompressed_output_path=None):
-    if not uncompressed_output_path:
-        uncompressed_output_path = compressed_file_path.replace(".gz", "")
+def decompress_file(compressed_file_path, decompressed_output_path=None):
+    if not decompressed_output_path:
+        decompressed_output_path = compressed_file_path.replace(".gz", "")
     with gzip.open(compressed_file_path, "rb") as f_in:
-        with open(uncompressed_output_path, "wb") as f_out:
+        with open(decompressed_output_path, "wb") as f_out:
             f_out.write(f_in.read())
 
 

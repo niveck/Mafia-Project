@@ -1,7 +1,5 @@
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from evaluate_on_game import evaluate_on_game
 from prepare import prepare
-import sys
 
 
 MODEL_NAME = "t5-large"

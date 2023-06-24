@@ -160,3 +160,4 @@ if __name__ == "__main__":
     # preprocess_con_data_divided_to_turns()
     # training_by_all_messages_without_votes_divided_to_turns_june_2023
     split_to_train_and_validation(r"./training_data/training_by_all_messages_without_votes_divided_to_turns_june_2023/train_and_validation_data_combined.csv")
+

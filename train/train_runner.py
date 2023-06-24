@@ -2,6 +2,7 @@ import os
 import sys
 import importlib
 
+
 class TrainRunner:
     def __init__(self, train_config_path):
         train_config_path_parts = train_config_path.split('.')
@@ -21,6 +22,11 @@ class TrainRunner:
         es = os.system(cmd_to_run)
         print('Got exit status ' + str(es))
 
-config_path = sys.argv[1]
-runner = TrainRunner(config_path)
-runner.run()
+
+def run_train(config_path):
+    runner = TrainRunner(config_path)
+    runner.run()
+
+
+if __name__ == "__main__":
+    run_train(sys.argv[1])

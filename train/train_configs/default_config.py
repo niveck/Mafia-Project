@@ -1,4 +1,5 @@
-from train_configs.train_config import TrainConfig
+from train.train_configs.train_config import TrainConfig
+
 
 class DefaultConfig(TrainConfig):
     def __init__(self,

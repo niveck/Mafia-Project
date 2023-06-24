@@ -1,4 +1,4 @@
-from default_config import DefaultConfig
+from train.train_configs.default_config import DefaultConfig
 
 
 class T5MultitaskBystanderWithNamesWithoutVotesDividedToTurnsConfig(DefaultConfig):

@@ -6,7 +6,7 @@ import importlib
 class TrainRunner:
     def __init__(self, train_config_path):
         train_config_path_parts = train_config_path.split('.')
-        file_path_list = ['train_configs'] + train_config_path_parts[:-1]
+        file_path_list = ['train.train_configs'] + train_config_path_parts[:-1]
         train_config_file_path = '.'.join(file_path_list)
         train_config_class_name = train_config_path_parts[-1]
         train_config_class = getattr(importlib.import_module(train_config_file_path), train_config_class_name)

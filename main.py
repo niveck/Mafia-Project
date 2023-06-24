@@ -1,4 +1,5 @@
 import string
+import pandas as pd
 from con_dataset import ConDataset
 from mafiasum_dataset import MafiascumDataset
 import gzip
@@ -22,6 +23,9 @@ HMM_PATTERN = "\\W*\\bhm+[.]*\\b\\W*"
 ONLY_HMM_PATTERN = "\\A" + HMM_PATTERN + "\\Z"
 NUMBER_OF_CLUSTERS = 100
 REDUCED_DIMENSION_3D = 3
+VALIDATION_GAME_IDS = ["f0ac69d0-a9ee-662f-6cdd-b64dbf23a72d-data",
+                       "f2c4a8cd-7cf5-efa0-bc21-b8f655da8b09-data",
+                       "fb8339cf-c251-ac37-d742-4c4b3ee16a53-data"]
 
 
 def con_dataset_main():
@@ -107,10 +111,31 @@ def preprocess_con_data_divided_to_turns():
     data = ConDataset(CON_DATASET_DIR_PATH)
     # get_data_for_all_players
     dir_path = "./training_data/training_by_all_messages_without_votes_divided_to_turns_june_2023/"
-    target_file_name = "train_and_validation_data_combined.csv"
+    # target_file_name = "train_and_validation_data_combined.csv"
+    target_file_name = "train_and_validation_data_combined_TEST.csv"
     data.get_data_for_all_players_divided_to_turns(include_votes=False,
                                                    add_structured_data=False) \
         .to_csv(dir_path + target_file_name)
+
+
+def split_to_train_and_validation(data_csv_path, train_output_path=None,
+                                  validation_output_path=None):
+    train_and_validation_prefix = "train_and_validation_data_combined"
+    if not train_output_path or not validation_output_path:
+        if train_and_validation_prefix in data_csv_path:
+            train_output_path = data_csv_path.replace(train_and_validation_prefix, "train_data")
+            validation_output_path = data_csv_path.replace(train_and_validation_prefix,
+                                                           "validation_data")
+            print(f"Output paths not fully provided, so were generated out of data_csv_path:"
+                  f"\ntrain_output_path: {train_output_path}"
+                  f"\nvalidation_output_path: {validation_output_path}")
+        else:
+            raise ValueError("Output paths not fully provided "
+                             "and could not be generated out of data_csv_path")
+    all_data = pd.read_csv(data_csv_path)
+    rows_of_validation_games = all_data["game_id"].isin(VALIDATION_GAME_IDS)
+    all_data[~rows_of_validation_games].to_csv(train_output_path)
+    all_data[rows_of_validation_games].to_csv(validation_output_path)
 
 
 def compress_file(file_to_compress_path):
@@ -132,5 +157,6 @@ if __name__ == "__main__":
     # mafiascum_dataset_main()
     # preprocess_con_data_for_training_by_role()
     # preprocess_all_con_data_for_training()
-    preprocess_con_data_divided_to_turns()
+    # preprocess_con_data_divided_to_turns()
     # training_by_all_messages_without_votes_divided_to_turns_june_2023
+    split_to_train_and_validation(r"./training_data/training_by_all_messages_without_votes_divided_to_turns_june_2023/train_and_validation_data_combined.csv")

@@ -235,7 +235,7 @@ class ConDataset(BaseDataset):
                         training_data_records.append({
                             "game_id": game_id, "player_name": player,
                             "game_data_until_now": accumulated_messages + structured_data
-                                                   + turn_info + player_message + pass_history,
+                                                + turn_info + player_message + pass_history,
                             "player_message": "<pass> "})
                         pass_history += "<pass> "
                 if add_structured_data:

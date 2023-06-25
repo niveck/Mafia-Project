@@ -11,3 +11,4 @@ slurm-*
 uri_prepare.py
 .lock
 training_data/training_by_all_messages_without_votes_divided_to_turns_june_2023/*.csv
+wandb/

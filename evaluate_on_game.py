@@ -18,6 +18,7 @@ def evaluate_on_game(dataset_path, game_id, max_source_length, model_path=None,
         raise ValueError("Missing either model_path or pretrained_model_name")
     sample_list = load_game_from_csv(dataset_path, game_id)
     sample_list.sort(key=lambda x: x[0].count('text') + x[0].count('vote'))
+    assert len(sample_list) > 0, "Error in loading dataset: loaded empty"
 
     preds = []
     predicted_players = []

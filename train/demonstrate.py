@@ -21,6 +21,9 @@ def load_dataset_from_csv(path):
 
 
 def load_game_from_csv(path, game_id):
+    BUG = 1  # this is a bad solution for fast solving of a run, should be solved! # TODO remove!
+    if BUG:  # TODO remove!
+        print("Loading dataset still depends on a local bug I've fixed in a bad way")
     res = []
     with open(path, 'r') as fp:
         my_reader = reader(fp)
@@ -29,8 +32,8 @@ def load_game_from_csv(path, game_id):
             if first:
                 first = False
                 continue
-            if line[1] == game_id:
-                res.append((line[3], line[4], line[2]))
+            if line[1 + BUG] == game_id:
+                res.append((line[3 + BUG], line[4 + BUG], line[2 + BUG]))
 
     return res
 

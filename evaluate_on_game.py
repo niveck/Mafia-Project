@@ -4,9 +4,11 @@ from metrics.calc_metrics import calc_metrics
 import sys
 import torch
 
+INSTRUCTION = "Complete the message in this Mafia game: "
+
 
 def evaluate_on_game(dataset_path, game_id, max_source_length, model_path=None,
-                     pretrained_model_name=None):
+                     pretrained_model_name=None, pass_token_is_used=True):
     if model_path:
         model = Demonstrator(max_source_length=max_source_length, model_path=model_path)
     elif pretrained_model_name:
@@ -24,12 +26,16 @@ def evaluate_on_game(dataset_path, game_id, max_source_length, model_path=None,
     perplexity_sum = 0
     for source, target, player_name in sample_list:
         if source.strip().endswith('<text>'):
+            if pretrained_model_name:
+                source = INSTRUCTION + source
             with torch.no_grad():
                 prediction = model.predict(source)
             preds.append((prediction, player_name))
             predicted_players.append(player_name)
             print('Prediction ' + str(count) + ': player "' + player_name + '" says "' + prediction + '"')
-            cur_loss, cur_perplexity = calc_metrics(model.model, model.tokenizer, source, target, max_source_length, model.special_token_ids, model.model_name)
+            cur_loss, cur_perplexity = calc_metrics(model.model, model.tokenizer, source, target,
+                                                    max_source_length, model.special_token_ids,
+                                                    model.model_name)
             loss_sum += cur_loss
             perplexity_sum += cur_perplexity
             count += 1
@@ -37,6 +43,8 @@ def evaluate_on_game(dataset_path, game_id, max_source_length, model_path=None,
     print('Mean perplexity: ' + str(perplexity_sum/(count - 1)))
     predicted_players = {x: True for x in predicted_players}
 
+    if pretrained_model_name:
+        game_id = "without_fine_tune_" + game_id
     csv_name = game_id + '.csv'
     with open(csv_name, 'w') as fp:
         cur_pred_ind = 0
@@ -58,6 +66,10 @@ def evaluate_on_game(dataset_path, game_id, max_source_length, model_path=None,
                 cur_player = cur_part.split('> ')[1].strip()
             elif cur_part.startswith('text'):
                 text = cur_part.split('> ')[1]
+                if text == '' and pass_token_is_used:
+                    # it means that cur_part was originally from '...<text> <...'
+                    # so cur_part == 'text> ' => currently can only mean it was '<text> <pass>'
+                    text = '<pass>'
                 if cur_player in predicted_players:
                     assert cur_player == preds[cur_pred_ind][1], 'Error: for prediction ' + str(cur_pred_ind+1) + ', current player name "' + cur_player + '" differs from recorded player name "' + preds[cur_pred_ind][1] + '"'
                     my_writer.writerow(['text', cur_player, text, preds[cur_pred_ind][0]])

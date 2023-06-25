@@ -8,7 +8,7 @@ INSTRUCTION = "Complete the message in this Mafia game: "
 
 
 def evaluate_on_game(dataset_path, game_id, max_source_length, model_path=None,
-                     pretrained_model_name=None, pass_token_is_used=True):
+                     pretrained_model_name=None, pass_token_is_used=True, output_dir_path=""):
     if model_path:
         model = Demonstrator(max_source_length=max_source_length, model_path=model_path)
     elif pretrained_model_name:
@@ -45,7 +45,7 @@ def evaluate_on_game(dataset_path, game_id, max_source_length, model_path=None,
 
     if pretrained_model_name:
         game_id = "without_fine_tune_" + game_id
-    csv_name = game_id + '.csv'
+    csv_name = output_dir_path + game_id + '.csv'
     with open(csv_name, 'w') as fp:
         cur_pred_ind = 0
         my_writer = writer(fp)

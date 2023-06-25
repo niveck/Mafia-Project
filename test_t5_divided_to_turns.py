@@ -4,7 +4,7 @@ from prepare import prepare
 
 MODEL_PATH = "train_output_divided_to_turns_10_epochs"
 MODEL_MAX_SOURCE_LENGTH = 512
-OUTPUT_PATH_DIR = "./predictions/t5_large_not_fine_tuned/with_instruction/"
+OUTPUT_PATH_DIR = "./predictions/t5_large_10_epochs_divided_to_turns/"
 VALIDATION_SET_DIR = "./training_data/training_by_all_messages_without_votes_divided_to_turns_june_2023/"
 VALIDATION_SET_FILE = "validation_data.csv"
 VALIDATION_SET_PATH = VALIDATION_SET_DIR + VALIDATION_SET_FILE

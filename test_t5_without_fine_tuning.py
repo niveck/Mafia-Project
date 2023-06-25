@@ -14,7 +14,7 @@ MODEL_MAX_SOURCE_LENGTH = 512
 #                   "vote for, I just chose Bryce Fields at random.. <player name> Ryan Hodges " \
 #                   "<text> hey <player name> Christopher Smith <text> Hello <player name> Diana " \
 #                   "Pennington <text> "
-OUTPUT_PATH_DIR = "./predictions/t5_large_not_fine_tuned/greedy/"
+OUTPUT_PATH_DIR = "./predictions/t5_large_not_fine_tuned/with_instruction/"
 VALIDATION_SET_DIR = "./training_data/training_by_all_data_with_or_without_votes_february_2023/"
 VALIDATION_SET_FILE = "validation_data_without_votes_with_names.csv"
 VALIDATION_SET_PATH = VALIDATION_SET_DIR + VALIDATION_SET_FILE
@@ -29,7 +29,7 @@ def main(game_id):
     print(f"Game ID: {game_id}")
     evaluate_on_game(dataset_path=VALIDATION_SET_PATH, game_id=game_id,
                      max_source_length=MODEL_MAX_SOURCE_LENGTH,
-                     pretrained_model_name=MODEL_NAME)
+                     pretrained_model_name=MODEL_NAME, output_dir_path=OUTPUT_PATH_DIR)
     print("\n")
 
 

@@ -59,7 +59,7 @@ def con_dataset_main():
 
 def mafiascum_dataset_main():
     """
-    Main method runs for the Con dataset
+    Main method runs for the MafiaScum dataset
     """
     data = MafiascumDataset(MAFIASCUM_DATASET_DIR_PATH)
     raw_dataset = data.raw_dataset
@@ -113,8 +113,7 @@ def preprocess_con_data_divided_to_turns():
     dir_path = "./training_data/training_by_all_messages_without_votes_divided_to_turns_june_2023/"
     # target_file_name = "train_and_validation_data_combined.csv"
     target_file_name = "train_and_validation_data_combined_TEST.csv"
-    data.get_data_for_all_players_divided_to_turns(include_votes=False,
-                                                   add_structured_data=False) \
+    data.get_data_for_all_players_divided_to_turns(include_votes=False, add_structured_data=False) \
         .to_csv(dir_path + target_file_name)
 
 
@@ -134,8 +133,8 @@ def split_to_train_and_validation(data_csv_path, train_output_path=None,
                              "and could not be generated out of data_csv_path")
     all_data = pd.read_csv(data_csv_path)
     rows_of_validation_games = all_data["game_id"].isin(VALIDATION_GAME_IDS)
-    all_data[~rows_of_validation_games].to_csv(train_output_path)
-    all_data[rows_of_validation_games].to_csv(validation_output_path)
+    all_data[~rows_of_validation_games].to_csv(train_output_path, index=False)
+    all_data[rows_of_validation_games].to_csv(validation_output_path, index=False)
 
 
 def compress_file(file_to_compress_path):
@@ -158,6 +157,5 @@ if __name__ == "__main__":
     # preprocess_con_data_for_training_by_role()
     # preprocess_all_con_data_for_training()
     # preprocess_con_data_divided_to_turns()
-    # training_by_all_messages_without_votes_divided_to_turns_june_2023
     split_to_train_and_validation(r"./training_data/training_by_all_messages_without_votes_divided_to_turns_june_2023/train_and_validation_data_combined.csv")
 

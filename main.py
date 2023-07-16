@@ -102,18 +102,19 @@ def preprocess_all_con_data_for_training(add_structured_data=True):
         .to_csv(path_prefix + file_prefix + "_without_votes_with_names.csv")
 
 
-def preprocess_con_data_divided_to_turns():
+def preprocess_con_data_divided_to_turns(number_of_pass_messages=0):
     """
     Saves csv files with tables for training model over the Con Dataset,
     such that every message is a turn in the game where the current player sends it
-    and all other players send a message of <pass>
+    and other players send a message of <pass>
+    :param number_of_pass_messages: how many other players should be sampled to say <pass> each turn
     """
     data = ConDataset(CON_DATASET_DIR_PATH)
-    # get_data_for_all_players
-    dir_path = "./training_data/training_by_all_messages_without_votes_divided_to_turns_june_2023/"
-    # target_file_name = "train_and_validation_data_combined.csv"
-    target_file_name = "train_and_validation_data_combined_TEST.csv"
-    data.get_data_for_all_players_divided_to_turns(include_votes=False, add_structured_data=False) \
+    dir_path = f"./training_data/training_without_votes_" \
+               f"divided_to_turns_with_{number_of_pass_messages}_pass_july_2023/"
+    target_file_name = "train_and_validation_data_combined.csv"
+    data.get_data_for_all_players_divided_to_turns(include_votes=False, add_structured_data=False,
+                                                   pass_messages_per_turn=number_of_pass_messages)\
         .to_csv(dir_path + target_file_name)
 
 
@@ -156,6 +157,7 @@ if __name__ == "__main__":
     # mafiascum_dataset_main()
     # preprocess_con_data_for_training_by_role()
     # preprocess_all_con_data_for_training()
-    # preprocess_con_data_divided_to_turns()
-    split_to_train_and_validation(r"./training_data/training_by_all_messages_without_votes_divided_to_turns_june_2023/train_and_validation_data_combined.csv")
+    preprocess_con_data_divided_to_turns(number_of_pass_messages=1)
+    preprocess_con_data_divided_to_turns(number_of_pass_messages=2)
+    # split_to_train_and_validation(r"./training_data/training_by_all_messages_without_votes_divided_to_turns_june_2023/train_and_validation_data_combined.csv")
 

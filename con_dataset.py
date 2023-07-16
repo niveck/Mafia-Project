@@ -1,3 +1,4 @@
+import random
 from base_dataset import BaseDataset
 from con_game_data import ConGameData
 import re
@@ -18,6 +19,7 @@ MODEL_NAME = "all-MiniLM-L6-v2"
 MARKER_SIZE = 2
 COLOR_MAP = plt.cm.gist_rainbow
 NUMBER_OF_CLUSTERS = 100
+RANDOM_SEED = 0
 
 
 def get_training_format_message(message):
@@ -201,15 +203,19 @@ class ConDataset(BaseDataset):
                     accumulated_messages += turn_info + player_message  # player_message is empty if only info
         return pd.DataFrame.from_records(training_data_records)
 
-    def get_data_for_all_players_divided_to_turns(self, include_votes=False, add_structured_data=False):
+    def get_data_for_all_players_divided_to_turns(self, include_votes=False,
+                                                  add_structured_data=False,
+                                                  pass_messages_per_turn=0):
         """
         Gets all the games' data in a training-suitable format,
         such that every message is a turn in the game where the current player sends it
-        and all other players send a message of <pass>
+        and other players send a message of <pass>
         :param include_votes: whether to include votes or just text
         :param add_structured_data: whether to add structured data to each row
+        :param pass_messages_per_turn: number of other players to say <pass> in each turn
         :return: the requested data as a dataframe
         """
+        random.seed(RANDOM_SEED)
         training_data_records = []
         for game in self.game_dirs:
             game_id = os.path.basename(game)
@@ -223,24 +229,21 @@ class ConDataset(BaseDataset):
                 # "property1" in node.csv is the player name
                 player_name = all_players[all_players.id == message["origin_id"]]["property1"].values.item()
                 other_players = all_players_names - {player_name}
-                pass_history = ""
                 if player_message and (include_votes or "<vote>" not in turn_info):
                     structured_data = game_data.get_as_text() if add_structured_data else ""
                     training_data_records.append({
                         "game_id": game_id, "player_name": player_name,
                         "game_data_until_now": accumulated_messages + structured_data + turn_info,
                         "player_message": player_message})
-                    for player in other_players:
-                        pass_history += f"<player name> {player} <text> "
+                    for player in random.sample(list(other_players), pass_messages_per_turn):
+                        pass_turn_info = f"<player name> {player} <text> "
                         training_data_records.append({
                             "game_id": game_id, "player_name": player,
-                            "game_data_until_now": accumulated_messages + structured_data
-                                                + turn_info + player_message + pass_history,
+                            "game_data_until_now": accumulated_messages + structured_data + pass_turn_info,
                             "player_message": "<pass> "})
-                        pass_history += "<pass> "
                 if add_structured_data:
                     game_data.update_game_data(turn_info, player_message)
-                accumulated_messages += turn_info + player_message + pass_history
+                accumulated_messages += turn_info + player_message
                 # player_message and pass_history are empty if only info
         return pd.DataFrame.from_records(training_data_records)
 

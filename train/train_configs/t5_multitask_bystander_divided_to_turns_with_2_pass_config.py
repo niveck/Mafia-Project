@@ -9,7 +9,7 @@ class T5MultitaskBystanderDividedToTurnsWith2PassConfig(DefaultConfig):
             input_column='game_data_until_now',
             target_column='player_message',
             num_train_epochs='10',
-            per_device_train_batch_size='1024',
+            per_device_train_batch_size='1',
             gradient_accumulation_steps='8',
             learning_rate='1e-4',
             output_dir='train_output_divided_to_turns_with_2_pass'

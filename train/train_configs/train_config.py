@@ -45,7 +45,7 @@ class TrainConfig:
         self.num_beams = num_beams
         self.learning_rate = learning_rate
         if num_train_epochs is None:
-            num_train_epochs = '5'
+            num_train_epochs = '10'
         if per_device_train_batch_size is None:
             per_device_train_batch_size = '64'
         if gradient_accumulation_steps is None:

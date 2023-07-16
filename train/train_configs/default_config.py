@@ -34,7 +34,7 @@ class DefaultConfig(TrainConfig):
             max_source_length='1024',
             max_target_length='64',
             val_max_target_length='128',
-            num_beams='3',
+            num_beams='4',
             num_train_epochs=num_train_epochs,
             learning_rate=learning_rate,
             per_device_train_batch_size=per_device_train_batch_size,

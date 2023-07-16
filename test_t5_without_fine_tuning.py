@@ -14,7 +14,7 @@ MODEL_MAX_SOURCE_LENGTH = 512
 #                   "vote for, I just chose Bryce Fields at random.. <player name> Ryan Hodges " \
 #                   "<text> hey <player name> Christopher Smith <text> Hello <player name> Diana " \
 #                   "Pennington <text> "
-OUTPUT_PATH_DIR = "./predictions/t5_large_not_fine_tuned/with_instruction/"
+OUTPUT_PATH_DIR = "predictions/older/t5_large_not_fine_tuned/with_instruction/"
 VALIDATION_SET_DIR = "./training_data/training_by_all_data_with_or_without_votes_february_2023/"
 VALIDATION_SET_FILE = "validation_data_without_votes_with_names.csv"
 VALIDATION_SET_PATH = VALIDATION_SET_DIR + VALIDATION_SET_FILE

@@ -205,18 +205,19 @@ class ConDataset(BaseDataset):
 
     def get_data_for_all_players_divided_to_turns(self, include_votes=False,
                                                   add_structured_data=False,
-                                                  pass_messages_per_turn=0):
+                                                  messages_to_pass_ratio=100):
         """
         Gets all the games' data in a training-suitable format,
         such that every message is a turn in the game where the current player sends it
         and other players send a message of <pass>
         :param include_votes: whether to include votes or just text
         :param add_structured_data: whether to add structured data to each row
-        :param pass_messages_per_turn: number of other players to say <pass> in each turn
+        :param messages_to_pass_ratio: ratio of real messages to <pass> messages to add to data
         :return: the requested data as a dataframe
         """
         random.seed(RANDOM_SEED)
         training_data_records = []
+        messages_count = 0
         for game in self.game_dirs:
             game_id = os.path.basename(game)
             all_messages = pd.read_csv(os.path.join(game, "info.csv")).sort_values("id")
@@ -235,10 +236,12 @@ class ConDataset(BaseDataset):
                         "game_id": game_id, "player_name": player_name,
                         "game_data_until_now": accumulated_messages + structured_data + turn_info,
                         "player_message": player_message})
-                    for player in random.sample(list(other_players), pass_messages_per_turn):
-                        pass_turn_info = f"<player name> {player} <text> "
+                    messages_count += 1
+                    if messages_count % messages_to_pass_ratio == 0:
+                        pass_player = random.sample(list(other_players), 1)[0]
+                        pass_turn_info = f"<player name> {pass_player} <text> "
                         training_data_records.append({
-                            "game_id": game_id, "player_name": player,
+                            "game_id": game_id, "player_name": pass_player,
                             "game_data_until_now": accumulated_messages + structured_data + pass_turn_info,
                             "player_message": "<pass> "})
                 if add_structured_data:

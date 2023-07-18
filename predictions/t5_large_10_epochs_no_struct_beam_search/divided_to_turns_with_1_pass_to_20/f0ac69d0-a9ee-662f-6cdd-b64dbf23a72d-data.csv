@@ -1,0 +1,16 @@
+Type,Player name,Action,Prediction
+vote,Jason Smith,Alexander Lopez ,
+text,Robert Anderson,"Good enough for me, Alexander Lopez sleeps with the fishes tonight. ",Hello
+vote,Robert Anderson,Alexander Lopez ,
+victim,Alexander Lopez ,,
+text,Katherine Hull,hi ,Hello
+vote,Stephen Frank,James Perez ,
+text,James Perez,hi ,hello
+text,Robert Anderson,hello ,Good morning!
+text,Stephen Frank,hello ,hello
+text,Kimberly Warren,hi ,Hello
+text,Ricardo Owens,ello ,Hello
+vote,James Perez,Ricardo Owens ,
+text,Stephen Frank,i know who is mafia ,hello
+vote,Katherine Harper,Ricardo Owens ,
+text,Katherine Hull,I am the mafia ,I'm mafia

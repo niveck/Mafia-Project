@@ -1,0 +1,78 @@
+Type,Player name,Action,Prediction
+vote,Jason Smith,Alexander Lopez ,
+text,Robert Anderson,"Good enough for me, Alexander Lopez sleeps with the fishes tonight. ",Hello
+vote,Robert Anderson,Alexander Lopez ,
+victim,Alexander Lopez ,,
+text,Katherine Hull,hi ,Hello
+vote,Stephen Frank,James Perez ,
+text,James Perez,hi ,hello
+text,Robert Anderson,hello ,Good morning everyone!
+text,Stephen Frank,hello ,hey
+text,Kimberly Warren,hi ,hello
+text,Ricardo Owens,ello ,hi
+vote,James Perez,Ricardo Owens ,
+text,Stephen Frank,i know who is mafia ,Kimberly Warren
+vote,Katherine Harper,Ricardo Owens ,
+text,Katherine Hull,I am the mafia ,James Perez is mafia
+text,James Perez,Im mafia ,Katherine is mafia
+text,Stephen Frank,i am too ,i am the mafioso
+vote,Robert Anderson,James Perez ,
+text,James Perez,lol ,i am also ricky
+vote,Katherine Hull,James Perez ,
+text,Jason Smith,Im too nice to be mafia ,Katherine is mafia
+text,Stephen Frank,lol or im a bystander with a gun ,i am also james perez
+vote,Ricardo Owens,Jason Smith ,
+text,Stephen Frank,hmm.. ,oh my
+text,James Perez,Im both ,im a bystander
+vote,Kimberly Warren,James Perez ,
+text,Stephen Frank,jason smith mafia confirmed ,i think it depends on who you are
+text,James Perez,Ricardo is too quiet ,robert antonio is mafia
+text,Robert Anderson,"One name is as good as another at this point, I guess ","Good enough for me, James Perez sleeps with the fishes"
+text,Katherine Hull,Ricardo def mafia ,James Perez is mafia
+text,Ricardo Owens,i mean i'm just processing everyone admitting to being mafia even though they can't all be lol ,i agree with jason
+text,James Perez,sure ,im a bystander
+vote,Jason Smith,Ricardo Owens ,
+text,Robert Anderson,"That would be a short game, lol ","Good enough for me, Alexander Lopez sleeps with the fishes tonight."
+text,James Perez,lol everyone had the same idea  ,im a bystander
+text,Katherine Hull,that's what someone in the mafia would say ,Ricardo is a bystander too.
+victim,James Perez ,,
+text,Robert Anderson,Stephen Frank? ,That sounds like something a mafioso would say.
+text,Jason Smith,james perez ,Stephen Frank is a bystander too.
+text,Robert Anderson,Sure. ,"That would be a long game, if you ask me."
+text,Stephen Frank,hmmm ,aw
+vote,Katherine Hull,Ricardo Owens ,
+vote,Kimberly Warren,Ricardo Owens ,
+text,Robert Anderson,"Well, we were building some Ricardo momentum last time ",I'm going with James Perez because he sounds like a good name
+text,Stephen Frank,nobody thinks im mafia... ,yep
+vote,Katherine Harper,Ricardo Owens ,
+text,Katherine Hull,Ricardo is sketchy as the day is long ,Ricardo is a bystander too.
+vote,Robert Anderson,Ricardo Owens ,
+vote,Stephen Frank,Ricardo Owens ,
+vote,Jason Smith,Ricardo Owens ,
+text,Ricardo Owens,sigh i should of just said i'm mafia like everyone else  ,i'm not mafia i'm just a bystander
+text,Katherine Hull,Ricardo vote for yourself. Your fate has been decided ,"James Perez is a bystander, too nice to be mafia"
+vote,Ricardo Owens,Katherine Hull ,
+text,Stephen Frank,i think we may be racists ,ok jason i guess
+text,Stephen Frank,were building the wall in the mafia game ,kimberly writght
+text,Katherine Hull,how about that woman that jumped into the jaguar exhibit in Arizona today. Bold move ,hmmm that's what someone in the mafia would say
+text,Stephen Frank,lol nice ,i'm not mafia but i'm trying to help
+text,Robert Anderson,"She really liked jaguars, I guess ",That's what mafia would say
+text,Stephen Frank,did she win? ,hmmm hmmm hmmm
+text,Jason Smith,I want to take a selfie with the mafiosa ,did the mafia get to choose their own mafia?
+text,Katherine Hull,"she tried to pet, it didn't work ",I think Jason Smith is a bystander too.
+victim,Ricardo Owens ,,
+text,Robert Anderson,"Hull or Frank, maybe? ",It's too dark to see the screen
+text,Jason Smith,hull ,Katherine was the first to admit she was mafia.
+vote,Robert Anderson,Katherine Hull ,
+vote,Jason Smith,Katherine Hull ,
+victim,Katherine Hull ,,
+text,Robert Anderson,Any favorites? ,"Good morning, who do you want to vote out? Jason Smith sounds like a good choice"
+text,Jason Smith,you pick ,"Katherine is a bystander, too nice to be mafia"
+text,Stephen Frank,james ,i'm not mafia...i'm just a bystander
+text,Robert Anderson,"LOL, the pressure! ","Good morning, who do you think is in the mafia?"
+vote,Stephen Frank,David Barnes ,
+text,Stephen Frank,im voting david ,i can't stand the sound of 'jason smith mafia
+vote,Kimberly Warren,David Barnes ,
+vote,Robert Anderson,David Barnes ,
+vote,Katherine Harper,David Barnes ,
+vote,Jason Smith,David Barnes ,

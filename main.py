@@ -102,7 +102,7 @@ def preprocess_all_con_data_for_training(add_structured_data=True):
         .to_csv(path_prefix + file_prefix + "_without_votes_with_names.csv")
 
 
-def preprocess_con_data_divided_to_turns(messages_to_pass_ratio=100):
+def preprocess_con_data_divided_to_turns(messages_to_pass_ratio=20):
     """
     Saves csv files with tables for training model over the Con Dataset,
     such that every message is a turn in the game where the current player sends it
@@ -110,7 +110,7 @@ def preprocess_con_data_divided_to_turns(messages_to_pass_ratio=100):
     :param messages_to_pass_ratio: ratio of real messages to <pass> messages to add to data
     """
     data = ConDataset(CON_DATASET_DIR_PATH)
-    dir_path = "training_data/training_without_votes_divided_to_turns_with_1_pass_to_100_july_2023/"
+    dir_path = "training_data/training_without_votes_divided_to_turns_with_1_pass_to_20_july_2023/"
     target_file_name = "train_and_validation_data_combined.csv"
     data.get_data_for_all_players_divided_to_turns(include_votes=False, add_structured_data=False,
                                                    messages_to_pass_ratio=messages_to_pass_ratio)\
@@ -156,6 +156,6 @@ if __name__ == "__main__":
     # mafiascum_dataset_main()
     # preprocess_con_data_for_training_by_role()
     # preprocess_all_con_data_for_training()
-    preprocess_con_data_divided_to_turns(messages_to_pass_ratio=100)
-    split_to_train_and_validation(r"./training_data/training_without_votes_divided_to_turns_with_1_pass_to_100_july_2023/train_and_validation_data_combined.csv")
+    preprocess_con_data_divided_to_turns(messages_to_pass_ratio=20)
+    split_to_train_and_validation(r"./training_data/training_without_votes_divided_to_turns_with_1_pass_to_20_july_2023/train_and_validation_data_combined.csv")
 

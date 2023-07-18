@@ -205,7 +205,7 @@ class ConDataset(BaseDataset):
 
     def get_data_for_all_players_divided_to_turns(self, include_votes=False,
                                                   add_structured_data=False,
-                                                  messages_to_pass_ratio=100):
+                                                  messages_to_pass_ratio=20):
         """
         Gets all the games' data in a training-suitable format,
         such that every message is a turn in the game where the current player sends it

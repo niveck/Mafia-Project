@@ -67,7 +67,7 @@ def waiting_for_other_users_to_enter_page():
 def timer_and_move_to_page(seconds, page):
     for _ in range(seconds):
         time.sleep(1)
-    move_to_page(NIGHTTIME)
+    move_to_page(page)
     st_autorefresh(interval=ONE_SECOND, key=f"timer_move_to_{page}")
 
 

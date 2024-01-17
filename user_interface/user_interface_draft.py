@@ -6,6 +6,7 @@ import time
 OUTPUT_PATH = "/cs/snapless/gabis/nive/Mafia-Project/user_interface/game_output.csv"
 OUTPUT_FILE_HEADER = "time,name,type,message"
 
+
 def main():
     if 'name' not in st.session_state:
         st.title("Welcome to the Messaging App")
@@ -45,10 +46,9 @@ def messaging_page():
         st.text(message)
 
     def submit_message():
-        now = f"{datetime.now().hour:02d}:" \
-              f"{datetime.now().minute:02d}:" \
-              f"{datetime.now().second:02d}"
-        line = f"{now},{name},text,{st.session_state['user_text_input']}"
+        now = datetime.now()
+        current_time = f"{now.hour:02d}:{now.minute:02d}:{now.second:02d}"
+        line = f"{current_time},{name},text,{st.session_state['user_text_input']}"
         st.session_state["user_text_input"] = ""
         with open(OUTPUT_PATH, "a") as f:
             if "messages" in st.session_state and len(st.session_state["messages"]) > 0 \

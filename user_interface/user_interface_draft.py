@@ -2,13 +2,12 @@ import streamlit as st
 from streamlit_autorefresh import st_autorefresh
 from datetime import datetime
 import time
-OUTPUT_PATH = "/cs/snapless/gabis/nive/Mafia-Project/user_interface/game_output.csv" # todo validate relative path
+# OUTPUT_PATH = "/cs/snapless/gabis/nive/Mafia-Project/user_interface/game_output.csv" # todo validate relative path
+OUTPUT_PATH = "./user_interface/game_output.csv"
 OUTPUT_FILE_HEADER = "time,name,type,message"
 
 
-
 def main():
-
     if 'name' not in st.session_state:
         st.title("Welcome to the Messaging App")
 
@@ -35,7 +34,14 @@ def messaging_page():
     name = st.session_state["name"]
 
     with open(OUTPUT_PATH, "r") as f:
-        st.session_state["messages"] = f.readlines()
+        lines = f.readlines()
+
+    if len(lines) > 1 and lines[-1] == lines[-2]:
+        lines.pop()
+        with open(OUTPUT_PATH, "w") as f:
+            f.writelines(lines)
+
+    st.session_state["messages"] = lines
 
     st.text("All messages:")
     for message in st.session_state["messages"]:
@@ -48,10 +54,12 @@ def messaging_page():
         line = f"{now},{name},text,{st.session_state['user_text_input']}"
         st.session_state["user_text_input"] = ""
         with open(OUTPUT_PATH, "a") as f:
-            f.write(line + "\n")
+            if "messages" in st.session_state and len(st.session_state["messages"]) > 0 \
+                    and line != st.session_state["messages"][-1]:
+                f.write(line + "\n")
 
     st.text_input("Write a message", key="user_text_input", on_change=submit_message)
-    time.sleep(4)
+    # time.sleep(4)
 
 
 if __name__ == "__main__":

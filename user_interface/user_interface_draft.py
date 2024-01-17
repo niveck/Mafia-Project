@@ -6,7 +6,6 @@ import time
 OUTPUT_PATH = "/cs/snapless/gabis/nive/Mafia-Project/user_interface/game_output.csv"
 OUTPUT_FILE_HEADER = "time,name,type,message"
 
-
 def main():
     if 'name' not in st.session_state:
         st.title("Welcome to the Messaging App")

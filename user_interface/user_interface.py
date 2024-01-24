@@ -95,6 +95,7 @@ async def wait_timer_and_move_to_next_page(current_page):
     await asyncio.sleep(PAGES_DURATION[current_page])
     move_to_page(NEXT_PAGES[current_page])
     st_autorefresh(interval=ONE_SECOND, key=f"timer_move_from_{current_page}")
+    st.experimental_rerun()
 
 
 # async def wait_timer_and_move_to_next_page(page):
@@ -156,26 +157,26 @@ def nighttime_page():
     """
     html(my_html)
     # timer_and_move_to_page(NIGHTTIME_DURATION, DAYTIME)
-    # asyncio.run(wait_timer_and_move_to_next_page(NIGHTTIME))
-    thread = Thread(target=asyncio.run, args=(wait_timer_and_move_to_next_page(NIGHTTIME),))
-    thread.start()
-    thread.join(PAGES_DURATION[NIGHTTIME] + 5)
-    if not thread.is_alive():
-        st.text("**thread not alive!**")
-        move_to_page(NEXT_PAGES[NIGHTTIME])
-    else:
-        st.text("**thread still alive...**")
+    asyncio.run(wait_timer_and_move_to_next_page(NIGHTTIME))
+    # thread = Thread(target=asyncio.run, args=(wait_timer_and_move_to_next_page(NIGHTTIME),))
+    # thread.start()
+    # thread.join(PAGES_DURATION[NIGHTTIME] + 5)
+    # if not thread.is_alive():
+    #     st.text("**thread not alive!**")
+    #     move_to_page(NEXT_PAGES[NIGHTTIME])
+    # else:
+    #     st.text("**thread still alive...**")
     # todo continue
 
 
 def daytime_page():
     st.title("**You've reached Daytime!**")
-    # asyncio.run(wait_timer_and_move_to_next_page(DAYTIME))
-    thread = Thread(target=asyncio.run, args=(wait_timer_and_move_to_next_page(DAYTIME),))
-    thread.start()
-    thread.join(PAGES_DURATION[DAYTIME] + 5)
-    if not thread.is_alive():
-        move_to_page(NEXT_PAGES[DAYTIME])
+    asyncio.run(wait_timer_and_move_to_next_page(DAYTIME))
+    # thread = Thread(target=asyncio.run, args=(wait_timer_and_move_to_next_page(DAYTIME),))
+    # thread.start()
+    # thread.join(PAGES_DURATION[DAYTIME] + 5)
+    # if not thread.is_alive():
+    #     move_to_page(NEXT_PAGES[DAYTIME])
     # todo continue
     # pass
 

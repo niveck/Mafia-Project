@@ -1,11 +1,8 @@
 import streamlit as st
-from streamlit.components.v1 import html
 from streamlit_autorefresh import st_autorefresh
 from datetime import datetime
 import time
 import asyncio
-import os
-import json
 
 
 # Pages IDs:
@@ -34,12 +31,11 @@ PLAYERS = ["Bystander", "Mafioso", "Bystander", "Bystander",
 
 # Game timers:
 ONE_SECOND = 1000  # 1000 milliseconds
-# TODO maybe remove these:
 
 # Game data files:
 PARENT_DIR = "/cs/snapless/gabis/nive/Mafia-Project/"
 PARTICIPANTS_RECORD = PARENT_DIR + "user_interface/participants_record.txt"
-PLAYERS_ROLES_PATH = PARENT_DIR + "user_interface/players_roles.json"
+PLAYERS_ROLES_PATH = PARENT_DIR + "user_interface/players_roles.json"  # TODO maybe remove?
 NIGHTTIME_OUTPUT_PATH = PARENT_DIR + "user_interface/nighttime_game_output.csv"
 DAYTIME_OUTPUT_PATH = PARENT_DIR + "user_interface/daytime_game_output.csv"
 TIMER_PATH = PARENT_DIR + "user_interface/timer.txt"
@@ -58,7 +54,7 @@ def new_player_entry_page():
     st.text_input("Enter fake last name:", key="last_name")
     
     def save_names_and_wait_for_others():
-        name = st.session_state["first_name"] + " " + st.session_state["last_name"]
+        name = st.session_state["first_name"].strip() + " " + st.session_state["last_name"].strip()
         st.session_state["name"] = name
         with open(PARTICIPANTS_RECORD, "a") as f:
             f.write(name + "\n")
@@ -81,24 +77,11 @@ def all_players_entered():
     return len(st.session_state["players"]) == len(PLAYERS)
 
 
-def document_all_players():
-    with open(PLAYERS_ROLES_PATH, "r") as f:
-        players_roles = json.load(f)
-    if len(players_roles) != len(PLAYERS):
-        players_roles = {name: PLAYERS[i] for i, name in enumerate(st.session_state["players"])}
-        with open(PLAYERS_ROLES_PATH, "w") as outfile:
-            json.dump(players_roles, outfile)
-    st.session_state["players_roles"] = players_roles
-    st.session_state["players_public_roles"] = {name: "unknown role..."
-                                                for name in st.session_state["players"]}
-
-
 def waiting_for_other_users_to_enter_page():
     st.title(f"**Welcome {st.session_state['name']}!**")
     st.info("Waiting for other players to enter...")
     st_autorefresh(interval=ONE_SECOND, key="waiting_for_players")
     if all_players_entered():
-        document_all_players()
         move_to_page(INSTRUCTIONS)
 
 
@@ -122,74 +105,64 @@ async def wait_timer_and_move_to_next_page(current_page):
 
 def instructions_page():
     st.title(f"**Welcome all players:**")
+    initiate_players_info()
     show_public_players_roles()
-    st.info(f"Your role is {st.session_state['role']}")
     st.header("Game instructions:")
     st.text("- Write in English\n- Don't reveal your role")
     asyncio.run(wait_timer_and_move_to_next_page(INSTRUCTIONS))
 
 
-def show_public_players_roles():
-    column1_players = []
-    column2_players = []
-    for player_index, player_name in enumerate(st.session_state["players"]):
-        if player_index % 2 == 0:
-            column1_players.append(player_name)
+def initiate_players_info():
+    st.session_state["players_roles"] = {}
+    st.session_state["players_eliminated"] = {}
+    st.session_state["column1_players"] = []
+    st.session_state["column2_players"] = []
+    st.session_state["column3_players"] = []
+    for player_index, name in enumerate(st.session_state["players"]):
+        player_name = name.strip()
+        st.session_state["players_roles"][player_name] = PLAYERS[player_index]
+        st.session_state["players_eliminated"][player_name] = False
+        if player_index % 3 == 0:
+            st.session_state["column1_players"].append(player_name)
+        elif player_index % 3 == 1:
+            st.session_state["column2_players"].append(player_name)
         else:
-            column2_players.append(player_name)
-        if player_name.strip() == st.session_state["name"]:
-            st.session_state["role"] = PLAYERS[player_index]
-    column1, column2 = st.columns(2)
+            st.session_state["column3_players"].append(player_name)
+    st.session_state["role"] = st.session_state["players_roles"][st.session_state["name"]]
+
+
+def display_player_with_public_role(player_name):
+    if st.session_state["players_eliminated"][player_name]:
+        role = st.session_state["players_roles"][player_name]
+    else:
+        role = "unknown role..."
+    st.text(f"{player_name} - {role}")
+
+
+def show_public_players_roles():
+    name = st.session_state["name"]
+    role = st.session_state["role"]
+    st.info(f"You are {name}, your role is *{role}*")
+    st.header("All players' public roles:")
+    column1, column2, column3 = st.columns(3)
     with column1:
-        for player in column1_players:
-            st.text(player)
+        for player in st.session_state["column1_players"]:
+            display_player_with_public_role(player)
     with column2:
-        for player in column2_players:
-            st.text(player)
+        for player in st.session_state["column2_players"]:
+            display_player_with_public_role(player)
+    with column3:
+        for player in st.session_state["column3_players"]:
+            display_player_with_public_role(player)
 
 
 def nighttime_page():
     st.title("Nighttime")
-    name = st.session_state["name"]
-    role = st.session_state["role"]
-    st.info(f"You are {name}, your role is *{role}*")
-    # start_time = datetime.now()
-    my_html = f"""
-    <script>
-    function startTimer(duration, display) {'{'}
-        var timer = duration, minutes, seconds;
-        setInterval(function () {'{'}
-            minutes = parseInt(timer / 60, 10)
-            seconds = parseInt(timer % 60, 10);
-
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            display.textContent = minutes + ":" + seconds;
-
-            if (--timer < 0) {'{'}
-                timer = duration;
-            {'}'}
-        {'}'}, 1000);
-    {'}'}
-
-    window.onload = function () {'{'}
-        var turnSeconds = {PAGES_DURATION[NIGHTTIME]},
-            display = document.querySelector('#time');
-        startTimer(turnSeconds, display);
-    {'}'};
-    </script>
-
-    <body>
-      <div>Registration closes in <span id="time">
-        {seconds_as_minutes(PAGES_DURATION[NIGHTTIME])}</span> minutes!</div>
-    </body>
-    """
-    html(my_html)
-    if role == "Mafioso":
+    show_public_players_roles()
+    if st.session_state["role"] == "Mafioso":
         messaging_pane()
     else:  # role == "Bystander"
-        st.markdown("Mafia is making their decision...")
+        st.info("Wait until Mafia have made their decision...")
     asyncio.run(wait_timer_and_move_to_next_page(NIGHTTIME))
 
 
@@ -240,9 +213,7 @@ def get_reversed_current_lines(output_path):
 
 def daytime_page():
     st.title("Daytime")
-    name = st.session_state["name"]
-    role = st.session_state["role"]
-    st.info(f"You are {name}, your role is *{role}*")
+    show_public_players_roles()
     messaging_pane()
     asyncio.run(wait_timer_and_move_to_next_page(DAYTIME))
     # todo continue

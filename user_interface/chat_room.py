@@ -10,6 +10,8 @@ HALF_SECOND = 500  # milliseconds
 PARENT_DIR = "C:/Users/nive/OneDrive - Mobileye/Desktop/University/Mafia-Project/"
 PLAYERS_RECORD = PARENT_DIR + "user_interface/chat_room_players.txt"
 OUTPUT_PATH = PARENT_DIR + "user_interface/chat_room_output.txt"
+GAME_MANAGER_NAME = "GAME MANGER"
+MODEL_PLAYER_DEFAULT_NAME = "Johnny"
 
 
 def get_name_page():
@@ -24,6 +26,13 @@ def get_name_page():
     st.text_input("Enter your character's name:", key="name_input", on_change=save_name)
 
 
+def format_chat_line(name, text):
+    now = datetime.now()
+    current_time = f"{now.minute:02d}:{now.second:02d}:{now.microsecond // 10000:02d}"
+    line = f"{current_time} | {name}: {text}"
+    return line
+
+
 def chat_page():
     st.title("The Mafia Chat Room")
 
@@ -33,9 +42,7 @@ def chat_page():
         if not text.strip():
             return
         name = st.session_state["name"]
-        now = datetime.now()
-        current_time = f"{now.minute:02d}:{now.second:02d}:{now.microsecond // 10000:02d}"
-        line = f"{current_time} | {name}: {text}"
+        line = format_chat_line(name, text)
         with open(OUTPUT_PATH, "a") as f:
             f.write(line + "\n")
 

@@ -1,32 +1,9 @@
-12:32:46,A,text,yo
-12:36:70,B,text,sahdjfsd
-12:39:13,A,text,dnsg
-12:41:53,B,text,dsnfgsd
-12:43:96,A,text,dsnmlagf
-12:46:41,B,text,ggmdls,mf
-16:05:96,S,text,sdfghj
-16:08:60,F,text,lkjhg
-16:12:61,S,text,wiudahkjnlfxzg
-16:14:75,F,text,sdklfzdsf
-16:19:31,S,text,dsg ma,gd
-16:25:44,F,text,dnfsma df ed s d d d dd d 
-16:29:27,S,text,df sm,dgs
-16:32:86,F,text,fdsngkaf
-17:00:00 | S: dfsf
-17:01:67 | S: sdgsdg
-17:04:95 | S: sfddgsdv
-17:08:21 | S: sdfsldfsmds,c
-17:13:49 | F: dfsd
-17:14:60 | F: dgfs
-17:15:37 | F: asd
-17:16:95 | F: saf
-17:18:31 | F: dsg
-17:19:31 | F: thd
-17:23:01 | F: 2
-17:23:88 | F: 2
-17:24:81 | F: 4
-17:25:49 | F: 6
-17:26:02 | F: 8
-17:26:82 | F: 9
-17:28:75 | F: 4
-17:31:24 | F: i68
+17:00:00 | William: Hello
+17:01:67 | George: Hi y'all
+17:04:95 | Harry: Hi
+17:08:21 | Charles: Hello who is mafia
+17:13:49 | William: Harry is mafia
+17:14:60 | Harry: Hey why me
+17:15:37 | William: You are not quiet
+17:16:95 | Charles: We need to choose
+17:18:31 | George: I'm a bystander with a gun lol

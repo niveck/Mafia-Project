@@ -6,8 +6,8 @@ from datetime import datetime
 HALF_SECOND = 500  # milliseconds
 
 # Game data files:
-# PARENT_DIR = "/cs/snapless/gabis/nive/Mafia-Project/"
-PARENT_DIR = "C:/Users/nive/OneDrive - Mobileye/Desktop/University/Mafia-Project/"
+PARENT_DIR = "/cs/snapless/gabis/nive/Mafia-Project/"
+# PARENT_DIR = "C:/Users/nive/OneDrive - Mobileye/Desktop/University/Mafia-Project/"
 PLAYERS_RECORD = PARENT_DIR + "user_interface/chat_room_players.txt"
 OUTPUT_PATH = PARENT_DIR + "user_interface/chat_room_output.txt"
 GAME_MANAGER_NAME = "GAME MANGER"

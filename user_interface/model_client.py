@@ -4,7 +4,7 @@ from .evaluate_on_chat import evaluate_on_chat
 
 
 def model_should_generate():
-    return "!" != input("Enter ! to stop and finish generating messages,"
+    return "!" != input("Enter ! to stop and finish generating messages, "
                         "or anything else to generate: ")
 
 

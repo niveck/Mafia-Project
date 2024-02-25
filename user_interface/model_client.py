@@ -1,5 +1,5 @@
 import sys
-from evaluate_on_chat import evaluate_on_chat
+from ..evaluate_on_chat import evaluate_on_chat
 from user_interface.chat_room import MODEL_PLAYER_DEFAULT_NAME, OUTPUT_PATH
 
 

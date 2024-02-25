@@ -10,6 +10,8 @@ def preprocess_chat_messages(chat_path):
         chat_messages = f.readlines()
     history = ""
     for message in chat_messages:
+        if not message:
+            continue
         parts = re.search(r"\d\d:\d\d:\d\d \| ([^:]+): (.*)", message)
         history += f"<player name> {parts.group(1)} <text> {parts.group(2)} "
     return history

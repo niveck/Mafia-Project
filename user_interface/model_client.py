@@ -1,6 +1,6 @@
 import sys
-from user_interface.chat_room import MODEL_PLAYER_DEFAULT_NAME, OUTPUT_PATH
-from user_interface.evaluate_on_chat import evaluate_on_chat
+from .chat_room import MODEL_PLAYER_DEFAULT_NAME, OUTPUT_PATH
+from .evaluate_on_chat import evaluate_on_chat
 
 
 def model_should_generate():
